@@ -5,6 +5,8 @@
  */
 package edu.ucr.rp.Main;
 
+import edu.ucr.rp.Interfaces.InterfacePrincipal;
+
 /**
  *
  * @author Equipo
@@ -14,8 +16,9 @@ public class ProyectoProgra01 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
     
+    public static void main(String[] args) {
+      InterfacePrincipal iP = new InterfacePrincipal();
+        iP.display();
+    }//ejecuto 
 }
