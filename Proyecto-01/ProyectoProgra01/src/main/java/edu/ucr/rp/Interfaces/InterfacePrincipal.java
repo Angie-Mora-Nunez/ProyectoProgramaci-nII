@@ -34,12 +34,10 @@ import javafx.stage.Window;
  * @author Equipo
  */
 public class InterfacePrincipal extends Application {
-private Label lp;
+    // elementos fx a usar 
     private Button btn_Welcome;
-    Calendar calendario = new GregorianCalendar();
-   int hora = calendario.get(Calendar.HOUR_OF_DAY);
     private Stage stage;
-    
+    private Button btn_exit;
   
     @Override
     public void start(Stage stage) throws Exception {
@@ -56,7 +54,7 @@ private Label lp;
     }//display
     
     private void title(Stage stage) {
-        stage.setTitle("Sistema de Control de empleados");
+        stage.setTitle("Sistema de Inventario");
     }//tile
      private void addHandlers() {
          InterfaceUsers iu = new InterfaceUsers();
@@ -69,9 +67,12 @@ private Label lp;
              }//catch
          });
          
+         btn_exit.setOnAction(acctionEvent-> stage.close());
+         
     }//Acionbuttones
     
      private GridPane buildPane() {
+         
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setPadding(new Insets(40, 40,40, 40));
@@ -99,7 +100,7 @@ private Label lp;
         Calendar calendario = new GregorianCalendar();
            int hora = calendario.get(Calendar.HOUR_OF_DAY);
         btn_Welcome = buildGenerateButton("Bienvenido", pane, 5);
-     
+        btn_exit= buildGenerateButton("Salir", pane, 6);
      
      }
      
