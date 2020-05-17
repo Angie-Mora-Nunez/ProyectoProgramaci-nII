@@ -22,10 +22,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -58,9 +63,10 @@ public class InterfacePrincipal extends Application {
     }//tile
      private void addHandlers() {
          InterfaceUsers iu = new InterfaceUsers();
+         InterfaceIngreso iG = new InterfaceIngreso();
          btn_Welcome.setOnAction(actionEvent -> {
              try {
-                 iu.start(stage);
+                 iG.start(stage);
              }//try 
              catch (Exception ex) {
                  Logger.getLogger(InterfacePrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,12 +108,16 @@ public class InterfacePrincipal extends Application {
         btn_Welcome = buildGenerateButton("Bienvenido", pane, 5);
         btn_exit= buildGenerateButton("Salir", pane, 6);
      
+      
      }
      
      private Button buildGenerateButton(String label, GridPane pane, int row) {
         Button button = new Button(label);
         pane.add(button, 0, row, 2, 1);
         GridPane.setHalignment(button, HPos.CENTER);
+      button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
+        button.setTextFill(Color.BLACK);
+        button.setStyle("-fx-background-color: WHITE");
         GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
     }//Button
@@ -135,7 +145,7 @@ public class InterfacePrincipal extends Application {
      private Scene createScene (Pane pane){
           pane.setStyle("-fx-background-color:#37D8E3" );
           
-    return new Scene (pane,800,500);
+    return new Scene (pane,800,800);
     }//scene
 
    
