@@ -6,6 +6,7 @@
 package edu.ucr.rp.Interfaces;
 
 import edu.ucr.rp.Interfaces.Logic.Catalogue;
+import edu.ucr.rp.Interfaces.Logic.Logic;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
@@ -63,7 +64,7 @@ public class InterfaceCreate extends Application {
     private Label lblPropiedades;
     private Button BtnSalida;
     private Button btn_Agregar;
-    File insert= new File("catalogue.txt");
+   
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -87,32 +88,17 @@ public class InterfaceCreate extends Application {
      private void addHandlers() {
        
          btn_Agregar.setOnAction((ActionEvent actionEvent) -> {
-          String Properties[]={TxtName.getText(),txtPropiedades.getText()};
-            String guardar[] ={TxtName.getText(),txtPropiedades.getText()};
+          Logic lc = new Logic();
+          String guardar[] ={TxtName.getText(),txtPropiedades.getText()};
           
-
-             try {
-
-            AgregarPuestos(guardar[0], guardar[1]);
-    
-             } catch (FileNotFoundException ex) {
-                 Logger.getLogger(InterfaceCreate.class.getName()).log(Level.SEVERE, null, ex);
-             }
-          
-             try{
-          FileOutputStream fos = new FileOutputStream(insert,true);
-          PrintStream ps = new PrintStream(fos);
-          ps.println(new Catalogue(TxtName.getText(),txtPropiedades.getText()));
-
-
-
-           FileOutputStream fosi = new FileOutputStream(insert,true);
-          PrintStream psi = new PrintStream(fosi);
-          psi.println();
-      }//try
-            catch(FileNotFoundException fnfe){
-      JOptionPane.showMessageDialog(null, "Problemas con el archivo"+fnfe);
-      }//catch    
+            
+             
+                 try {
+                  lc.AgregarPuestos(TxtName.getText(), txtPropiedades.getText(), true);
+              } catch (FileNotFoundException ex) {
+                  Logger.getLogger(InterfaceCreate.class.getName()).log(Level.SEVERE, null, ex);
+              }
+            
            
          });
      
@@ -219,79 +205,7 @@ public class InterfaceCreate extends Application {
         
          return new Scene (pane,1000,1000);
     }//scene
-     
-      public void AgregarPuestos(String nameCatalogue, String properties) throws FileNotFoundException{
-   PrintStream ps = getPrintStream("catalogue.txt");
-   ps.println(nameCatalogue+"|"+properties+"*");
-   }//agregar
    
-   
-   public Catalogue leeArchivos(){
-    
-        BufferedReader br = getBufferReader("catalogue.txt");
-       
-        int indice =0;
-         Catalogue jB = null;
-        
-            
-        try {
-            String puestosActuales;
-            puestosActuales = br.readLine();
-       
-            while(puestosActuales != null){
-                
-            StringTokenizer st = new StringTokenizer(puestosActuales,"|");
-            String puestosNombres ="",nameCatalogue="",propiertes="";
-            int controlaTokens = 1;
-            
-            while(st.hasMoreTokens()){
-                if (controlaTokens==1) 
-                nameCatalogue=st.nextToken();
-                else if (controlaTokens==2)
-                propiertes=st.nextToken();
-                
-               controlaTokens++; 
-            }//while
-            
-        jB= new Catalogue(nameCatalogue, propiertes);
-         
-            indice++;
-            puestosActuales=br.readLine();
-        
-        }//while
-       
-        } 
-        catch (IOException ex) {
-            Logger.getLogger(InterfaceCreate.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-    return jB;
-    }//job
-   
-    private PrintStream getPrintStream(String nombreArchivo) throws FileNotFoundException {
-     File lolo = new File(nombreArchivo);
-     PrintStream ps = null;
-     FileOutputStream fos = new FileOutputStream(lolo);
-     ps = new PrintStream(fos);
-    return ps;  
-    }//get
-
-      private BufferedReader getBufferReader(String listaauxtxt) {
-   File archivo = new File(listaauxtxt);
-        BufferedReader br = null;
-        try{
-            FileInputStream fis = new FileInputStream(archivo);
-            InputStreamReader isr = new InputStreamReader(fis);
-            br = new BufferedReader(isr);
-        }
-        catch(FileNotFoundException fnfe){
-            System.out.println("Problemas con el archivo.");
-        }
-    return br;
-    }
-      
-     
-     
 }//end
 
 
