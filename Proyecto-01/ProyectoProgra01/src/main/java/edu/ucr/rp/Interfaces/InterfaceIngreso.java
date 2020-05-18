@@ -47,18 +47,14 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @authores ->Angélica Redondo Salazar
- *           ->Marian Murillo Bonilla
- *           ->Angie Mora Núñez
+ * @author 
+ * Marian Murillo Bonilla
+ * Angie Mora Núñez
  */
  
 public class InterfaceIngreso extends Application{
-     public TextField txUser= new TextField();
-     private PasswordField Txt2 = new PasswordField();
-    private TextField Txt1;
-    private TextField Txt3;
-    private TextField Txt4;
-    private TextField Txt5;
+    public TextField txUser= new TextField();
+    private PasswordField Txt2 = new PasswordField();
     private Button btn_Admin;
      private Button btn_user;
     private Stage stage;
@@ -219,7 +215,7 @@ public class InterfaceIngreso extends Application{
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        pane.add(button,17, 70);//-fila columna
+        pane.add(button,17, 40);//-fila columna
 //        GridPane.setHalignment(button, HPos.CENTER);
         GridPane.setMargin(button, new Insets(10, row, 10, row));
         return button;
@@ -260,4 +256,4 @@ public class InterfaceIngreso extends Application{
 
   
  
-}//interface Users
+}//end

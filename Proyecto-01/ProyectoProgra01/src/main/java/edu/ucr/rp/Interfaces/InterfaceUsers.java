@@ -38,13 +38,16 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Equipo
+ * @author 
+ * Marian Murillo Bonilla
+ * Angie Mora Núñez
  */
 class InterfaceUsers extends Application {
     // elementos javafx a usar
     private Label lp;
     private Button generateButton;
     private Stage stage;
+    
     
     // instancias a las clases 
     InterfacePrincipal ip = new InterfacePrincipal();

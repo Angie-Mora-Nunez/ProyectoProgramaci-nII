@@ -36,7 +36,9 @@ import javafx.stage.Window;
 
 /**
  *
- * @author Equipo
+ * @author 
+ * Marian Murillo Bonilla
+ * Angie Mora Núñez
  */
 public class InterfacePrincipal extends Application {
     // elementos fx a usar 
@@ -152,4 +154,4 @@ public class InterfacePrincipal extends Application {
    
     
     
-}
+}//end

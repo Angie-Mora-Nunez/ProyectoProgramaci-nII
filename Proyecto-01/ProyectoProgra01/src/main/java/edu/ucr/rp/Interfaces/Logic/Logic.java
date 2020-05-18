@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.ucr.rp.Interfaces;
+package edu.ucr.rp.Interfaces.Logic;
+
+import java.io.FileOutputStream;
 
 /**
  *
@@ -11,9 +13,11 @@ package edu.ucr.rp.Interfaces;
  * Marian Murillo Bonilla
  * Angie Mora Núñez
  */
-public class UIConstaints {
-    public static final int LABEL_WITH=150;
-    public static final int LABEL_WITH_MAX=100;
-    public static final int INPUT_WITH=100;
-    public static final int INPUT_WITH_MAX=00;
-}//constantes  
+public class Logic {
+    
+  
+  
+    
+    
+    
+}//end
