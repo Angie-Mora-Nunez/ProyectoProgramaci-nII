@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,6 +65,8 @@ public class InterfaceCreate extends Application {
     private Label lblPropiedades;
     private Button BtnSalida;
     private Button btn_Agregar;
+    ArrayList CatalogueList = new ArrayList();
+    private Button agregarTxtField;
    
     
     @Override
@@ -88,17 +91,11 @@ public class InterfaceCreate extends Application {
      private void addHandlers() {
        
          btn_Agregar.setOnAction((ActionEvent actionEvent) -> {
-          Logic lc = new Logic();
-          String guardar[] ={TxtName.getText(),txtPropiedades.getText()};
           
-            
+           
              
-                 try {
-                  lc.AgregarPuestos(TxtName.getText(), txtPropiedades.getText(), true);
-              } catch (FileNotFoundException ex) {
-                  Logger.getLogger(InterfaceCreate.class.getName()).log(Level.SEVERE, null, ex);
-              }
-            
+             CatalogueList.add(txtPropiedades.getText());
+             System.out.println(CatalogueList.toString());
            
          });
      
@@ -110,10 +107,30 @@ public class InterfaceCreate extends Application {
                  Logger.getLogger(InterfaceCreate.class.getName()).log(Level.SEVERE, null, ex);
              }
          });
+         
+         
+//         agregarTxtField.setOnAction(actionEvent -> {
+//           
+//            TextField txt[]=new TextField[Integer.parseInt(TxtName.getText())];
+//             for (int i = 0; i < txt.length; i++) {
+//                 txt[i]=new TextField("campo"+i); 
+//                
+//             }//for
+//   
+//         });
+         
+         
+         
+         
+         
+         
+         
       }//funcionamiento
    
      private GridPane buildPane() throws FileNotFoundException {
-        GridPane gridPane = new GridPane();
+         GridPane gridPane = new GridPane();
+        
+        
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setPadding(new Insets(10, 10,10, 10));
         gridPane.setHgap(10);
@@ -122,18 +139,20 @@ public class InterfaceCreate extends Application {
         columnOneConstraints.setHalignment(HPos.RIGHT);
         ColumnConstraints columnTwoConstrains = new ColumnConstraints(INPUT_WITH, INPUT_WITH, INPUT_WITH_MAX);
         columnTwoConstrains.setHgrow(Priority.ALWAYS);
+ 
         return gridPane; 
     }//buildPane
      
      
-      private void setupControls(GridPane pane) {
+      public void setupControls(GridPane pane) {
        
-        btn_Agregar = buildGenerateButton("Agregar", pane, 5);
-        TxtName= TextFieldName(pane, 5);
-        BtnSalida=buildGenerateButton3("Regresar", pane, 5);
-        LblName=LabelName("Nombre:", pane, 5);
-        lblPropiedades=LabelDescripcion("Propiedades:", pane, 5);
-        txtPropiedades=textPropiedades(pane, 5);
+        btn_Agregar = buildGenerateButton("Agregar", pane, 4);
+        TxtName= TextFieldName(pane, 4);
+        BtnSalida=buildGenerateButton3("Regresar", pane, 4);
+        LblName=LabelName("Nombre:", pane, 4);
+        lblPropiedades=LabelDescripcion("Propiedades:", pane, 4);
+        txtPropiedades=textPropiedades(pane, 4);
+      
     }//controladores
      
       private TextArea textPropiedades(GridPane pane, int row) {
@@ -151,7 +170,7 @@ public class InterfaceCreate extends Application {
           GridPane.setMargin(Txt2, new Insets(10, row, 10, row));
         return Txt2;
     }//textField
-   
+      
        private Label LabelName (String text, GridPane pane, int row) {
         Label lb = new Label(text);
         pane.add(lb,0, 19);
@@ -159,9 +178,8 @@ public class InterfaceCreate extends Application {
         GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
         return lb;
     }//button
-       
       
-          private Label LabelDescripcion(String text, GridPane pane, int row) {
+        private Label LabelDescripcion(String text, GridPane pane, int row) {
         Label lb = new Label(text);
         pane.add(lb,0, 21);
         lb.setFont(new Font("Footlight MT Light",16));
@@ -185,12 +203,12 @@ public class InterfaceCreate extends Application {
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        pane.add(button,17, 40);//-fila columna
+        pane.add(button,6, 40);//-fila columna
 //        GridPane.setHalignment(button, HPos.CENTER);
         GridPane.setMargin(button, new Insets(10, row, 10, row));
         return button;
     }//button  
- 
+      
      private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -200,11 +218,12 @@ public class InterfaceCreate extends Application {
         alert.show();
     }//showAlert
      private Scene createScene (Pane pane) {
-         pane.setStyle("-fx-background-color:FFFACD" );
+         pane.setStyle("-fx-background-color:#37D8E3" );
      
         
-         return new Scene (pane,1000,1000);
+         return new Scene (pane,800,800);
     }//scene
+
    
 }//end
 

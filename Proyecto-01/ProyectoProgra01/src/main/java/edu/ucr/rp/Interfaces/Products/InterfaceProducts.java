@@ -54,6 +54,8 @@ public class InterfaceProducts extends Application {
     InterfacePrincipal ip = new InterfacePrincipal();
     InterfaceCreate iC = new InterfaceCreate();
     InterfaceListingCatalogs iLc = new InterfaceListingCatalogs();
+   InterfaceAddRegisters iA = new InterfaceAddRegisters();
+  
   
     
     public void start(Stage stage) throws Exception {
@@ -102,7 +104,7 @@ public class InterfaceProducts extends Application {
        m_Create.setOnAction(actionEvent -> {
            VB_Windows.getChildren().clear(); // limpiar VBox
             try {
-                iC.start(stage);
+                iA.start(stage);
             } catch (Exception ex) {
                 Logger.getLogger(InterfaceProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -117,6 +119,7 @@ public class InterfaceProducts extends Application {
        File file1 = new File("watch.png");
        Image image1 = new Image(file1.toURI().toString());
        ImageView iv1 = new ImageView(image1);
+       InterfaceSearch iS = new InterfaceSearch();
        
        MenuItem mI_ListCatalogs = new MenuItem("Buscar");
        mI_ListCatalogs.setGraphic(iv1);
@@ -124,7 +127,7 @@ public class InterfaceProducts extends Application {
         mI_ListCatalogs.setOnAction((event)->{
             VB_Windows.getChildren().clear(); // limpiar VBox
             try {
-                iLc.start(stage);
+                iS.start(stage);
             } catch (Exception ex) {
                 Logger.getLogger(InterfaceProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -141,10 +144,11 @@ public class InterfaceProducts extends Application {
        MenuItem mI_Modificate = new MenuItem("Modificar");
        mI_Modificate.setGraphic(iv1);
        // acción de los catálogos exixtentes 
+       InterfaceEdit iE = new InterfaceEdit();
         mI_Modificate.setOnAction((event)->{
             VB_Windows.getChildren().clear(); // limpiar VBox
             try {
-                iLc.start(stage);
+                iE.start(stage);
             } catch (Exception ex) {
                 Logger.getLogger(InterfaceProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -205,7 +209,7 @@ public class InterfaceProducts extends Application {
        
        
        // agregar el menú a la barra 
-       Mb_menu.getMenus().addAll(m_Create,m_Modificate,m_ListProducts,m_Exit);
+       Mb_menu.getMenus().addAll(m_Create,m_ListCatalogs,m_Modificate,m_ListProducts,m_Exit);
 
        
       

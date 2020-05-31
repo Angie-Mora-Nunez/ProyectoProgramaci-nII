@@ -39,6 +39,7 @@ public class InterfaceEdit extends Application {
      private Label lp;
     private Button generateButton;
     private Button btn_exit;
+    private TextField txtBuscar;
     
     private Stage stage;
   
@@ -57,12 +58,16 @@ public class InterfaceEdit extends Application {
     }//dispaly
     
     private void title(Stage stage) {
-        stage.setTitle("Editar en catálogos");
+        stage.setTitle("Buscar en Catálogo");
     }//title
      private void addHandlers() {
-         
+        InterfaceProducts iP = new InterfaceProducts();
          btn_exit.setOnAction(actionEvent -> {
-            
+            try {
+                iP.start(stage);
+            } catch (Exception ex) {
+                Logger.getLogger(InterfaceSearch.class.getName()).log(Level.SEVERE, null, ex);
+            }
          });
          
     }//eventos
@@ -93,13 +98,42 @@ public class InterfaceEdit extends Application {
      
      private void setupControls(GridPane pane) {
        
-        generateButton = buildGenerateButton("Editar en Catalogos", pane, 5);
-         btn_exit= buildGenerateButton("Salir", pane, 6);
+        generateButton = ButtonSearch("Buscar en Catálogo", pane, 5);
+         btn_exit= ButtonExit("Salir", pane, 6);
+         txtBuscar=searchCatalogue("Buscar", pane, INPUT_WITH);
+         
     }//Controladores
+     
+     
+     private TextField searchCatalogue(String text, GridPane pane, int row) {
+        Label minNumberLabel = new Label(text);
+        pane.add(minNumberLabel, 0,19);
+        TextField textField = new TextField();
+        pane.add(textField, 1,19 );
+        return textField;
+    }//TExtField
+     
      
      private Button buildGenerateButton(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button, 0, row, 1, 1);
+        pane.add(button, 1, 1);
+        GridPane.setHalignment(button, HPos.CENTER);
+        GridPane.setMargin(button, new Insets(20, 0, 20, 0));
+        return button;
+    }//button
+     
+     
+      private Button ButtonSearch(String label, GridPane pane, int row) {
+        Button button = new Button(label);
+        pane.add(button, 2, 19);
+        GridPane.setHalignment(button, HPos.CENTER);
+        GridPane.setMargin(button, new Insets(20, 0, 20, 0));
+        return button;
+    }//button
+      
+       private Button ButtonExit(String label, GridPane pane, int row) {
+        Button button = new Button(label);
+        pane.add(button,6, 25);
         GridPane.setHalignment(button, HPos.CENTER);
         GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
@@ -119,7 +153,7 @@ public class InterfaceEdit extends Application {
          
           pane.setStyle("-fx-background-color:#37D8E3" );
          
-    return new Scene (pane,800,500);
+    return new Scene (pane,800,800);
     }//scene
 }//end
 
