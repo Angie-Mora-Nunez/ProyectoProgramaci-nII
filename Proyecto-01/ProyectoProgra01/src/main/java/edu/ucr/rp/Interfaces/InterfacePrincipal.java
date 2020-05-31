@@ -64,8 +64,8 @@ public class InterfacePrincipal extends Application {
         stage.setTitle("Sistema de Inventario");
     }//tile
      private void addHandlers() {
-         InterfaceUsers iu = new InterfaceUsers();
-         InterfaceIngreso iG = new InterfaceIngreso();
+         InterfaceCatalogue iu = new InterfaceCatalogue();
+         InterfaceEntry iG = new InterfaceEntry();
          btn_Welcome.setOnAction(actionEvent -> {
              try {
                  iG.start(stage);

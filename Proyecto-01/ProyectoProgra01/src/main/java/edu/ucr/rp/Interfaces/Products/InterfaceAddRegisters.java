@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.ucr.rp.Interfaces;
+package edu.ucr.rp.Interfaces.Products;
 
+import edu.ucr.rp.Interfaces.*;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
@@ -30,16 +31,15 @@ import javafx.stage.Window;
 
 /**
  *
- * @author 
- * Marian Murillo Bonilla
- * Angie Mora Núñez
+ * @author Equipo
  */
-public class InterfaceListingRegisters extends Application {
+public class InterfaceAddRegisters extends Application {
      private Label lp;
     private Button generateButton;
     private Button btn_exit;
     private Stage stage;
-  
+   // Intancias 
+ 
     @Override
     public void start(Stage stage) throws Exception {
           this.stage=stage;
@@ -55,18 +55,13 @@ public class InterfaceListingRegisters extends Application {
     }//dispaly
     
     private void title(Stage stage) {
-        stage.setTitle("Listar Registros");
+        stage.setTitle("Agregar Registos");
     }//title
      private void addHandlers() {
-         InterfaceUsers iu = new InterfaceUsers();
+ 
          btn_exit.setOnAction(actionEvent -> {
-             try {
-                 iu.start(stage);
-             } catch (Exception ex) {
-                 Logger.getLogger(InterfaceListingRegisters.class.getName()).log(Level.SEVERE, null, ex);
-             }
+        
          });
-         
     }//eventos
     
      private GridPane buildPane() {
@@ -95,9 +90,9 @@ public class InterfaceListingRegisters extends Application {
      
      private void setupControls(GridPane pane) {
        
-        generateButton = buildGenerateButton("Listar Registros", pane, 5);
-         btn_exit= buildGenerateButton("Salir", pane, 6);
-         
+        generateButton = buildGenerateButton("Agregar Registros", pane, 5);
+        btn_exit= buildGenerateButton("Salir", pane, 6);
+
     }//Controladores
      
      private Button buildGenerateButton(String label, GridPane pane, int row) {
@@ -124,7 +119,12 @@ public class InterfaceListingRegisters extends Application {
          
     return new Scene (pane,800,500);
     }//scene
-}//end
+}
+
+
+
+
+
 
 
 

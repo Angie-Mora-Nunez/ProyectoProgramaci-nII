@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.ucr.rp.Interfaces;
+package edu.ucr.rp.Interfaces.Products;
 
+import edu.ucr.rp.Interfaces.*;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
@@ -42,7 +43,7 @@ import javax.swing.ImageIcon;
  * Marian Murillo Bonilla
  * Angie Mora Núñez
  */
-class InterfaceUsers extends Application {
+public class InterfaceProducts extends Application {
     // elementos javafx a usar
     private Label lp;
     private Button generateButton;
@@ -53,10 +54,7 @@ class InterfaceUsers extends Application {
     InterfacePrincipal ip = new InterfacePrincipal();
     InterfaceCreate iC = new InterfaceCreate();
     InterfaceListingCatalogs iLc = new InterfaceListingCatalogs();
-    InterfaceAddRegisters lAr= new InterfaceAddRegisters();
-    InterfaceSearch iS = new InterfaceSearch();
-    InterfaceEdit iE= new InterfaceEdit();
-    InterfaceListingRegisters iLr= new InterfaceListingRegisters();
+  
     
     public void start(Stage stage) throws Exception {
           this.stage=stage;
@@ -89,7 +87,7 @@ class InterfaceUsers extends Application {
         MenuBar Mb_menu = new MenuBar();
       
         //1-ítem de crear catálogo
-         Menu m_Create= new Menu("Crear Catálogo");
+         Menu m_Create= new Menu("Agregar Producto");
           m_Create.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
          
        // IMAGEN 
@@ -106,21 +104,21 @@ class InterfaceUsers extends Application {
             try {
                 iC.start(stage);
             } catch (Exception ex) {
-                Logger.getLogger(InterfaceUsers.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InterfaceProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
          });
           
       m_Create.getItems().addAll(mI_Create); 
        
       //2- ítem de la lista de catálogos existentes 
-       Menu m_ListCatalogs = new Menu("Catálogos Existentes");
+       Menu m_ListCatalogs = new Menu("Buscar Producto");
        m_ListCatalogs.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
        // imagen
        File file1 = new File("watch.png");
        Image image1 = new Image(file1.toURI().toString());
        ImageView iv1 = new ImageView(image1);
        
-       MenuItem mI_ListCatalogs = new MenuItem("Ver");
+       MenuItem mI_ListCatalogs = new MenuItem("Buscar");
        mI_ListCatalogs.setGraphic(iv1);
        // acción de los catálogos exixtentes 
         mI_ListCatalogs.setOnAction((event)->{
@@ -128,101 +126,62 @@ class InterfaceUsers extends Application {
             try {
                 iLc.start(stage);
             } catch (Exception ex) {
-                Logger.getLogger(InterfaceUsers.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InterfaceProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
        
        });
-       
-       
        m_ListCatalogs.getItems().addAll(mI_ListCatalogs);
        
-       //3-ítem de agregar registro
-       Menu m_AddRegister= new Menu("Agregar Registro");
-       m_AddRegister.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
-      // imagen 
-       File file2 = new File("add.png");
-       Image image2 = new Image(file2.toURI().toString());
-       ImageView iv2 = new ImageView(image2);
        
-       MenuItem mI_AddRegister = new MenuItem("Agregar");
-       mI_AddRegister.setGraphic(iv2);
-       
-       // acción de agregar Registro
-      mI_AddRegister.setOnAction((event)->{
-           VB_Windows.getChildren().clear(); // limpiar VBox
+         //3- ítem de la lista de catálogos existentes 
+       Menu m_Modificate = new Menu("Modificar Producto");
+       m_Modificate.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
+       // imagen
+    
+       MenuItem mI_Modificate = new MenuItem("Modificar");
+       mI_Modificate.setGraphic(iv1);
+       // acción de los catálogos exixtentes 
+        mI_Modificate.setOnAction((event)->{
+            VB_Windows.getChildren().clear(); // limpiar VBox
             try {
-                lAr.start(stage);
+                iLc.start(stage);
             } catch (Exception ex) {
-                Logger.getLogger(InterfaceUsers.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InterfaceProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
        
        });
+       m_Modificate.getItems().addAll(mI_Modificate);
+     
        
-       m_AddRegister.getItems().addAll(mI_AddRegister);
+       //2- ítem de la lista de catálogos existentes 
+       Menu m_ListProducts = new Menu("Lista de Productos");
+       m_ListProducts.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
+       // imagen
+      
        
-       //4-ítem buscar en catálogo
-       Menu m_Search= new Menu("Buscar en catálogo");
-       m_Search.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
-       // imagen 
-       File file3 = new File("search.png");
-       Image image3 = new Image(file3.toURI().toString());
-       ImageView iv3 = new ImageView(image3);
-       MenuItem mI_Search = new MenuItem("Buscar Registro");
-       mI_Search.setGraphic(iv3);
-       // acción de buscar en catálogo
-      mI_Search.setOnAction((event)->{
-           VB_Windows.getChildren().clear(); // limpiar VBox
+       MenuItem mI_ListProducts = new MenuItem("Ver");
+       mI_ListProducts.setGraphic(iv1);
+       // acción de los catálogos exixtentes 
+        mI_ListProducts.setOnAction((event)->{
+            VB_Windows.getChildren().clear(); // limpiar VBox
             try {
-                iS.start(stage);
+                iLc.start(stage);
             } catch (Exception ex) {
-                Logger.getLogger(InterfaceUsers.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InterfaceProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
        
        });
-      m_Search.getItems().addAll(mI_Search);
-      //5-ítem para editar 
-       Menu m_Edit= new Menu("Editar en catálogo");
-       m_Edit.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
-      // imagen 
-       File file4 = new File("edit.png");
-       Image image4 = new Image(file4.toURI().toString());
-       ImageView iv4 = new ImageView(image4);
-       MenuItem mI_Edit = new MenuItem("Editar Registro");
-       mI_Edit.setGraphic(iv4);
-       // acción para editar
-      mI_Edit.setOnAction(actionEvent -> {
-          VB_Windows.getChildren().clear(); // limpiar VBox
-            try {
-                iE.start(stage);
-            } catch (Exception ex) {
-                Logger.getLogger(InterfaceUsers.class.getName()).log(Level.SEVERE, null, ex);
-            }
-         });
+       m_ListProducts.getItems().addAll(mI_ListProducts);
        
-       m_Edit.getItems().addAll(mI_Edit);
        
-        //6-ítem para Listar Registros
-       Menu m_ListRegister= new Menu("Listar en catálogo");
-       m_ListRegister.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
-      // imagen 
-       File file5 = new File("catalogs.png");
-       Image image5 = new Image(file5.toURI().toString());
-       ImageView iv5 = new ImageView(image5);
-       MenuItem mI_ListRegister = new MenuItem("Listar Registros");
-       mI_ListRegister.setGraphic(iv5);
        
-       // acción para listar registros
-      mI_ListRegister.setOnAction(actionEvent -> {
-             VB_Windows.getChildren().clear(); // limpiar VBox
-            try {
-                iLr.start(stage);
-            } catch (Exception ex) {
-                Logger.getLogger(InterfaceUsers.class.getName()).log(Level.SEVERE, null, ex);
-            }
-         });
        
-      m_ListRegister.getItems().addAll(mI_ListRegister);
        
+       
+       
+       
+       
+     
        //7-ítem para salir
        Menu m_Exit= new Menu("Salir");
        m_Exit.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
@@ -237,7 +196,7 @@ class InterfaceUsers extends Application {
             try {
                 ip.start(stage);
             } catch (Exception ex) {
-                Logger.getLogger(InterfaceUsers.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InterfaceProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
          });
        
@@ -246,7 +205,7 @@ class InterfaceUsers extends Application {
        
        
        // agregar el menú a la barra 
-       Mb_menu.getMenus().addAll(m_Create,m_ListCatalogs,m_AddRegister,m_Search,m_Edit,m_ListRegister,m_Exit);
+       Mb_menu.getMenus().addAll(m_Create,m_Modificate,m_ListProducts,m_Exit);
 
        
       
@@ -267,7 +226,7 @@ class InterfaceUsers extends Application {
 
      private Scene createScene (Pane pane){
       pane.setStyle("-fx-background-color:#37D8E3" );
-    return new Scene (pane,800,500);
+    return new Scene (pane,800,800);
     }//scene
 }
 

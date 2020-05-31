@@ -52,7 +52,7 @@ import javax.swing.JOptionPane;
  * Angie Mora Núñez
  */
  
-public class InterfaceIngreso extends Application{
+public class InterfaceEntry extends Application{
     public TextField txUser= new TextField();
     private PasswordField Txt2 = new PasswordField();
     private Button btn_Admin;
@@ -87,30 +87,30 @@ public class InterfaceIngreso extends Application{
         stage.setTitle("Sistema de Control de Empleados");
     }//title
      private void addHandlers() {
-        InterfaceUsers iU = new InterfaceUsers();
+        InterfaceChooseWay iU = new InterfaceChooseWay();
         
         btn_Admin.setOnAction(actionEvent -> {
-            String text = txUser.getText();
-             if(Txt2.getText().equals("ucr")){
-                 if(txUser.getText().equals("AngieMora")||txUser.getText().equals("AngelicaRedondo")||txUser.getText().equals("MarianMurillo")||txUser.getText().equals("SamuelLuque")){
+//            String text = txUser.getText();
+//             if(Txt2.getText().equals("ucr")){
+//                 if(txUser.getText().equals("AngieMora")||txUser.getText().equals("AngelicaRedondo")||txUser.getText().equals("MarianMurillo")||txUser.getText().equals("SamuelLuque")){
              
              try {
               iU.start(stage);
             
              }//try 
              catch (Exception ex) {
-                 Logger.getLogger(InterfaceIngreso.class.getName()).log(Level.SEVERE, null, ex);
-             }//catch//catch
-             }else
-                     
-                 JOptionPane.showMessageDialog(null,"Contraseña o usuario erroneos,"+"\n"+"Ingrese la contraseña o usuario correctos");
-                 Txt2.clear();
-                 txUser.clear();
-             }else
-                 
-              JOptionPane.showMessageDialog(null,"Contraseña o usuario erroneos,"+"\n"+"Ingrese la contraseña o usuario correctos");
-              Txt2.clear();
-              txUser.clear();
+                 Logger.getLogger(InterfaceEntry.class.getName()).log(Level.SEVERE, null, ex);
+             }//catch//catch//catch//catch
+//             }else
+//                     
+//                 JOptionPane.showMessageDialog(null,"Contraseña o usuario erroneos,"+"\n"+"Ingrese la contraseña o usuario correctos");
+//                 Txt2.clear();
+//                 txUser.clear();
+//             }else
+//                 
+//              JOptionPane.showMessageDialog(null,"Contraseña o usuario erroneos,"+"\n"+"Ingrese la contraseña o usuario correctos");
+//              Txt2.clear();
+//              txUser.clear();
          });
      
        
@@ -132,7 +132,7 @@ public class InterfaceIngreso extends Application{
                  iP.start(stage);
                 
              } catch (Exception ex) {
-                 Logger.getLogger(InterfaceIngreso.class.getName()).log(Level.SEVERE, null, ex);
+                 Logger.getLogger(InterfaceEntry.class.getName()).log(Level.SEVERE, null, ex);
              }
          });
       
@@ -173,7 +173,7 @@ public class InterfaceIngreso extends Application{
      
       private TextField buildTextInput(GridPane pane, int row) {
           TextField textField = new TextField();
-          pane.add(textField, 1, 33);
+          pane.add(textField, 1, 18);
           textField.setFont(new Font("Indie Flower",16));
           GridPane.setMargin(textField, new Insets(10, row, 10, row));
         return textField;
@@ -181,7 +181,7 @@ public class InterfaceIngreso extends Application{
       
       private TextField buildTextInput2(GridPane pane, int row) {
           PasswordField Txt2 = new PasswordField();
-          pane.add(Txt2, 1, 35);
+          pane.add(Txt2, 1, 20);
           Txt2.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
           GridPane.setMargin(Txt2, new Insets(10, row, 10, row));
         return Txt2;
@@ -189,7 +189,7 @@ public class InterfaceIngreso extends Application{
       
      private Button buildGenerateButton(String label, GridPane pane, int row) {
           Button button = new Button(label);
-          pane.add(button,1, 37);
+          pane.add(button,1, 25);
            button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
@@ -215,14 +215,14 @@ public class InterfaceIngreso extends Application{
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        pane.add(button,17, 40);//-fila columna
+        pane.add(button,17, 30);//-fila columna
 //        GridPane.setHalignment(button, HPos.CENTER);
         GridPane.setMargin(button, new Insets(10, row, 10, row));
         return button;
     }//button  
     private Label buildLabel(String text, GridPane pane, int row) {
         Label lb = new Label(text);
-        pane.add(lb,0, 33);
+        pane.add(lb,0, 18);
         lb.setFont(new Font("Indie Flower",16));
         GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
         return lb;
@@ -231,7 +231,7 @@ public class InterfaceIngreso extends Application{
     private Label buildLabel2 (String text, GridPane pane, int row) {
         Label lb = new Label(text);
          lb.setFont(new Font("Indie Flower",16));
-        pane.add(lb,0, 35);
+        pane.add(lb,0, 20);
         GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
         return lb;
     }//button

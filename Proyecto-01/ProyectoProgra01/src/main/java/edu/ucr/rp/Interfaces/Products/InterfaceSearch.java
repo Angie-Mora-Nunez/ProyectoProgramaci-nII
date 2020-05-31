@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.ucr.rp.Interfaces;
+package edu.ucr.rp.Interfaces.Products;
 
+import edu.ucr.rp.Interfaces.*;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
@@ -59,13 +60,9 @@ public class InterfaceSearch extends Application {
         stage.setTitle("Buscar en Catálogo");
     }//title
      private void addHandlers() {
-         InterfaceUsers iu = new InterfaceUsers();
+        
          btn_exit.setOnAction(actionEvent -> {
-             try {
-                 iu.start(stage);
-             } catch (Exception ex) {
-                 Logger.getLogger(InterfaceSearch.class.getName()).log(Level.SEVERE, null, ex);
-             }
+            
          });
          
     }//eventos

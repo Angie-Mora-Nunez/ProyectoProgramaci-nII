@@ -102,7 +102,7 @@ public class InterfaceCreate extends Application {
            
          });
      
-        InterfaceUsers iME = new InterfaceUsers();
+        InterfaceCatalogue iME = new InterfaceCatalogue();
          BtnSalida.setOnAction(actionEvent -> {
              try {
                  iME.start(stage);
