@@ -30,7 +30,9 @@ import javafx.stage.Window;
 
 /**
  *
- * @author Equipo
+ * @author 
+ * Marian Murillo Bonilla
+ * Angie Mora Núñez
  */
 public class InterfaceSearch extends Application {
      private Label lp;
@@ -123,7 +125,7 @@ public class InterfaceSearch extends Application {
          
     return new Scene (pane,800,500);
     }//scene
-}
+}//end
 
 
 

@@ -5,44 +5,40 @@
  */
 package edu.ucr.rp.Interfaces;
 
-import edu.ucr.rp.Interfaces.Logic.Catalogue;
-import edu.ucr.rp.Interfaces.Logic.Logic;
+
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.time.LocalDate;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -55,27 +51,33 @@ import javax.swing.JOptionPane;
  * Marian Murillo Bonilla
  * Angie Mora Núñez
  */
-public class InterfaceCreate extends Application {
-   
-    private TextField TxtName;
-    private TextArea txtPropiedades;
+ 
+public class InterfaceIngreso extends Application{
+    public TextField txUser= new TextField();
+    private PasswordField Txt2 = new PasswordField();
+    private Button btn_Admin;
+     private Button btn_user;
     private Stage stage;
-    private Label LblName;
-    private Label lblPropiedades;
+    private Label Lbl;
     private Button BtnSalida;
-    private Button btn_Agregar;
-   
+    private Label lb2;
+    private Image bgImage = new Image("file:src/main/java/images/lolo.jpg");
+    private StackPane container = new StackPane();
     
+  
     @Override
     public void start(Stage stage) throws Exception {
-        
-        this.stage=stage;
+          this.stage=stage;
         title(stage);
         GridPane pane = buildPane();
         setupControls(pane);
         addHandlers();
         stage.setScene(createScene(pane));
-        stage.show(); 
+       
+         stage.show();
+        
+        
+       
     }//start
      public void display() {
         launch();
@@ -84,36 +86,64 @@ public class InterfaceCreate extends Application {
     private void title(Stage stage) {
         stage.setTitle("Sistema de Control de Empleados");
     }//title
-    
      private void addHandlers() {
-       
-         btn_Agregar.setOnAction((ActionEvent actionEvent) -> {
-          Logic lc = new Logic();
-          String guardar[] ={TxtName.getText(),txtPropiedades.getText()};
-          
-            
+        InterfaceUsers iU = new InterfaceUsers();
+        
+        btn_Admin.setOnAction(actionEvent -> {
+            String text = txUser.getText();
+             if(Txt2.getText().equals("ucr")){
+                 if(txUser.getText().equals("AngieMora")||txUser.getText().equals("AngelicaRedondo")||txUser.getText().equals("MarianMurillo")||txUser.getText().equals("SamuelLuque")){
              
-                 try {
-                  lc.AgregarPuestos(TxtName.getText(), txtPropiedades.getText(), true);
-              } catch (FileNotFoundException ex) {
-                  Logger.getLogger(InterfaceCreate.class.getName()).log(Level.SEVERE, null, ex);
-              }
+             try {
+              iU.start(stage);
             
-           
+             }//try 
+             catch (Exception ex) {
+                 Logger.getLogger(InterfaceIngreso.class.getName()).log(Level.SEVERE, null, ex);
+             }//catch//catch
+             }else
+                     
+                 JOptionPane.showMessageDialog(null,"Contraseña o usuario erroneos,"+"\n"+"Ingrese la contraseña o usuario correctos");
+                 Txt2.clear();
+                 txUser.clear();
+             }else
+                 
+              JOptionPane.showMessageDialog(null,"Contraseña o usuario erroneos,"+"\n"+"Ingrese la contraseña o usuario correctos");
+              Txt2.clear();
+              txUser.clear();
          });
      
-        InterfaceUsers iME = new InterfaceUsers();
+       
+        
+//          
+//         InterfaceUser UI = new InterfaceUser();
+//         btn_user.setOnAction(actionEvent -> {
+//             try {
+//                 UI.start(stage);
+//                
+//             } catch (Exception ex) {
+//                 Logger.getLogger(InterfaceUsers.class.getName()).log(Level.SEVERE, null, ex);
+//             }
+//         });
+         
+         InterfacePrincipal iP = new InterfacePrincipal();
          BtnSalida.setOnAction(actionEvent -> {
              try {
-                 iME.start(stage);
+                 iP.start(stage);
+                
              } catch (Exception ex) {
-                 Logger.getLogger(InterfaceCreate.class.getName()).log(Level.SEVERE, null, ex);
+                 Logger.getLogger(InterfaceIngreso.class.getName()).log(Level.SEVERE, null, ex);
              }
          });
-      }//funcionamiento
+      
+//       
+         
+    }//funcionamiento
    
      private GridPane buildPane() throws FileNotFoundException {
         GridPane gridPane = new GridPane();
+        
+        
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setPadding(new Insets(10, 10,10, 10));
         gridPane.setHgap(10);
@@ -122,56 +152,44 @@ public class InterfaceCreate extends Application {
         columnOneConstraints.setHalignment(HPos.RIGHT);
         ColumnConstraints columnTwoConstrains = new ColumnConstraints(INPUT_WITH, INPUT_WITH, INPUT_WITH_MAX);
         columnTwoConstrains.setHgrow(Priority.ALWAYS);
+     
+         
+        
         return gridPane; 
     }//buildPane
      
      
       private void setupControls(GridPane pane) {
        
-        btn_Agregar = buildGenerateButton("Agregar", pane, 5);
-        TxtName= TextFieldName(pane, 5);
+        txUser = buildTextInput(pane, 5);
+        btn_Admin = buildGenerateButton("Ingresar: ", pane, 5);
+//        btn_user = buildGenerateButton2("Ingresar como Usuario", pane, 5);
+        Lbl = buildLabel("Nombre de usuario: ", pane, 5);
+        Txt2= (PasswordField) buildTextInput2(pane, 5);
+        Lbl=buildLabel2("Contraseña", pane, 5);
         BtnSalida=buildGenerateButton3("Regresar", pane, 5);
-        LblName=LabelName("Nombre:", pane, 5);
-        lblPropiedades=LabelDescripcion("Propiedades:", pane, 5);
-        txtPropiedades=textPropiedades(pane, 5);
+        
     }//controladores
      
-      private TextArea textPropiedades(GridPane pane, int row) {
-          TextArea textField = new TextArea();
-          pane.add(textField, 1, 21);
+      private TextField buildTextInput(GridPane pane, int row) {
+          TextField textField = new TextField();
+          pane.add(textField, 1, 33);
           textField.setFont(new Font("Indie Flower",16));
           GridPane.setMargin(textField, new Insets(10, row, 10, row));
         return textField;
     }//textField
-     
-      private TextField TextFieldName(GridPane pane, int row) {
-          TextField Txt2 = new TextField();
-          pane.add(Txt2, 1, 19);
+      
+      private TextField buildTextInput2(GridPane pane, int row) {
+          PasswordField Txt2 = new PasswordField();
+          pane.add(Txt2, 1, 35);
           Txt2.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
           GridPane.setMargin(Txt2, new Insets(10, row, 10, row));
         return Txt2;
     }//textField
-   
-       private Label LabelName (String text, GridPane pane, int row) {
-        Label lb = new Label(text);
-        pane.add(lb,0, 19);
-        lb.setFont(new Font("Footlight MT Light",16));
-        GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
-        return lb;
-    }//button
-       
-      
-          private Label LabelDescripcion(String text, GridPane pane, int row) {
-        Label lb = new Label(text);
-        pane.add(lb,0, 21);
-        lb.setFont(new Font("Footlight MT Light",16));
-        GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
-        return lb;
-    }//button
       
      private Button buildGenerateButton(String label, GridPane pane, int row) {
           Button button = new Button(label);
-          pane.add(button,1, 30);
+          pane.add(button,1, 37);
            button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
@@ -179,7 +197,19 @@ public class InterfaceCreate extends Application {
           GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
     }//button
- 
+     
+     
+//     private Button buildGenerateButton2(String label, GridPane pane, int row) {
+//        Button button = new Button(label);
+//        pane.add(button,8, 2);//-fila columna
+//         button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
+//        button.setTextFill(Color.BLACK);
+//        button.setStyle("-fx-background-color: WHITE");
+////        GridPane.setHalignment(button, HPos.CENTER);
+//        GridPane.setMargin(button, new Insets(10, row, 10, row));
+//        return button;
+//    }//button
+     
       private Button buildGenerateButton3(String label, GridPane pane, int row) {
         Button button = new Button(label);
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
@@ -190,7 +220,22 @@ public class InterfaceCreate extends Application {
         GridPane.setMargin(button, new Insets(10, row, 10, row));
         return button;
     }//button  
- 
+    private Label buildLabel(String text, GridPane pane, int row) {
+        Label lb = new Label(text);
+        pane.add(lb,0, 33);
+        lb.setFont(new Font("Indie Flower",16));
+        GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
+        return lb;
+    }//button
+    
+    private Label buildLabel2 (String text, GridPane pane, int row) {
+        Label lb = new Label(text);
+         lb.setFont(new Font("Indie Flower",16));
+        pane.add(lb,0, 35);
+        GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
+        return lb;
+    }//button
+    
      private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -199,15 +244,16 @@ public class InterfaceCreate extends Application {
         alert.initOwner(owner);
         alert.show();
     }//showAlert
+
      private Scene createScene (Pane pane) {
-         pane.setStyle("-fx-background-color:FFFACD" );
+         pane.setStyle("-fx-background-color:#37D8E3" );
      
         
-         return new Scene (pane,1000,1000);
+         return new Scene (pane,800,800);
     }//scene
+
    
+
+  
+ 
 }//end
-
-
-
-

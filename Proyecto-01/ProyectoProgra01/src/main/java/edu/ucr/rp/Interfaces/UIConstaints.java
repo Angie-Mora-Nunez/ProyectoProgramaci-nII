@@ -7,7 +7,9 @@ package edu.ucr.rp.Interfaces;
 
 /**
  *
- * @author Equipo
+ * @author 
+ * Marian Murillo Bonilla
+ * Angie Mora Núñez
  */
 public class UIConstaints {
     public static final int LABEL_WITH=150;

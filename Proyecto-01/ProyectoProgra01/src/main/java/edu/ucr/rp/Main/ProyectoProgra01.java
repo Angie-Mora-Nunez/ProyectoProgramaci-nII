@@ -9,7 +9,9 @@ import edu.ucr.rp.Interfaces.InterfacePrincipal;
 
 /**
  *
- * @author Equipo
+ * @author 
+ * Marian Murillo Bonilla
+ * Angie Mora Núñez
  */
 public class ProyectoProgra01 {
 
@@ -21,4 +23,4 @@ public class ProyectoProgra01 {
       InterfacePrincipal iP = new InterfacePrincipal();
         iP.display();
     }//ejecuto 
-}
+}//fin
