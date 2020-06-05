@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * 
  */
 public class saveRegisters {
-    ArrayList catalogRegister;
+    ArrayList<RegistersperCatalog> catalogRegister;
 
     public saveRegisters(ArrayList catalogRegister) {
         this.catalogRegister = catalogRegister;

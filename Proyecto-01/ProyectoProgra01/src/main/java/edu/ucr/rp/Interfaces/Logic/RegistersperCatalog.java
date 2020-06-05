@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class RegistersperCatalog {
     String nameSchema;
-    ArrayList listRegisters;
+    ArrayList<Registers> listRegisters;
 
     public RegistersperCatalog(String nameSchema, ArrayList listRegisters) {
         this.nameSchema = nameSchema;
