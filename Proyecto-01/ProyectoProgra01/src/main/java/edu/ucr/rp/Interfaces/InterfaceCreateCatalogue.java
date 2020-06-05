@@ -22,6 +22,7 @@ import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +71,7 @@ public class InterfaceCreateCatalogue extends Application {
     ArrayList CatalogueList = new ArrayList();
     private Button agregarTxtField;
     private Label lblBussiness;
-   
+   ArrayList<Catalogue> catalogs = new ArrayList<>();
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -96,14 +97,22 @@ public class InterfaceCreateCatalogue extends Application {
          btn_Agregar.setOnAction((ActionEvent actionEvent) -> {
            
            ArrayList prop = getProperties(txtPropiedades.getText());
-             
+           
            Catalogue c = new Catalogue(TxtName.getText(), prop);
           
            System.out.println(prop.toString());
              
+           catalogs.add(c);
+          
             File file = new File("catalogo.json");
-            new JsonUtil().toFile(file, c); // llenar el archivo
-             
+            new JsonUtil().toFile(file, catalogs); // llenar el archivo
+             try {
+                 ArrayList<Catalogue> e = new JsonUtil().asObject(file.toURI().toURL(),ArrayList.class);
+                 
+                 //System.out.println(e.get(1));
+             } catch (MalformedURLException ex) {
+                 Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);
+             }
              
          });
      
@@ -117,17 +126,7 @@ public class InterfaceCreateCatalogue extends Application {
          });
          
          
-//         agregarTxtField.setOnAction(actionEvent -> {
-//           
-//            TextField txt[]=new TextField[Integer.parseInt(TxtName.getText())];
-//             for (int i = 0; i < txt.length; i++) {
-//                 txt[i]=new TextField("campo"+i); 
-//                
-//             }//for
-//   
-//         });
-         
-         
+
          
          
          
@@ -257,6 +256,19 @@ public class InterfaceCreateCatalogue extends Application {
     }  
    
 }//end
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
