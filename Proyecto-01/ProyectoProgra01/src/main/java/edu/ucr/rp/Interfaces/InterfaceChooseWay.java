@@ -60,6 +60,7 @@ public class InterfaceChooseWay extends Application{
     private Button btn_Products;
     private Stage stage;
     private Label lblBussiness;
+    private ImageView imageSlogan;
    // Intancias 
  
     @Override
@@ -141,22 +142,22 @@ public class InterfaceChooseWay extends Application{
         return textField;
     }//TExtField
      
-     private void setupControls(GridPane pane) {
+     private void setupControls(GridPane pane) throws FileNotFoundException {
        
         btn_catalogue = buttonCatalogue("Catalogos", pane, 5);
         btn_Products=buttonProducts("Productos", pane, 5);
         btn_exit= buttonSalir("Salir", pane, 5);
-        lblBussiness=LabelBussines("Posgrados S.A", pane, 5);
-
+        lblBussiness=buildLabelSlogan("Progrados de concreto S.A", pane, 5);
+        imageSlogan=ImagePreview(pane, 5);
     }//Controladores
      
      private Button buttonCatalogue(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button, 0, 15);
+        pane.add(button, 5, 15);
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        
+         GridPane.setHalignment(button, HPos.CENTER);
         GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
     }//button
@@ -167,7 +168,7 @@ public class InterfaceChooseWay extends Application{
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        
+              GridPane.setHalignment(button, HPos.CENTER);
         GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
     }//button
@@ -178,19 +179,28 @@ public class InterfaceChooseWay extends Application{
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        
+         GridPane.setHalignment(button, HPos.CENTER);
         GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
     }//button
      
-       private Label LabelBussines (String text, GridPane pane, int row) {
+      private ImageView ImagePreview(GridPane pane,int row) throws FileNotFoundException{
+        FileInputStream imageStream = new FileInputStream("pala.png");
+        Image imageS = new Image(imageStream);
+        ImageView image = new ImageView(imageS);
+        GridPane.setHalignment(image, HPos.CENTER);
+        pane.add(image, 12, 0);
+        GridPane.setMargin(image, new Insets(20, 0, 20, 0));
+        return image;
+      }
+     
+      private Label buildLabelSlogan(String text, GridPane pane, int row) {
         Label lb = new Label(text);
-        pane.add(lb,5, 0);
-        lb.setFont(new Font("Footlight MT Light",16));
+        pane.add(lb,13, 0);
+        lb.setFont(new Font("Indie Flower",16));
         GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
         return lb;
     }//button
-       
        
        
     

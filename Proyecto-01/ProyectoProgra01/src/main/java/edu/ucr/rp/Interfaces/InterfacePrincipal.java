@@ -9,6 +9,8 @@ import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
@@ -45,6 +47,7 @@ public class InterfacePrincipal extends Application {
     private Button btn_Welcome;
     private Stage stage;
     private Button btn_exit;
+    private ImageView img;
   
     @Override
     public void start(Stage stage) throws Exception {
@@ -104,18 +107,18 @@ public class InterfacePrincipal extends Application {
         return textField;
     }//TextField
      
-     private void setupControls(GridPane pane) {
+     private void setupControls(GridPane pane) throws FileNotFoundException {
         Calendar calendario = new GregorianCalendar();
            int hora = calendario.get(Calendar.HOUR_OF_DAY);
-        btn_Welcome = buildGenerateButton("Bienvenido", pane, 5);
-        btn_exit= buildGenerateButton("Salir", pane, 6);
-     
+        btn_Welcome = ButtonGetIn("Ingresar", pane, 6);
+        btn_exit= ButtongetOut("Salir", pane, 6);
+        img=ImagePreview(pane, 6);
       
      }
      
-     private Button buildGenerateButton(String label, GridPane pane, int row) {
+     private Button ButtonGetIn(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button, 0, row, 2, 1);
+        pane.add(button, 0, 1);
         GridPane.setHalignment(button, HPos.CENTER);
       button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
@@ -123,6 +126,19 @@ public class InterfacePrincipal extends Application {
         GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
     }//Button
+     
+     
+     private Button ButtongetOut(String label, GridPane pane, int row) {
+        Button button = new Button(label);
+        pane.add(button, 0,2 );//filas columnas
+        GridPane.setHalignment(button, HPos.CENTER);
+      button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
+        button.setTextFill(Color.BLACK);
+        button.setStyle("-fx-background-color: WHITE");
+        GridPane.setMargin(button, new Insets(20, 0, 20, 0));
+        return button;
+    }//Button
+     
      
     
      private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
@@ -142,7 +158,16 @@ public class InterfacePrincipal extends Application {
         return label;
     }//TextField
      
-     
+      
+      private ImageView ImagePreview(GridPane pane,int row) throws FileNotFoundException{
+        FileInputStream imageStream = new FileInputStream("hola.png");
+        Image imageS = new Image(imageStream);
+        ImageView image = new ImageView(imageS);
+        GridPane.setHalignment(image, HPos.CENTER);
+        pane.add(image, 0, 0);
+        GridPane.setMargin(image, new Insets(20, 0, 20, 0));
+        return image;
+      }
 
      private Scene createScene (Pane pane){
           pane.setStyle("-fx-background-color:#37D8E3" );

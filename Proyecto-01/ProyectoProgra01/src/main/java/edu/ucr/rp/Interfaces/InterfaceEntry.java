@@ -63,6 +63,9 @@ public class InterfaceEntry extends Application{
     private Label lb2;
     private Image bgImage = new Image("file:src/main/java/images/lolo.jpg");
     private StackPane container = new StackPane();
+    private Label labelEntryDates;
+    private ImageView Products;
+    private Label lblSlogan;
     
   
     @Override
@@ -115,16 +118,7 @@ public class InterfaceEntry extends Application{
      
        
         
-//          
-//         InterfaceUser UI = new InterfaceUser();
-//         btn_user.setOnAction(actionEvent -> {
-//             try {
-//                 UI.start(stage);
-//                
-//             } catch (Exception ex) {
-//                 Logger.getLogger(InterfaceUsers.class.getName()).log(Level.SEVERE, null, ex);
-//             }
-//         });
+
          
          InterfacePrincipal iP = new InterfacePrincipal();
          BtnSalida.setOnAction(actionEvent -> {
@@ -159,16 +153,17 @@ public class InterfaceEntry extends Application{
     }//buildPane
      
      
-      private void setupControls(GridPane pane) {
+      private void setupControls(GridPane pane) throws FileNotFoundException {
        
         txUser = buildTextInput(pane, 5);
         btn_Admin = buildGenerateButton("Ingresar: ", pane, 5);
-//        btn_user = buildGenerateButton2("Ingresar como Usuario", pane, 5);
         Lbl = buildLabel("Nombre de usuario: ", pane, 5);
         Txt2= (PasswordField) buildTextInput2(pane, 5);
         Lbl=buildLabel2("Contraseña", pane, 5);
-        BtnSalida=buildGenerateButton3("Regresar", pane, 5);
-        
+        BtnSalida=buildGenerateButtonEnd("Regresar", pane, 5);
+        labelEntryDates=buildLabelDates("Ingrese usuario  y contraseña:", pane, 5);
+        Products=ImagePreview(pane, 5);
+        lblSlogan=buildLabelSlogan("Progrados de Concreto S.A", pane, 5);
     }//controladores
      
       private TextField buildTextInput(GridPane pane, int row) {
@@ -198,24 +193,35 @@ public class InterfaceEntry extends Application{
         return button;
     }//button
      
+
+      private ImageView ImagePreview(GridPane pane,int row) throws FileNotFoundException{
+        FileInputStream imageStream = new FileInputStream("pala.png");
+        Image imageS = new Image(imageStream);
+        ImageView image = new ImageView(imageS);
+        GridPane.setHalignment(image, HPos.CENTER);
+        pane.add(image, 12, 0);
+        GridPane.setMargin(image, new Insets(20, 0, 20, 0));
+        return image;
+      }
      
-//     private Button buildGenerateButton2(String label, GridPane pane, int row) {
-//        Button button = new Button(label);
-//        pane.add(button,8, 2);//-fila columna
-//         button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
-//        button.setTextFill(Color.BLACK);
-//        button.setStyle("-fx-background-color: WHITE");
-////        GridPane.setHalignment(button, HPos.CENTER);
-//        GridPane.setMargin(button, new Insets(10, row, 10, row));
-//        return button;
-//    }//button
+      private Label buildLabelSlogan(String text, GridPane pane, int row) {
+        Label lb = new Label(text);
+        pane.add(lb,13, 0);
+        lb.setFont(new Font("Indie Flower",16));
+        GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
+        return lb;
+    }//button
+    
+      
+      
      
-      private Button buildGenerateButton3(String label, GridPane pane, int row) {
+     
+      private Button buildGenerateButtonEnd(String label, GridPane pane, int row) {
         Button button = new Button(label);
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        pane.add(button,17, 30);//-fila columna
+        pane.add(button,12, 30);//-fila columna
 //        GridPane.setHalignment(button, HPos.CENTER);
         GridPane.setMargin(button, new Insets(10, row, 10, row));
         return button;
@@ -227,6 +233,16 @@ public class InterfaceEntry extends Application{
         GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
         return lb;
     }//button
+    
+     private Label buildLabelDates(String text, GridPane pane, int row) {
+        Label lb = new Label(text);
+        pane.add(lb,0, 16);
+        lb.setFont(new Font("Indie Flower",16));
+        GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
+        return lb;
+    }//button
+    
+    
     
     private Label buildLabel2 (String text, GridPane pane, int row) {
         Label lb = new Label(text);

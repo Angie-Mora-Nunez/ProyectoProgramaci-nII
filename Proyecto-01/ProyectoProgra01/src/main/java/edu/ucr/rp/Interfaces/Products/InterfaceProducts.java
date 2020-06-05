@@ -11,6 +11,8 @@ import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -78,7 +80,7 @@ public class InterfaceProducts extends Application {
          
     }//eventos
     
-      public VBox getVBox() {
+      public VBox getVBox() throws FileNotFoundException {
        
         VBox vb_main = new VBox(); // VBox que contendrá las opciones del menú 
         
@@ -162,14 +164,14 @@ public class InterfaceProducts extends Application {
        m_ListProducts.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
        // imagen
       
-       
+       InterfaceListingRegisters iLR = new InterfaceListingRegisters();
        MenuItem mI_ListProducts = new MenuItem("Ver");
        mI_ListProducts.setGraphic(iv1);
        // acción de los catálogos exixtentes 
         mI_ListProducts.setOnAction((event)->{
             VB_Windows.getChildren().clear(); // limpiar VBox
             try {
-                iLc.start(stage);
+                iLR.start(stage);
             } catch (Exception ex) {
                 Logger.getLogger(InterfaceProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -196,9 +198,10 @@ public class InterfaceProducts extends Application {
        MenuItem mI_Exit = new MenuItem("Salir");
        // acción para listar registros
        mI_Exit.setGraphic(iv6);
+          InterfaceChooseWay iC = new InterfaceChooseWay();
       mI_Exit.setOnAction(actionEvent -> {
             try {
-                ip.start(stage);
+                iC.start(stage);
             } catch (Exception ex) {
                 Logger.getLogger(InterfaceProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -211,10 +214,13 @@ public class InterfaceProducts extends Application {
        // agregar el menú a la barra 
        Mb_menu.getMenus().addAll(m_Create,m_ListCatalogs,m_Modificate,m_ListProducts,m_Exit);
 
-       
+       FileInputStream imageStream = new FileInputStream("hola.png");
+        Image imageS = new Image(imageStream);
+        
+        
       
        // agregar barra al VBox
-       vb_main.getChildren().addAll(Mb_menu, VB_Windows);
+       vb_main.getChildren().addAll(Mb_menu, VB_Windows,new ImageView(imageS));
         return vb_main;
         
     }// end VBox

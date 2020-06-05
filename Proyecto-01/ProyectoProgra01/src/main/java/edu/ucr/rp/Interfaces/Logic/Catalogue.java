@@ -8,6 +8,8 @@ package edu.ucr.rp.Interfaces.Logic;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,9 +20,9 @@ import javax.swing.JOptionPane;
  */
 public class Catalogue {
     private String nameCatalogue;
-    private String properties;
+    private ArrayList properties;
 
-    public Catalogue(String nameCatalogue, String properties) {
+    public Catalogue(String nameCatalogue, ArrayList properties) {
         this.nameCatalogue = nameCatalogue;
         this.properties = properties;
     }//constructor
@@ -33,19 +35,24 @@ public class Catalogue {
         this.nameCatalogue = nameCatalogue;
     }//setname
 
-    public String getProperties() {
+    public ArrayList getProperties() {
         return properties;
     }//getPropiedades
 
-    public void setProperties(String properties) {
+    public void setProperties(ArrayList properties) {
         this.properties = properties;
     }//setPropiedades
 
     @Override
     public String toString() {
-        return "Catalogue{" + "nameCatalogue=" + nameCatalogue + ", properties=" + properties + '}';
-    }//String
-    
+        StringBuilder sb = new StringBuilder();
+        sb.append("Catalogue{nameCatalogue=").append(nameCatalogue);
+        sb.append(", properties=").append(properties);
+        sb.append('}');
+        return sb.toString();
+    }
+
+  
     
    
     

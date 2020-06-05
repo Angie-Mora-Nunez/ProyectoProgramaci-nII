@@ -6,7 +6,7 @@
 package edu.ucr.rp.Interfaces;
 
 import edu.ucr.rp.Interfaces.Logic.Catalogue;
-import edu.ucr.rp.Interfaces.Logic.Logic;
+
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
@@ -99,7 +99,7 @@ public class InterfaceCreateCatalogue extends Application {
            
            
              
-             Catalogue cA = new Catalogue(TxtName.getText(), CatalogueList.toString());
+          
              
             
              

@@ -59,9 +59,13 @@ public class InterfaceListingRegisters extends Application {
         stage.setTitle("Listar Registros");
     }//title
      private void addHandlers() {
-         
+         InterfaceProducts iP = new InterfaceProducts();
          btn_exit.setOnAction(actionEvent -> {
-            
+             try {
+                 iP.start(stage);
+             } catch (Exception ex) {
+                 Logger.getLogger(InterfaceListingRegisters.class.getName()).log(Level.SEVERE, null, ex);
+             }
          });
          
     }//eventos

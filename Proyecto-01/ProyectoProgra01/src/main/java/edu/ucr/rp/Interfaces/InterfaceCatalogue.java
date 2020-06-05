@@ -155,9 +155,10 @@ class InterfaceCatalogue extends Application {
        MenuItem mI_Exit = new MenuItem("Salir");
        // acción para listar registros
        mI_Exit.setGraphic(iv6);
+          InterfaceChooseWay iC = new InterfaceChooseWay();
       mI_Exit.setOnAction(actionEvent -> {
             try {
-                ip.start(stage);
+                iC.start(stage);
             } catch (Exception ex) {
                 Logger.getLogger(InterfaceCatalogue.class.getName()).log(Level.SEVERE, null, ex);
             }
