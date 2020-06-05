@@ -59,6 +59,7 @@ public class InterfaceChooseWay extends Application{
     private Button btn_exit;
     private Button btn_Products;
     private Stage stage;
+    private Label lblBussiness;
    // Intancias 
  
     @Override
@@ -145,6 +146,7 @@ public class InterfaceChooseWay extends Application{
         btn_catalogue = buttonCatalogue("Catalogos", pane, 5);
         btn_Products=buttonProducts("Productos", pane, 5);
         btn_exit= buttonSalir("Salir", pane, 5);
+        lblBussiness=LabelBussines("Posgrados S.A", pane, 5);
 
     }//Controladores
      
@@ -181,6 +183,16 @@ public class InterfaceChooseWay extends Application{
         return button;
     }//button
      
+       private Label LabelBussines (String text, GridPane pane, int row) {
+        Label lb = new Label(text);
+        pane.add(lb,5, 0);
+        lb.setFont(new Font("Footlight MT Light",16));
+        GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
+        return lb;
+    }//button
+       
+       
+       
     
      private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);

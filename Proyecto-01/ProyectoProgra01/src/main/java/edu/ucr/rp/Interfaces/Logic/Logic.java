@@ -5,7 +5,7 @@
  */
 package edu.ucr.rp.Interfaces.Logic;
 
-import edu.ucr.rp.Interfaces.InterfaceCreate;
+import edu.ucr.rp.Interfaces.InterfaceCreateCatalogue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -68,8 +68,8 @@ public class Logic {
        
         }//try 
         catch (IOException ex) {
-            Logger.getLogger(InterfaceCreate.class.getName()).log(Level.SEVERE, null, ex);
-        }//catch
+            Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);
+        }//catch//catch
        
     return arrayCatalogue;
     }//job

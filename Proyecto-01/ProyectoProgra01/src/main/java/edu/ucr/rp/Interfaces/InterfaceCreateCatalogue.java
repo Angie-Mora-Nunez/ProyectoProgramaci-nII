@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -49,6 +50,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javax.swing.JOptionPane;
+import util.JsonUtil;
 
 /**
  *
@@ -56,7 +58,7 @@ import javax.swing.JOptionPane;
  * Marian Murillo Bonilla
  * Angie Mora Núñez
  */
-public class InterfaceCreate extends Application {
+public class InterfaceCreateCatalogue extends Application {
    
     private TextField TxtName;
     private TextArea txtPropiedades;
@@ -67,6 +69,7 @@ public class InterfaceCreate extends Application {
     private Button btn_Agregar;
     ArrayList CatalogueList = new ArrayList();
     private Button agregarTxtField;
+    private Label lblBussiness;
    
     
     @Override
@@ -91,12 +94,16 @@ public class InterfaceCreate extends Application {
      private void addHandlers() {
        
          btn_Agregar.setOnAction((ActionEvent actionEvent) -> {
-          
-           
-             
-             CatalogueList.add(txtPropiedades.getText());
+           CatalogueList.add(txtPropiedades.getText());
              System.out.println(CatalogueList.toString());
            
+           
+             
+             Catalogue cA = new Catalogue(TxtName.getText(), CatalogueList.toString());
+             
+            
+             
+             
          });
      
         InterfaceCatalogue iME = new InterfaceCatalogue();
@@ -104,7 +111,7 @@ public class InterfaceCreate extends Application {
              try {
                  iME.start(stage);
              } catch (Exception ex) {
-                 Logger.getLogger(InterfaceCreate.class.getName()).log(Level.SEVERE, null, ex);
+                 Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);
              }
          });
          
@@ -146,12 +153,13 @@ public class InterfaceCreate extends Application {
      
       public void setupControls(GridPane pane) {
        
-        btn_Agregar = buildGenerateButton("Agregar", pane, 4);
+        btn_Agregar = ButtonAdd("Agregar", pane, 4);
         TxtName= TextFieldName(pane, 4);
-        BtnSalida=buildGenerateButton3("Regresar", pane, 4);
+        BtnSalida=ButtonExit("Regresar", pane, 4);
         LblName=LabelName("Nombre:", pane, 4);
         lblPropiedades=LabelDescripcion("Propiedades:", pane, 4);
         txtPropiedades=textPropiedades(pane, 4);
+        lblBussiness=LabelBussines("Posgrados SA", pane, 4);
       
     }//controladores
      
@@ -178,6 +186,14 @@ public class InterfaceCreate extends Application {
         GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
         return lb;
     }//button
+       
+        private Label LabelBussines (String text, GridPane pane, int row) {
+        Label lb = new Label(text);
+        pane.add(lb,5, 0);
+        lb.setFont(new Font("Footlight MT Light",16));
+        GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
+        return lb;
+    }//button
       
         private Label LabelDescripcion(String text, GridPane pane, int row) {
         Label lb = new Label(text);
@@ -187,7 +203,7 @@ public class InterfaceCreate extends Application {
         return lb;
     }//button
       
-     private Button buildGenerateButton(String label, GridPane pane, int row) {
+     private Button ButtonAdd(String label, GridPane pane, int row) {
           Button button = new Button(label);
           pane.add(button,1, 30);
            button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
@@ -198,12 +214,12 @@ public class InterfaceCreate extends Application {
         return button;
     }//button
  
-      private Button buildGenerateButton3(String label, GridPane pane, int row) {
+      private Button ButtonExit(String label, GridPane pane, int row) {
         Button button = new Button(label);
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        pane.add(button,6, 40);//-fila columna
+        pane.add(button,5, 40);//-fila columna
 //        GridPane.setHalignment(button, HPos.CENTER);
         GridPane.setMargin(button, new Insets(10, row, 10, row));
         return button;

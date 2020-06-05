@@ -52,7 +52,7 @@ public class InterfaceProducts extends Application {
     
     // instancias a las clases 
     InterfacePrincipal ip = new InterfacePrincipal();
-    InterfaceCreate iC = new InterfaceCreate();
+    InterfaceCreateCatalogue iC = new InterfaceCreateCatalogue();
     InterfaceListingCatalogs iLc = new InterfaceListingCatalogs();
    InterfaceAddRegisters iA = new InterfaceAddRegisters();
   

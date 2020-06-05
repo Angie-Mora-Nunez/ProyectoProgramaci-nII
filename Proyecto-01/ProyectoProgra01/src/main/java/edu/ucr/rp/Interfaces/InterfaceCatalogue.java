@@ -10,6 +10,8 @@ import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -32,6 +34,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javax.swing.ImageIcon;
@@ -51,7 +54,7 @@ class InterfaceCatalogue extends Application {
     
     // instancias a las clases 
     InterfacePrincipal ip = new InterfacePrincipal();
-    InterfaceCreate iC = new InterfaceCreate();
+    InterfaceCreateCatalogue iC = new InterfaceCreateCatalogue();
     InterfaceListingCatalogs iLc = new InterfaceListingCatalogs();
   
     
@@ -74,8 +77,19 @@ class InterfaceCatalogue extends Application {
          
          
     }//eventos
+     
+      private Label LabelBussines (String text) {
+        Label lb = new Label(text);
+     
+        lb.setFont(new Font("Footlight MT Light",16));
+        GridPane.setMargin(lb, new Insets(20, 0, 20, 0));
+        return lb;
+    }//button
+     
+     
+     
     
-      public VBox getVBox() {
+      public VBox getVBox() throws FileNotFoundException {
        
         VBox vb_main = new VBox(); // VBox que contendrá las opciones del menú 
         
@@ -152,15 +166,23 @@ class InterfaceCatalogue extends Application {
       m_Exit.getItems().addAll(mI_Exit);
        
        
-       
        // agregar el menú a la barra 
        Mb_menu.getMenus().addAll(m_Create,m_ListCatalogs,m_Exit);
 
-       
+     
+        FileInputStream imageStream = new FileInputStream("hola.png");
+        Image imageS = new Image(imageStream);
+        
+        
       
        // agregar barra al VBox
-       vb_main.getChildren().addAll(Mb_menu, VB_Windows);
+       vb_main.getChildren().addAll(Mb_menu, VB_Windows,new ImageView(imageS));
         return vb_main;
+        
+        
+        
+        
+        
         
     }// end VBox
     
@@ -177,6 +199,12 @@ class InterfaceCatalogue extends Application {
       pane.setStyle("-fx-background-color:#37D8E3" );
     return new Scene (pane,800,800);
     }//scene
+     
+     
+    
+     
+     
+     
 }
 
 
