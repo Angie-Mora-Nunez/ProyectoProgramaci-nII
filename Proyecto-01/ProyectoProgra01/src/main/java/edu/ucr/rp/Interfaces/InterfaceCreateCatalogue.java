@@ -94,14 +94,15 @@ public class InterfaceCreateCatalogue extends Application {
      private void addHandlers() {
        
          btn_Agregar.setOnAction((ActionEvent actionEvent) -> {
-           CatalogueList.add(txtPropiedades.getText());
-             System.out.println(CatalogueList.toString());
            
-           
+           ArrayList prop = getProperties(txtPropiedades.getText());
              
+           Catalogue c = new Catalogue(TxtName.getText(), prop);
           
+           System.out.println(prop.toString());
              
-            
+            File file = new File("catalogo.json");
+            new JsonUtil().toFile(file, c); // llenar el archivo
              
              
          });
@@ -239,9 +240,25 @@ public class InterfaceCreateCatalogue extends Application {
         
          return new Scene (pane,800,800);
     }//scene
-
+ private ArrayList getProperties(String Propertie){
+     ArrayList list = new ArrayList();
+    
+         String Nameproperties="";
+         int controlToken=1;
+         StringTokenizer sT = new StringTokenizer(Propertie,",");
+         
+         while(sT.hasMoreTokens()){
+            list.add(sT.nextToken());
+         controlToken++;
+         }// End while
+         
+    return list;
+    
+    }  
    
 }//end
+
+
 
 
 
