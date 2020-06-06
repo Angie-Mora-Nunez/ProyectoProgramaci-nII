@@ -50,6 +50,7 @@ import javax.swing.JOptionPane;
  * @author 
  * Marian Murillo Bonilla
  * Angie Mora Núñez
+ * 
  */
  
 public class InterfaceEntry extends Application{
@@ -70,14 +71,14 @@ public class InterfaceEntry extends Application{
   
     @Override
     public void start(Stage stage) throws Exception {
-          this.stage=stage;
+         this.stage=stage;
         title(stage);
         GridPane pane = buildPane();
         setupControls(pane);
         addHandlers();
         stage.setScene(createScene(pane));
-       
-         stage.show();
+        stage.setResizable(false);
+        stage.show();
         
         
        
@@ -116,10 +117,7 @@ public class InterfaceEntry extends Application{
 //              txUser.clear();
          });
      
-       
-        
-
-         
+     
          InterfacePrincipal iP = new InterfacePrincipal();
          BtnSalida.setOnAction(actionEvent -> {
              try {
@@ -193,7 +191,6 @@ public class InterfaceEntry extends Application{
         return button;
     }//button
      
-
       private ImageView ImagePreview(GridPane pane,int row) throws FileNotFoundException{
         FileInputStream imageStream = new FileInputStream("pala.png");
         Image imageS = new Image(imageStream);
@@ -202,7 +199,7 @@ public class InterfaceEntry extends Application{
         pane.add(image, 12, 0);
         GridPane.setMargin(image, new Insets(20, 0, 20, 0));
         return image;
-      }
+      }//image
      
       private Label buildLabelSlogan(String text, GridPane pane, int row) {
         Label lb = new Label(text);
@@ -211,11 +208,7 @@ public class InterfaceEntry extends Application{
         GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
         return lb;
     }//button
-    
-      
-      
-     
-     
+
       private Button buildGenerateButtonEnd(String label, GridPane pane, int row) {
         Button button = new Button(label);
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
@@ -266,8 +259,4 @@ public class InterfaceEntry extends Application{
          return new Scene (pane,900,900);
     }//scene
 
-   
-
-  
- 
 }//end
