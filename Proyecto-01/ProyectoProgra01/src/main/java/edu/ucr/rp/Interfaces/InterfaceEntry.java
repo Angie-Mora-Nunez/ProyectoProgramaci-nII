@@ -263,9 +263,7 @@ public class InterfaceEntry extends Application{
 
      private Scene createScene (Pane pane) {
          pane.setStyle("-fx-background-color:#37D8E3" );
-     
-        
-         return new Scene (pane,800,800);
+         return new Scene (pane,900,900);
     }//scene
 
    

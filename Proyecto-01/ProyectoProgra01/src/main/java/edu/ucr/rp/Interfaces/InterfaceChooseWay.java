@@ -153,7 +153,7 @@ public class InterfaceChooseWay extends Application{
      
      private Button buttonCatalogue(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button, 5, 15);
+        pane.add(button, 3, 15);
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
@@ -164,7 +164,7 @@ public class InterfaceChooseWay extends Application{
      
       private Button buttonProducts(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button, 1, 15);
+        pane.add(button, 5, 15);
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
@@ -189,15 +189,17 @@ public class InterfaceChooseWay extends Application{
         Image imageS = new Image(imageStream);
         ImageView image = new ImageView(imageS);
         GridPane.setHalignment(image, HPos.CENTER);
-        pane.add(image, 12, 0);
+        GridPane.setHalignment(image, HPos.CENTER);
+        pane.add(image, 9, 0);
         GridPane.setMargin(image, new Insets(20, 0, 20, 0));
         return image;
       }
      
       private Label buildLabelSlogan(String text, GridPane pane, int row) {
         Label lb = new Label(text);
-        pane.add(lb,13, 0);
+        pane.add(lb,10, 0);
         lb.setFont(new Font("Indie Flower",16));
+        GridPane.setHalignment(lb, HPos.CENTER);
         GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
         return lb;
     }//button
@@ -213,11 +215,9 @@ public class InterfaceChooseWay extends Application{
         alert.show();
     }//showalert
 
-     private Scene createScene (Pane pane){
-         
-          pane.setStyle("-fx-background-color:#37D8E3" );
-         
-    return new Scene (pane,800,800);
+     private Scene createScene (Pane pane) {
+         pane.setStyle("-fx-background-color:#37D8E3" );
+         return new Scene (pane,900,900);
     }//scene
 
   

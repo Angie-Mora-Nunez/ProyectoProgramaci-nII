@@ -35,9 +35,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 /**
  *
@@ -76,10 +78,12 @@ public class InterfaceProducts extends Application {
         stage.setTitle("Bienvenido a las acciones para los catálogos");
     }//title
      private void addHandlers() {
-         
-         
+     
     }//eventos
+   
     
+     
+     
       public VBox getVBox() throws FileNotFoundException {
        
         VBox vb_main = new VBox(); // VBox que contendrá las opciones del menú 
@@ -88,11 +92,13 @@ public class InterfaceProducts extends Application {
         VBox VB_Windows = new VBox(); // VBox para contener las demás ventanas sin alterar el principal 
         // barra de menú 
         
+        
+        
         MenuBar Mb_menu = new MenuBar();
-      
         //1-ítem de crear catálogo
          Menu m_Create= new Menu("Agregar Producto");
           m_Create.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
+          
          
        // IMAGEN 
        File file = new File("create.png");
@@ -191,6 +197,7 @@ public class InterfaceProducts extends Application {
        //7-ítem para salir
        Menu m_Exit= new Menu("Salir");
        m_Exit.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
+       
       // imagen 
        File file6 = new File("exit.png");
        Image image6 = new Image(file6.toURI().toString());
@@ -214,13 +221,15 @@ public class InterfaceProducts extends Application {
        // agregar el menú a la barra 
        Mb_menu.getMenus().addAll(m_Create,m_ListCatalogs,m_Modificate,m_ListProducts,m_Exit);
 
-       FileInputStream imageStream = new FileInputStream("hola.png");
+        FileInputStream imageStream = new FileInputStream("hola.png");
         Image imageS = new Image(imageStream);
-        
+        ImageView imagen = new ImageView(imageS);
+      new Insets(0,10,0,10);
+       
         
       
        // agregar barra al VBox
-       vb_main.getChildren().addAll(Mb_menu, VB_Windows,new ImageView(imageS));
+       vb_main.getChildren().addAll(Mb_menu, VB_Windows,imagen);
         return vb_main;
         
     }// end VBox
@@ -234,11 +243,12 @@ public class InterfaceProducts extends Application {
         alert.show();
     }//showalert
 
-     private Scene createScene (Pane pane){
-      pane.setStyle("-fx-background-color:#37D8E3" );
-    return new Scene (pane,800,800);
+     private Scene createScene (Pane pane) {
+         pane.setStyle("-fx-background-color:#37D8E3" );
+         return new Scene (pane,900,900);
     }//scene
-}
+     
+}//InterfaceProducts
 
 
 

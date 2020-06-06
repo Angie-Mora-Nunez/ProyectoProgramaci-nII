@@ -22,6 +22,7 @@ import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -96,23 +97,31 @@ public class InterfaceCreateCatalogue extends Application {
        
          btn_Agregar.setOnAction((ActionEvent actionEvent) -> {
            
-           ArrayList prop = getProperties(txtPropiedades.getText());
-           
-           Catalogue c = new Catalogue(TxtName.getText(), prop);
+          ArrayList ar= new ArrayList();
+          ar.add(txtPropiedades.getText());
+           Catalogue c = new Catalogue(TxtName.getText(), ar);
           
-           System.out.println(prop.toString());
+           System.out.println(ar.toString());
              
            catalogs.add(c);
           
-            File file = new File("catalogo.json");
-            new JsonUtil().toFile(file, catalogs); // llenar el archivo
+            File fileCatalogueshow = new File("catalogo.txt");
+            
              try {
-                 ArrayList<Catalogue> e = new JsonUtil().asObject(file.toURI().toURL(),ArrayList.class);
-                 
-                 //System.out.println(e.get(1));
-             } catch (MalformedURLException ex) {
+                 FileOutputStream fos = new FileOutputStream(fileCatalogueshow,true);
+                 PrintStream ps = new PrintStream(fos);
+                 ps.println(new Catalogue(TxtName.getText(), ar));
+                 AddProperties(TxtName.getText(),txtPropiedades.getText());
+          
+             } catch (FileNotFoundException ex) {
                  Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);
-             }
+             }//try/catch
+            
+             TxtName.clear();
+             txtPropiedades.clear();
+             
+            
+            
              
          });
      
@@ -239,21 +248,46 @@ public class InterfaceCreateCatalogue extends Application {
         
          return new Scene (pane,800,800);
     }//scene
- private ArrayList getProperties(String Propertie){
-     ArrayList list = new ArrayList();
-    
-         String Nameproperties="";
-         int controlToken=1;
-         StringTokenizer sT = new StringTokenizer(Propertie,",");
-         
-         while(sT.hasMoreTokens()){
-            list.add(sT.nextToken());
-         controlToken++;
-         }// End while
-         
-    return list;
-    
-    }  
+     
+     private void AddProperties(String name,String properties) throws FileNotFoundException{
+         File fileCatalogueTokens = new File("CatalogueTokens");
+         FileOutputStream fos = new FileOutputStream(fileCatalogueTokens,true);
+                 PrintStream ps = new PrintStream(fos);
+                 ps.println(name+","+properties);
+     }//addProperties
+     
+     
+     
+// private ArrayList getProperties(String Propertie){
+//     ArrayList list = new ArrayList();
+//     File fileProperties = new File("fileTokens.txt");
+//     try{
+//      FileInputStream fis = new FileInputStream(fileProperties);
+//      InputStreamReader isr = new InputStreamReader(fis);
+//         BufferedReader br = new BufferedReader(isr);
+//         String actualRegister=br.readLine();
+//         
+//         while(actualRegister!=null){
+//         String nameProperties="",properties="";
+//         int controlToken=1;
+//         StringTokenizer sT = new StringTokenizer(Propertie,"|");
+//         while(sT.hasMoreTokens()){
+//             if (controlToken==1) 
+//              nameProperties=sT.nextToken();
+//             else if(controlToken==2)
+//                properties=sT.nextToken();
+//                controlToken++; 
+//             }//while
+//         Catalogue catalogues = new Catalogue(nameProperties, list);
+//         list.add(catalogues);
+//         actualRegister=br.readLine();
+//             }//while
+//         } catch (FileNotFoundException ex) {
+//            Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);}
+// return list;
+// } 
    
 }//end
 
