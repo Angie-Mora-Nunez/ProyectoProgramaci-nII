@@ -1,1 +1,6 @@
-Catalogue{nameCatalogue=manuelo, properties=[rutencio,lololo]}
+Catálogo{Nombre de Catálogo=Mano, Propiedades=lolo,roro,roco}
+
+Catálogo{Nombre de Catálogo=marciano, Propiedades=camell0,lolo,poto}
+
+Catálogo{Nombre de Catálogo=portio, Propiedades=ñero,pero,volo}
+

@@ -99,7 +99,7 @@ public class InterfaceCreateCatalogue extends Application {
            
           ArrayList ar= new ArrayList();
           ar.add(txtPropiedades.getText());
-           Catalogue c = new Catalogue(TxtName.getText(), ar);
+           Catalogue c = new Catalogue(TxtName.getText(), txtPropiedades.getText());
           
            System.out.println(ar.toString());
              
@@ -110,8 +110,9 @@ public class InterfaceCreateCatalogue extends Application {
              try {
                  FileOutputStream fos = new FileOutputStream(fileCatalogueshow,true);
                  PrintStream ps = new PrintStream(fos);
-                 ps.println(new Catalogue(TxtName.getText(), ar));
+                 ps.println(new Catalogue(TxtName.getText(),txtPropiedades.getText()));
                  AddProperties(TxtName.getText(),txtPropiedades.getText());
+                 AddPropertiesALL(txtPropiedades.getText());
           
              } catch (FileNotFoundException ex) {
                  Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);
@@ -250,45 +251,20 @@ public class InterfaceCreateCatalogue extends Application {
     }//scene
      
      private void AddProperties(String name,String properties) throws FileNotFoundException{
-         File fileCatalogueTokens = new File("CatalogueTokens");
+         File fileCatalogueTokens = new File("CatalogueTokens.txt");
          FileOutputStream fos = new FileOutputStream(fileCatalogueTokens,true);
                  PrintStream ps = new PrintStream(fos);
-                 ps.println(name+","+properties);
+                 ps.println(name+"|"+properties);
      }//addProperties
      
      
      
-// private ArrayList getProperties(String Propertie){
-//     ArrayList list = new ArrayList();
-//     File fileProperties = new File("fileTokens.txt");
-//     try{
-//      FileInputStream fis = new FileInputStream(fileProperties);
-//      InputStreamReader isr = new InputStreamReader(fis);
-//         BufferedReader br = new BufferedReader(isr);
-//         String actualRegister=br.readLine();
-//         
-//         while(actualRegister!=null){
-//         String nameProperties="",properties="";
-//         int controlToken=1;
-//         StringTokenizer sT = new StringTokenizer(Propertie,"|");
-//         while(sT.hasMoreTokens()){
-//             if (controlToken==1) 
-//              nameProperties=sT.nextToken();
-//             else if(controlToken==2)
-//                properties=sT.nextToken();
-//                controlToken++; 
-//             }//while
-//         Catalogue catalogues = new Catalogue(nameProperties, list);
-//         list.add(catalogues);
-//         actualRegister=br.readLine();
-//             }//while
-//         } catch (FileNotFoundException ex) {
-//            Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);}
-// return list;
-// } 
-   
+ private void AddPropertiesALL(String properties) throws FileNotFoundException{
+         File fileCatalogueTokensAll = new File("CatalogueTokensAll.txt");
+         FileOutputStream fos = new FileOutputStream(fileCatalogueTokensAll,true);
+                 PrintStream ps = new PrintStream(fos);
+                 ps.println(properties);
+     }//addProperties
 }//end
 
 

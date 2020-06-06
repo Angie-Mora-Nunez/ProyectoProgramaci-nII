@@ -20,9 +20,9 @@ import javax.swing.JOptionPane;
  */
 public class Catalogue {
     private String nameCatalogue;
-    private ArrayList properties;
+    private String properties;
 
-    public Catalogue(String nameCatalogue, ArrayList properties) {
+    public Catalogue(String nameCatalogue, String properties) {
         this.nameCatalogue = nameCatalogue;
         this.properties = properties;
     }//constructor
@@ -35,20 +35,20 @@ public class Catalogue {
         this.nameCatalogue = nameCatalogue;
     }//setname
 
-    public ArrayList getProperties() {
+    public String getProperties() {
         return properties;
     }//getPropiedades
 
-    public void setProperties(ArrayList properties) {
+    public void setProperties(String properties) {
         this.properties = properties;
     }//setPropiedades
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Catalogue{nameCatalogue=").append(nameCatalogue);
-        sb.append(", properties=").append(properties);
-        sb.append('}');
+        sb.append("Catálogo{Nombre de Catálogo=").append(nameCatalogue);
+        sb.append(", Propiedades=").append(properties);
+        sb.append('}'+"\n");
         return sb.toString();
     }
 
