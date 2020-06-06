@@ -7,6 +7,7 @@ package edu.ucr.rp.Interfaces.Products;
 
 import edu.ucr.rp.Interfaces.*;
 import edu.ucr.rp.Interfaces.Logic.Catalogue;
+import edu.ucr.rp.Interfaces.Logic.Registers;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
@@ -122,6 +123,7 @@ public class InterfaceAddRegisters extends Application {
          });//accion boton properties
          
          generateButton.setOnAction(actionEvent -> {
+             ArrayList showInfo = new ArrayList();
              labelCatalogues.setVisible(true);
              btnSearch.setVisible(true);
              cBListNames.setVisible(true);
@@ -135,6 +137,8 @@ public class InterfaceAddRegisters extends Application {
              String namesProducts = nameProduct.get(0).toString();
              String propertiesFile="";
              String descriptions ="";
+             String show ="";
+             String showAll="";
              
              for (int i = 0; i < propertiesAdd.size(); i++) {
                 propertiesFile+=propertiesAdd.get(i).toString()+",";
@@ -143,11 +147,20 @@ public class InterfaceAddRegisters extends Application {
               for (int i = 0; i < description.size(); i++) {
                 descriptions+=description.get(i).toString()+",";
              }//for
-             
+              
+               for (int i = 0; i < description.size(); i++) {
+                show+=propertiesAdd.get(i).toString()+":"+" "+description.get(i).toString()+",";
+             }//for
+               
+               showAll="{ Nombre del catálogo :"+" "+nameCatalogues+" "+"Nombre de producto :"+" "+namesProducts+" "+" "+"Propiedades: "+show+"}";
+               
              File nameCataloguesRegisters = new File("nameCataloguesRegisters.txt");
              File nameProducts = new File("nameProducts.txt");
              File propertiesFiles = new File("propertiesFiles.txt");
              File propertiesDescription = new File("propertiesDescription.txt");
+             File showRegisters = new File("ShowRegisters.txt");
+             showInfo.add(showAll);
+             
               try {
                   
                  FileOutputStream fos = new FileOutputStream(nameCataloguesRegisters,true);
@@ -165,6 +178,11 @@ public class InterfaceAddRegisters extends Application {
                  FileOutputStream fo2 = new FileOutputStream(propertiesDescription,true);
                  PrintStream ps2 = new PrintStream(fo2);
                  ps2.println(descriptions);
+                 
+                 FileOutputStream fo3 = new FileOutputStream(showRegisters,true);
+                 PrintStream ps3 = new PrintStream(fo3);
+                 ps3.println(showInfo.toString());
+                 
   
              } catch (FileNotFoundException ex) {
                  Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);
@@ -186,7 +204,7 @@ public class InterfaceAddRegisters extends Application {
                 } catch (Exception ex) {
                     Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
                 }//try/catch
-         });
+         });//btn salir
     }//eventos
     
      private GridPane buildPane() {

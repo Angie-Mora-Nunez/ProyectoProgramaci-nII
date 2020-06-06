@@ -10,6 +10,14 @@ import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -21,6 +29,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -28,6 +37,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,9 +46,11 @@ import javafx.stage.Window;
  * Angie Mora Núñez
  */
 public class InterfaceListingRegisters extends Application {
-     private Label lp;
+    private Label lp;
     private Button generateButton;
     private Button btn_exit;
+    private TextArea txtShow;
+    
     private Stage stage;
   
     @Override
@@ -56,54 +68,77 @@ public class InterfaceListingRegisters extends Application {
     }//dispaly
     
     private void title(Stage stage) {
-        stage.setTitle("Listar Registros");
+        stage.setTitle("Lista de catálogos");
     }//title
      private void addHandlers() {
-         InterfaceProducts iP = new InterfaceProducts();
+         InterfaceProducts iu = new InterfaceProducts();
          btn_exit.setOnAction(actionEvent -> {
              try {
-                 iP.start(stage);
+                 iu.start(stage);
              } catch (Exception ex) {
-                 Logger.getLogger(InterfaceListingRegisters.class.getName()).log(Level.SEVERE, null, ex);
+                 Logger.getLogger(InterfaceListingCatalogs.class.getName()).log(Level.SEVERE, null, ex);
              }
          });
          
     }//eventos
     
      private GridPane buildPane() {
-        GridPane gridPane = new GridPane();
+            GridPane gridPane = new GridPane();
+        
+        
         gridPane.setAlignment(Pos.CENTER);
-        gridPane.setPadding(new Insets(40, 40,40, 40));
+        gridPane.setPadding(new Insets(10, 10,10, 10));
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         ColumnConstraints columnOneConstraints = new ColumnConstraints(LABEL_WITH, LABEL_WITH, LABEL_WITH_MAX);
         columnOneConstraints.setHalignment(HPos.RIGHT);
         ColumnConstraints columnTwoConstrains = new ColumnConstraints(INPUT_WITH, INPUT_WITH, INPUT_WITH_MAX);
         columnTwoConstrains.setHgrow(Priority.ALWAYS);
-
-        gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
-
-        return gridPane;
-    }//GridPane
      
-      private TextField buildTextInput(String text, GridPane pane, int row) {
-        Label minNumberLabel = new Label(text);
-        pane.add(minNumberLabel, 0, row);
-        TextField textField = new TextField();
-        pane.add(textField, 1, row);
-        return textField;
-    }//TExtField
-     
-     private void setupControls(GridPane pane) {
-       
-        generateButton = buildGenerateButton("Listar Registros", pane, 5);
-         btn_exit= buildGenerateButton("Salir", pane, 6);
          
+        
+        return gridPane; 
+    }//GridPane
+
+     private void setupControls(GridPane pane) {
+          String value="";
+          BufferedReader br = getBufferedReader("ShowRegisters.txt");
+          ArrayList listp= new ArrayList();
+         String output="";
+   
+          try {
+              while ((value = br.readLine())!=null) {
+                  
+                  listp.add(value);
+              }//while
+               Collections.sort(listp);
+              
+              for (int i = 0; i < listp.size(); i++) {
+                  output+=listp.get(i)+"\n";
+              }//for
+              
+          } catch (IOException ex) {
+              Logger.getLogger(InterfaceListingCatalogs.class.getName()).log(Level.SEVERE, null, ex);
+          }//try/catch
+    
+      
+         btn_exit= buildGenerateButton("Salir", pane, 6);
+         txtShow=buildTextAreaShow(output, pane, 5);
     }//Controladores
      
+     
+       private TextArea buildTextAreaShow(String text,GridPane pane, int row) {
+        TextArea txtArea = new TextArea(text);
+        pane.add(txtArea, 0, 1);
+        TextField textField = new TextField();
+        GridPane.setHalignment(txtArea, HPos.CENTER);
+        return txtArea;
+    }//TExtField
+     
+       
      private Button buildGenerateButton(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button, 0, row, 1, 1);
+        pane.add(button, 1, 3);
         GridPane.setHalignment(button, HPos.CENTER);
         GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
@@ -119,10 +154,32 @@ public class InterfaceListingRegisters extends Application {
         alert.show();
     }//showalert
 
-    private Scene createScene (Pane pane) {
-         pane.setStyle("-fx-background-color:#37D8E3" );
-         return new Scene (pane,900,900);
+     private Scene createScene (Pane pane){
+         
+          pane.setStyle("-fx-background-color:#37D8E3" );
+         
+    return new Scene (pane,800,500);
     }//scene
+
+    private BufferedReader getBufferedReader(String lisProperties) {
+          File listas = new File("ShowRegisters.txt");
+        BufferedReader br = null;
+        try{
+            FileInputStream fis = new FileInputStream(listas);
+            InputStreamReader isr = new InputStreamReader(fis);
+             br = new BufferedReader(isr);
+        }//try
+        catch(FileNotFoundException fnfe){
+           JOptionPane.showMessageDialog(null, "problema con el archivo"+fnfe);
+        }//catch
+        return br;  
+    }//getBufferes
+    
+   
+    
+    
+    
+    
     
 }//end
 

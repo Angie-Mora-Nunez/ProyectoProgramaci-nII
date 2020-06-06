@@ -1,2 +1,6 @@
-polco,polcos,polcoss,
-sdf,sdfdf,sdfdfsf,
+es verde,es viejo,es polo,
+politero,politeros,politerosdfdf,
+es feo,es lindo,es lucho,
+es verde,es verdes,es verdess,
+sdf,sdfdfsd,sdfdfsddfsd,
+sdf,sdffsdfa,sdffsdfafdsfa,

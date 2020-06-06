@@ -1,2 +1,6 @@
-roro,lolo,roco,
+roro,roco,lolo,
+lolo,camell0,poto,
+camell0,lolo,poto,
+camell0,lolo,poto,
+ñero,pero,volo,
 camell0,lolo,poto,
