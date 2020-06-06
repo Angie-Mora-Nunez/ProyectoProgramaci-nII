@@ -36,6 +36,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -44,15 +46,22 @@ import javafx.stage.Window;
  * @author Equipo
  */
 public class InterfaceAddRegisters extends Application {
-    private Label lp;
+    private Label labelAnunced;
+    private Label labelnameProduct;
+    private Label labelCatalogues;
     private Button generateButton;
     private Button btn_exit;
     private Stage stage;
-    private TextField txtBuscar;
+    private TextField txtNameProduct;
     private Button btnSearch;
     private ComboBox cBListNames;
+    private ComboBox cBProperties;
+    private TextField txtAgregarPropiedad;
+    private Button btnAddProperties;
     ArrayList listAux = getRegistersRegisters();
+    ArrayList propertiesList = getRegistersRegistersAll();
     ArrayList listSi = new ArrayList();
+     ArrayList propetiesCombo=new ArrayList();
    // Intancias 
  
     @Override
@@ -75,21 +84,26 @@ public class InterfaceAddRegisters extends Application {
     
      private void addHandlers() {//funcionalidad
          btnSearch.setOnAction(actionEvent -> {
-             ArrayList e = getRegistersRegistersAll();
-             
-             for (int i = 0; i < e.size(); i++) {
-//                 Catalogue cat =new Catalogue(listAux.get(i).toString(),e.get(i).toString());
-             listSi.add(new Catalogue(listAux.get(i).toString(),e.get(i).toString()));
+             for (int i = 0; i < propertiesList.size(); i++) {
+             listSi.add(new Catalogue(listAux.get(i).toString(),propertiesList.get(i).toString()));
              }//for
-             System.out.println(listSi.toString());
-//             ArrayList j=cataloguesComplete(listAux, e);
-//             System.out.println(j.toString());
+////             System.out.println(listSi.toString());
+//             System.out.println(listAux.toString());
 //             
-
-
-          
-         
-         
+           
+            
+             
+//             System.out.println(SearchName(listAux, cBListNames.getValue()+"", propertiesList));
+                  propetiesCombo = getObteinProperties(SearchName(listAux,cBListNames.getValue()+"", propertiesList));
+              for (int i = 0; i < propetiesCombo.size(); i++) {
+              cBProperties.getItems().addAll(propetiesCombo.get(i));
+              }//for
+              
+             cBProperties.setVisible(true);
+             labelnameProduct.setVisible(true);
+             txtNameProduct.setVisible(true);
+             btnAddProperties.setVisible(true);
+        
          });
          
          InterfaceProducts iP = new InterfaceProducts();
@@ -105,35 +119,91 @@ public class InterfaceAddRegisters extends Application {
      private GridPane buildPane() {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
-        gridPane.setPadding(new Insets(40, 40,40, 40));
+        gridPane.setPadding(new Insets(10, 10,10, 10));
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         ColumnConstraints columnOneConstraints = new ColumnConstraints(LABEL_WITH, LABEL_WITH, LABEL_WITH_MAX);
         columnOneConstraints.setHalignment(HPos.RIGHT);
         ColumnConstraints columnTwoConstrains = new ColumnConstraints(INPUT_WITH, INPUT_WITH, INPUT_WITH_MAX);
         columnTwoConstrains.setHgrow(Priority.ALWAYS);
-        gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
-        return gridPane;
+        return gridPane; 
     }//GridPane
      
      private void setupControls(GridPane pane) {
-       
         generateButton = ButtonAgregar("Agregar Registros", pane, 5);
         btn_exit= buildGenerateButton("Salir", pane, 5);
         cBListNames=comboBoxNames(pane, 5);
         btnSearch=ButtonBuscar("Buscar Catalogo", pane, 5);
+        cBProperties=comboBoxProperties(pane, 5);
+        cBProperties.setVisible(false);
+        labelAnunced=labelName("Agregar productos",pane, 5);
+        labelCatalogues=labelCatalogue("Catálogos disponibles: ", pane, 5);
+        labelnameProduct=labelNameProduct("Nombre de producto", pane, 5);
+        labelnameProduct.setVisible(false);
+        txtNameProduct=TextFieldNameProduct(pane, 5);
+        txtNameProduct.setVisible(false);
+        btnAddProperties=ButtonAddProperties("Agregar propiedades", pane, 5);
+        btnAddProperties.setVisible(false);
+        txtAgregarPropiedad=TextFieldAddProduct(pane, 5);
+        txtAgregarPropiedad.setVisible(false);
     }//Controladores
 
       private ComboBox comboBoxNames(GridPane pane, int row) {
         ComboBox cmbList = new ComboBox();
-        pane.add(cmbList, 0,19);
+        cmbList.setValue("               Catálogos                 ");
+        pane.add(cmbList, 1,5);
           for (int i = 0; i < listAux.size(); i++) {
               cmbList.getItems().addAll(listAux.get(i));
           }//for
         return cmbList;
     }//TExtField
-     
-     
+      
+       private Label labelName(String name,GridPane pane, int row) {
+           Label label = new Label(name);
+          pane.add(label, 1,3);
+          label.setFont(new Font("Footlight MT Light",16));
+         GridPane.setMargin(label, new Insets(10, 0, 10, 0));
+        return label;
+    }//TExtField
+       
+       private Label labelNameProduct(String name,GridPane pane, int row) {
+           Label label = new Label(name);
+          pane.add(label, 0,6);
+          label.setFont(new Font("Footlight MT Light",16));
+         GridPane.setMargin(label, new Insets(10, 0, 10, 0));
+        return label;
+    }//TExtField
+       
+        private TextField TextFieldNameProduct(GridPane pane, int row) {
+           TextField txtnameProduct = new TextField();
+          pane.add(txtnameProduct, 1,6);
+          txtnameProduct.setFont(new Font("Footlight MT Light",16));
+         GridPane.setMargin(txtnameProduct, new Insets(10, 0, 10, 0));
+        return txtnameProduct;
+    }//TExtField
+        
+        private TextField TextFieldAddProduct(GridPane pane, int row) {
+           TextField txtnameProduct = new TextField();
+          pane.add(txtnameProduct, 1,7);
+          txtnameProduct.setFont(new Font("Footlight MT Light",16));
+         GridPane.setMargin(txtnameProduct, new Insets(10, 0, 10, 0));
+        return txtnameProduct;
+    }//TExtField
+   
+        private Label labelCatalogue(String name,GridPane pane, int row) {
+           Label label = new Label(name);
+          pane.add(label, 0,5);
+          label.setFont(new Font("Footlight MT Light",16));
+         GridPane.setMargin(label, new Insets(10, 0, 10, 0));
+        return label;
+    }//TExtField
+       
+      private ComboBox comboBoxProperties(GridPane pane, int row) {
+        ComboBox cmbList = new ComboBox();
+        cmbList.setValue("               Propiedades                 ");
+        pane.add(cmbList, 0,7);
+        return cmbList;
+    }//TExtField
      
      private Button buildGenerateButton(String label, GridPane pane, int row) {
         Button button = new Button(label);
@@ -143,21 +213,37 @@ public class InterfaceAddRegisters extends Application {
         return button;
     }//button
      
-     
       private Button ButtonAgregar(String label, GridPane pane, int row) {
         Button button = new Button(label);
         pane.add(button, 4,25);
+        button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
+        button.setTextFill(Color.BLACK);
+        button.setStyle("-fx-background-color: WHITE");
         GridPane.setHalignment(button, HPos.CENTER);
-        GridPane.setMargin(button, new Insets(20, 0, 20, 0));
+         GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
     }//button
      
-     
+      private Button ButtonAddProperties(String label, GridPane pane, int row) {
+        Button button = new Button(label);
+        pane.add(button, 2,7);
+        button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
+        button.setTextFill(Color.BLACK);
+        button.setStyle("-fx-background-color: WHITE");
+        GridPane.setHalignment(button, HPos.CENTER);
+        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+        return button;
+    }//button
+      
+      
      private Button ButtonBuscar(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button, 2, 19);
+        pane.add(button, 2, 5);
+        button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
+        button.setTextFill(Color.BLACK);
+        button.setStyle("-fx-background-color: WHITE");
         GridPane.setHalignment(button, HPos.CENTER);
-        GridPane.setMargin(button, new Insets(20, 0, 20, 0));
+        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
     }//button
      
@@ -239,17 +325,36 @@ public class InterfaceAddRegisters extends Application {
      return list2;
      }//getRegistersRegisters 
       
-//      private ArrayList cataloguesComplete(ArrayList arrayList1,ArrayList arrayList2){
-//      ArrayList arrayListComplete = new ArrayList();
-//          for (int i = 0; i < arrayList1.size(); i++) {
-//              Catalogue catalogue1= new Catalogue(arrayList1.get(i).toString(), arrayList2.get(i).toString());
-//              arrayListComplete.add(catalogue1);
-//          }//FOR PRIMERA LIST
-//    return arrayListComplete; 
-//      }//cataloguesComplete
+        public String SearchName(ArrayList name , String nameSearch,ArrayList properties) {
+            String output =""; 
+                for (int i = 0; i <name.size(); i++) {
+                    if (name.get(i).toString().equals(nameSearch)){ 
+                          output=(String) properties.get(i);
+                    }//if
+                }//for
+                  return output;
+       }//searchName      
       
       
+         public ArrayList getObteinProperties(String properties){
+         ArrayList listgetObtein = new ArrayList();
+             String propertie="";
+             int controlaTokens=1;
+             StringTokenizer sT2 = new StringTokenizer(properties,",");
+            
+            while(sT2.hasMoreTokens()){
+               propertie=sT2.nextToken();
+               controlaTokens++;
+               listgetObtein.add(propertie);
+            }//whilecontrolaTokens
       
+          return listgetObtein;
+     }//getRegistersRegisters 
+      
+        
+        
+        
+        
       
       
 }//InterfaceAddRegister
