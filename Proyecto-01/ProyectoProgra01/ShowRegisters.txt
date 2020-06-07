@@ -1,1 +1,2 @@
-[{ Nombre del catálogo : Clavo Nombre de producto : clavo vin  Propiedades: tamaño: grande,peso: 200,}]
+[{ Nombre del catálogo : Martillo Nombre de producto : MartilloP  Propiedades: tamaño: 10PULG,cantidad: 10,}]
+[{ Nombre del catálogo : clavos Nombre de producto : clavos pequeños  Propiedades: tamaño: 1 pulg,peso: 10 g,}]

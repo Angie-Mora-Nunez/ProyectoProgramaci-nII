@@ -71,6 +71,7 @@ public class InterfaceEdit extends Application {
     File propertiesDescription = new File("propertiesDescription.txt");
     private Stage stage;
     int position; 
+    ArrayList DescriptionsList = getDescriptions();
   
     @Override
     public void start(Stage stage) throws Exception {
@@ -122,23 +123,24 @@ public class InterfaceEdit extends Application {
         
          ArrayList Modificate = new ArrayList();
          btnConfirm.setOnAction(actionEvent -> {
-             Modificate.clear();
            Modificate.add(txtDescription.getText());
          });//actionConfirm
         
          btnSave.setOnAction(actionEvent -> {
              ArrayList addModificate = new ArrayList();
              String listConcaten ="";
+             int pos = SearchName(DescriptionL,cmbSearchNames+"");
+             
              for (int i = 0; i < Modificate.size(); i++) {
                  listConcaten+=Modificate.get(i).toString()+",";
                 }//for
                
-//             for (int i = 0; i < DescriptionL.size(); i++) {
-//                 if (i==position) {
-//                     addModificate.add(listConcaten);
-//                 }else//endif
-//                     addModificate.add(DescriptionL.get(i));
-//             }//for 
+             for (int i = 0; i < DescriptionsList.size(); i++) {
+                 if (i==pos) {
+                     addModificate.add(listConcaten);
+                 }else//endif
+                    addModificate.add(DescriptionsList.get(i));
+             }//for 
              
              
              
@@ -481,6 +483,32 @@ public class InterfaceEdit extends Application {
      return list2;
      
      }//getRegistersRegisters 
+     
+      public ArrayList getDescriptions(){
+      ArrayList list2 = new ArrayList();
+  
+        File propertiesDescription = new File("propertiesDescription.txt");
+         try {
+             FileInputStream fis = new FileInputStream(propertiesDescription);
+             InputStreamReader isr= new InputStreamReader(fis);
+             BufferedReader br = new BufferedReader(isr);
+            
+             String actualRegister = br.readLine();
+             
+             while(actualRegister!=null){
+              list2.add(actualRegister);
+             actualRegister=br.readLine();
+             }//whileActualRegisters
+             
+         } catch (FileNotFoundException ex) {
+             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (IOException ex) {
+             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
+         }//try/catch
+        
+     return list2;
+     
+     }//getRegistersRegisters 
    
       public int SearchName(ArrayList name , String nameSearch) {
             int output =0; 
@@ -508,6 +536,11 @@ public class InterfaceEdit extends Application {
      }//getRegistersRegisters
       
 }//end
+
+
+
+
+
 
 
 

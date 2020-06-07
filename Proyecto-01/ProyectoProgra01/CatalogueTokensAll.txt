@@ -1,4 +1,2 @@
-tamaño.forma
+tamaño,cantidad
 tamaño,peso
-largo,material
-peso,cantidad,empresa

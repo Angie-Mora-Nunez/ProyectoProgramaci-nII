@@ -1,1 +1,2 @@
-grande,200,
+10PULG,10,
+1 pulg,10 g,

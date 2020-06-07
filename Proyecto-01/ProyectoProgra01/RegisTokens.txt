@@ -1,1 +1,2 @@
-Clavo|clavo vin|tamaño: grande,peso: 200,
+Martillo|MartilloP|tamaño: 10PULG,cantidad: 10,
+clavos|clavos pequeños|tamaño: 1 pulg,peso: 10 g,
