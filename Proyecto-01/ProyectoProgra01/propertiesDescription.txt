@@ -1,6 +1,2 @@
-es verde,es viejo,es polo,
-politero,politeros,politerosdfdf,
-es feo,es lindo,es lucho,
-es verde,es verdes,es verdess,
-sdf,sdfdfsd,sdfdfsddfsd,
-sdf,sdffsdfa,sdffsdfafdsfa,
+blanco,2 mts,rayas blancas,
+cuadrada,2 pulgadas,500 ,

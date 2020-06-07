@@ -1,3 +1,2 @@
-Mano|lolo,roro,roco
-marciano|camell0,lolo,poto
-portio|ñero,pero,volo
+Madera|color,tamaño,forma
+Tornillos|forma,tamaño,cantidad

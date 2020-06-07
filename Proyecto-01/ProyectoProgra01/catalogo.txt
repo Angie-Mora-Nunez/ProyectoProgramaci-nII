@@ -1,6 +1,4 @@
-Catálogo{Nombre de Catálogo=Mano, Propiedades=lolo,roro,roco}
+Catálogo{Nombre de Catálogo=Madera, Propiedades=color,tamaño,forma}
 
-Catálogo{Nombre de Catálogo=marciano, Propiedades=camell0,lolo,poto}
-
-Catálogo{Nombre de Catálogo=portio, Propiedades=ñero,pero,volo}
+Catálogo{Nombre de Catálogo=Tornillos, Propiedades=forma,tamaño,cantidad}
 

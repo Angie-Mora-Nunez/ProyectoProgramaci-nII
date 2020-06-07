@@ -1,6 +1,2 @@
-[Registers{nameCatalogue=Mano, nameProduct=lolo, nameProperty=roro,roco,lolo,, descriptionProperties=es verde,es viejo,es polo,}]
-[Registers{nameCatalogue=marciano, nameProduct=policleto, nameProperty=lolo,camell0,poto,, descriptionProperties=politero,politeros,politerosdfdf,}]
-[marciano politico camell0:es feo,marciano politico lolo:es lindo,marciano politico poto:es lucho,]
-[Nombre de Catálogo: marciano Nombre del Producto: perro Propiedadescamell0:es verde,Nombre de Catálogo: marciano Nombre del Producto: perro Propiedadeslolo:es verdes,Nombre de Catálogo: marciano Nombre del Producto: perro Propiedadespoto:es verdess,]
-[Nombre de Catálogo: portio Nombre del Producto: politico Propiedadesñero:sdf,Nombre de Catálogo: portio Nombre del Producto: politico Propiedadespero:sdfdfsd,Nombre de Catálogo: portio Nombre del Producto: politico Propiedadesvolo:sdfdfsddfsd,]
-[{ Nombre del catálogo : marciano Nombre de producto : policleyo  Propiedades: camell0:sdf,lolo:sdffsdfa,poto:sdffsdfafdsfa,}]
+[{ Nombre del catálogo : Madera Nombre de producto : Madera laminada  Propiedades: color: blanco,tamaño: 2 mts,forma: rayas blancas,}]
+[{ Nombre del catálogo : Tornillos Nombre de producto : Tornillo flex  Propiedades: forma: cuadrada,tamaño: 2 pulgadas,cantidad: 500 ,}]

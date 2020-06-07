@@ -18,13 +18,11 @@ import java.util.ArrayList;
 public class Registers {
     private String nameCatalogue;
     private String nameProduct;
-    private String nameProperty;
     private String descriptionProperties;
 
-    public Registers(String nameCatalogue, String nameProduct, String nameProperty, String descriptionProperties) {
+    public Registers(String nameCatalogue, String nameProduct,String descriptionProperties) {
         this.nameCatalogue = nameCatalogue;
         this.nameProduct = nameProduct;
-        this.nameProperty = nameProperty;
         this.descriptionProperties = descriptionProperties;
     }//Constructor
 
@@ -44,14 +42,6 @@ public class Registers {
         this.nameProduct = nameProduct;
     }//setnameProduct
 
-    public String getNameProperty() {
-        return nameProperty;
-    }//getNameProperty
-
-    public void setNameProperty(String nameProperty) {
-        this.nameProperty = nameProperty;
-    }//setNameProperty
-
     public String getDescriptionProperties() {
         return descriptionProperties;
     }//getDescription
@@ -65,7 +55,6 @@ public class Registers {
         StringBuilder sb = new StringBuilder();
         sb.append("Registers{nameCatalogue=").append(nameCatalogue);
         sb.append(", nameProduct=").append(nameProduct);
-        sb.append(", nameProperty=").append(nameProperty);
         sb.append(", descriptionProperties=").append(descriptionProperties);
         sb.append('}');
         return sb.toString();

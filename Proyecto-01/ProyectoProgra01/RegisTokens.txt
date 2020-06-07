@@ -1,0 +1,2 @@
+Madera|Madera laminada|color: blanco,tamaño: 2 mts,forma: rayas blancas,
+Tornillos|Tornillo flex|forma: cuadrada,tamaño: 2 pulgadas,cantidad: 500 ,

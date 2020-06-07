@@ -182,7 +182,7 @@ public class InterfaceAddRegisters extends Application {
                  FileOutputStream fo3 = new FileOutputStream(showRegisters,true);
                  PrintStream ps3 = new PrintStream(fo3);
                  ps3.println(showInfo.toString());
-                 
+                 AddBuilderTokens(nameCatalogues, namesProducts, show);
   
              } catch (FileNotFoundException ex) {
                  Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);
@@ -449,7 +449,12 @@ public class InterfaceAddRegisters extends Application {
           return listgetObtein;
      }//getRegistersRegisters 
       
-        
+      private void AddBuilderTokens(String Catalog,String name,String namePropie ) throws FileNotFoundException{
+         File fileRegisTokens = new File("RegisTokens.txt");
+         FileOutputStream fos = new FileOutputStream(fileRegisTokens,true);
+                 PrintStream ps = new PrintStream(fos);
+                 ps.println(Catalog+"|"+name+"|"+namePropie);
+     }//addProperties  
         
         
         

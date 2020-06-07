@@ -12,7 +12,7 @@ package edu.ucr.rp.Interfaces;
  * Angie Mora Núñez
  */
 public class UIConstaints {
-    public static final int LABEL_WITH=150;
+    public static final int LABEL_WITH=100;
     public static final int LABEL_WITH_MAX=100;
     public static final int INPUT_WITH=100;
     public static final int INPUT_WITH_MAX=00;
