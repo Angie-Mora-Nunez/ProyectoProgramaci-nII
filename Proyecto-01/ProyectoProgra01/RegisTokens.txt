@@ -1,2 +1,1 @@
-Martillo|MartilloP|tamaño: 10PULG,cantidad: 10,
-clavos|clavos pequeños|tamaño: 1 pulg,peso: 10 g,
+Martillo|Martillo clar|tamaño: grande,precio: 1200,

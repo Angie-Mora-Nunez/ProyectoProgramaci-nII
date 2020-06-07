@@ -6,6 +6,7 @@
 package edu.ucr.rp.Interfaces.Products;
 
 import edu.ucr.rp.Interfaces.*;
+import edu.ucr.rp.Interfaces.Logic.Registers;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
@@ -32,6 +33,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -69,9 +71,15 @@ public class InterfaceEdit extends Application {
     ArrayList DescriptionL = getAllDescriptions();
     ArrayList arrayAux = new ArrayList();
     File propertiesDescription = new File("propertiesDescription.txt");
+    File fileRegisTokens = new File("RegisTokens.txt");
     private Stage stage;
     int position; 
     ArrayList DescriptionsList = getDescriptions();
+    private ComboBox cmbCatalogues;
+    ArrayList list = getRegistersRegisters();
+    ArrayList listComplete =getRegistersBusqueda();
+    ArrayList listShow = new ArrayList();
+    private TextArea txtShow;
   
     @Override
     public void start(Stage stage) throws Exception {
@@ -141,10 +149,32 @@ public class InterfaceEdit extends Application {
                  }else//endif
                     addModificate.add(DescriptionsList.get(i));
              }//for 
+              try {
+               FileOutputStream fos = new FileOutputStream(propertiesDescription);
+                PrintStream ps = new PrintStream(fos);
+                ps.println();
+          
+                FileOutputStream fosRe = new FileOutputStream(fileRegisTokens);
+                PrintStream psRe = new PrintStream(fosRe);
+                psRe.println();
+                
+                // limpiar el archivo 
+                
+                
+           
+                FileOutputStream fo2 = new FileOutputStream(propertiesDescription,true);
+                 PrintStream ps2 = new PrintStream(fo2);
+                 for (int i = 0; i < addModificate.size(); i++) {
+                     ps2.println(addModificate.get(i).toString());
+                }//for
+                 
+                
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(InterfaceEdit.class.getName()).log(Level.SEVERE, null, ex);
+            }//try/catch
+                
              
              
-             
-             System.out.println(addModificate.toString());
         });//actionSave
         
         btn_exit.setOnAction(actionEvent -> {
@@ -535,6 +565,88 @@ public class InterfaceEdit extends Application {
           return listgetObtein;
      }//getRegistersRegisters
       
+       
+        public ArrayList getRegistersRegisters(){
+     ArrayList listas = new ArrayList();
+      File fileCatalogueTokens = new File("CatalogueTokens.txt");
+         try {
+             FileInputStream fis = new FileInputStream(fileCatalogueTokens);
+             InputStreamReader isr= new InputStreamReader(fis);
+             BufferedReader br = new BufferedReader(isr);
+             String actualRegister = br.readLine();
+             while(actualRegister!=null){
+             String nombre="";
+             int controlaTokens=1;
+             StringTokenizer sT = new StringTokenizer(actualRegister,"|");
+             listas.add(sT.nextToken());
+             actualRegister=br.readLine();
+             }//whileActualRegisters
+             
+         } catch (FileNotFoundException ex) {
+             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (IOException ex) {
+             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
+         }//try/catch
+        
+     return listas;
+     }//getRegistersRegisters 
+     
+     
+      public ArrayList getRegistersBusqueda(){
+      ArrayList list2 = new ArrayList();
+       File fileRegisTokens = new File("RegisTokens.txt");
+         try {
+             FileInputStream fiso = new FileInputStream(fileRegisTokens);
+             InputStreamReader isro= new InputStreamReader(fiso);
+             BufferedReader bro = new BufferedReader(isro);
+             String actualRegister = bro.readLine();
+             
+             while(actualRegister!=null){
+             String Catalog="",name="",namePropie="";
+             int controlaTokens=1;
+             StringTokenizer sT = new StringTokenizer(actualRegister,"|");
+             
+             while(sT.hasMoreElements()){
+             if(controlaTokens==1)
+                 Catalog=sT.nextToken();
+             else if(controlaTokens==2)
+                 name=sT.nextToken();
+             else if(controlaTokens==3)
+                 namePropie=sT.nextToken();
+             
+             controlaTokens++;
+             }//While
+                 Registers registers = new Registers(Catalog, name, namePropie);
+                 list2.add(registers);
+             actualRegister=bro.readLine();
+             }//whileActualRegisters
+             
+         } catch (FileNotFoundException ex) {
+             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (IOException ex) {
+             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
+         }//try/catch
+        
+     return list2;
+     }//getRegistersRegisters 
+
+      public Registers SearchName(ArrayList name , String nameSearch,ArrayList properties) {
+            String output =""; 
+            Registers registr=null;
+            for (int j = 0; j < name.size(); j++) {
+                for (int i = 0; i <properties.size(); i++) {
+                    registr=(Registers)properties.get(i);
+                    if (name.get(j).toString().equalsIgnoreCase(registr.getNameCatalogue())&& nameSearch.equalsIgnoreCase(registr.getNameProduct())){ 
+                          return registr;
+                    }//if
+                }//for
+                }//for
+             return registr;
+       }//searchName      
+       
+       
+       
+       
 }//end
 
 

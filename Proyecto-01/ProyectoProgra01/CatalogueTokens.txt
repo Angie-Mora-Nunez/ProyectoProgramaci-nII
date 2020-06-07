@@ -1,2 +1,2 @@
-Martillo|tamaño,cantidad
-clavos|tamaño,peso
+Martillo|tamaño,precio
+Clavo|tamaño,forma

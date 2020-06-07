@@ -1,2 +1,2 @@
-tamaño,cantidad
-tamaño,peso
+tamaño,precio
+tamaño,forma

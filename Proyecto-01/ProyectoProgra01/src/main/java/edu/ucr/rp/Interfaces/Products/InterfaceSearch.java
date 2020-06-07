@@ -54,7 +54,6 @@ public class InterfaceSearch extends Application {
     private Label labelShow;
     private Button buttonSearch;
     private Button btn_exit;
-    private TextArea txtShow;
     private TextField txtSearching;
     private Label labelSearching;
     private Stage stage;
@@ -62,6 +61,7 @@ public class InterfaceSearch extends Application {
     ArrayList list = getRegistersRegisters();
     ArrayList listComplete =getRegistersBusqueda();
     ArrayList listShow = new ArrayList();
+    private TextArea txtShow;
   
     @Override
     public void start(Stage stage) throws Exception {
