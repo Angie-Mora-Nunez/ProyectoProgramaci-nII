@@ -1,2 +1,1 @@
-[{ Nombre del catálogo : perro Nombre de producto : lucho  Propiedades: color: ,color: cafe, forma: mono,}]
-[{ Nombre del catálogo : perro Nombre de producto : chanco  Propiedades: color: cafe, forma: gato,}]
+[{ Nombre del catálogo : Clavo Nombre de producto : clavo vin  Propiedades: tamaño: grande,peso: 200,}]

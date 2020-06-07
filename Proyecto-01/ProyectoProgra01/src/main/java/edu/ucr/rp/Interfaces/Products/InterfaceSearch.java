@@ -93,7 +93,7 @@ public class InterfaceSearch extends Application {
          
           buttonSearch.setOnAction(actionEvent -> {
           txtShow.setVisible(true);
-          listShow.add(SearchName(list, txtSearching.getText(),listComplete));
+          listShow.add(SearchName(list, txtSearching.getText(),listComplete));   
           txtShow.setText(listShow.toString());
          });//buscarAccion
          
@@ -217,10 +217,9 @@ public class InterfaceSearch extends Application {
     }//scene
   
      public ArrayList getRegistersRegisters(){
-     ArrayList list = new ArrayList();
+     ArrayList listas = new ArrayList();
       File fileCatalogueTokens = new File("CatalogueTokens.txt");
          try {
-             
              FileInputStream fis = new FileInputStream(fileCatalogueTokens);
              InputStreamReader isr= new InputStreamReader(fis);
              BufferedReader br = new BufferedReader(isr);
@@ -229,7 +228,7 @@ public class InterfaceSearch extends Application {
              String nombre="";
              int controlaTokens=1;
              StringTokenizer sT = new StringTokenizer(actualRegister,"|");
-             list.add(sT.nextToken());
+             listas.add(sT.nextToken());
              actualRegister=br.readLine();
              }//whileActualRegisters
              
@@ -239,7 +238,7 @@ public class InterfaceSearch extends Application {
              Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
          }//try/catch
         
-     return list;
+     return listas;
      }//getRegistersRegisters 
      
      
@@ -247,10 +246,10 @@ public class InterfaceSearch extends Application {
       ArrayList list2 = new ArrayList();
        File fileRegisTokens = new File("RegisTokens.txt");
          try {
-             FileInputStream fis = new FileInputStream(fileRegisTokens);
-             InputStreamReader isr= new InputStreamReader(fis);
-             BufferedReader br = new BufferedReader(isr);
-             String actualRegister = br.readLine();
+             FileInputStream fiso = new FileInputStream(fileRegisTokens);
+             InputStreamReader isro= new InputStreamReader(fiso);
+             BufferedReader bro = new BufferedReader(isro);
+             String actualRegister = bro.readLine();
              
              while(actualRegister!=null){
              String Catalog="",name="",namePropie="";
@@ -264,11 +263,12 @@ public class InterfaceSearch extends Application {
                  name=sT.nextToken();
              else if(controlaTokens==3)
                  namePropie=sT.nextToken();
+             
              controlaTokens++;
              }//While
                  Registers registers = new Registers(Catalog, name, namePropie);
                  list2.add(registers);
-             actualRegister=br.readLine();
+             actualRegister=bro.readLine();
              }//whileActualRegisters
              
          } catch (FileNotFoundException ex) {
@@ -283,11 +283,13 @@ public class InterfaceSearch extends Application {
       public Registers SearchName(ArrayList name , String nameSearch,ArrayList properties) {
             String output =""; 
             Registers registr=null;
+            for (int j = 0; j < name.size(); j++) {
                 for (int i = 0; i <properties.size(); i++) {
                     registr=(Registers)properties.get(i);
-                    if (name.get(i).toString().equalsIgnoreCase(registr.getNameCatalogue())&& nameSearch.equalsIgnoreCase(registr.getNameProduct())){ 
+                    if (name.get(j).toString().equalsIgnoreCase(registr.getNameCatalogue())&& nameSearch.equalsIgnoreCase(registr.getNameProduct())){ 
                           return registr;
                     }//if
+                }//for
                 }//for
              return registr;
        }//searchName      

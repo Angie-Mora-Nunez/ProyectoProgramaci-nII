@@ -1,2 +1,1 @@
-color,color, forma,
-color, forma,
+tamaño,peso,

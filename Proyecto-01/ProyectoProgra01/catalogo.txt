@@ -1,2 +1,8 @@
-Catálogo{Nombre de Catálogo=perro, Propiedades=color, forma}
+Catálogo{Nombre de Catálogo=Martillo, Propiedades=tamaño.forma}
+
+Catálogo{Nombre de Catálogo=Clavo, Propiedades=tamaño,peso}
+
+Catálogo{Nombre de Catálogo=Zinc, Propiedades=largo,material}
+
+Catálogo{Nombre de Catálogo=Cemento, Propiedades=peso,cantidad,empresa}
 

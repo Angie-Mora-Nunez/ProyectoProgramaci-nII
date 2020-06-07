@@ -1,2 +1,1 @@
-perro|lucho|color: ,color: cafe, forma: mono,
-perro|chanco|color: cafe, forma: gato,
+Clavo|clavo vin|tamaño: grande,peso: 200,

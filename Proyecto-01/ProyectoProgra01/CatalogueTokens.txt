@@ -1,1 +1,4 @@
-perro|color, forma
+Martillo|tamaño.forma
+Clavo|tamaño,peso
+Zinc|largo,material
+Cemento|peso,cantidad,empresa

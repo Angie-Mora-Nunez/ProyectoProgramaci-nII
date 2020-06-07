@@ -1,1 +1,4 @@
-color, forma
+tamaño.forma
+tamaño,peso
+largo,material
+peso,cantidad,empresa

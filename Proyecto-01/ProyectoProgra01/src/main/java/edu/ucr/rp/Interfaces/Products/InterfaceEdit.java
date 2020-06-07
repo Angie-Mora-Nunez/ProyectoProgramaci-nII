@@ -64,12 +64,13 @@ public class InterfaceEdit extends Application {
     private Button btnShowInfo;
     private  TextField txtDescription;
     private Button btnSave;
+    private Button btnConfirm;
     ArrayList PropertiesL = getAllProperties();
     ArrayList DescriptionL = getAllDescriptions();
     ArrayList arrayAux = new ArrayList();
     File propertiesDescription = new File("propertiesDescription.txt");
     private Stage stage;
-    int proper; 
+    int position; 
   
     @Override
     public void start(Stage stage) throws Exception {
@@ -114,53 +115,35 @@ public class InterfaceEdit extends Application {
          });//actionSeacrh
         
         btnShowInfo.setOnAction(actionEvent -> {
-            proper = SearchName(PropertiesL, cmbProperties.getValue()+"");
-             String descriptionSet = DescriptionL.get(proper).toString();
+            position = SearchName(PropertiesL, cmbProperties.getValue()+"");
+             String descriptionSet = DescriptionL.get(position).toString();
              txtDescription.setText(descriptionSet);
         });//showInfo
         
-        btnSave.setOnAction(actionEvent -> {
-           arrayAux.clear();
-            for (int i = 0; i < DescriptionL.size(); i++) {
-                if (i!=proper) {
-                    arrayAux.add(DescriptionL.get(i));  
-                }else
-                   arrayAux.add(txtDescription.getText());   
-            }//for
-            
-             propertiesDescription.delete();
-            try {
-                
-                File Description = new File("propertiesDescription.txt");
-                String output="";
-                 
-                 FileOutputStream fosi = new FileOutputStream(Description,true);
-                 PrintStream psi = new PrintStream(fosi);
-                 for (int i = 0; i < arrayAux.size(); i++) {
-                     output+=arrayAux.get(i).toString()+",";
-                   
+         ArrayList Modificate = new ArrayList();
+         btnConfirm.setOnAction(actionEvent -> {
+             Modificate.clear();
+           Modificate.add(txtDescription.getText());
+         });//actionConfirm
+        
+         btnSave.setOnAction(actionEvent -> {
+             ArrayList addModificate = new ArrayList();
+             String listConcaten ="";
+             for (int i = 0; i < Modificate.size(); i++) {
+                 listConcaten+=Modificate.get(i).toString()+",";
                 }//for
-                  psi.println(output);
-                
-                 
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(InterfaceEdit.class.getName()).log(Level.SEVERE, null, ex);
-            }//catch/try
-                 
-            
-            
-         
-            for (int i = 0; i < arrayAux.size(); i++) {
-                if (i==arrayAux.size()-1) {
-                    System.out.println(arrayAux.toString());
-                }//for
-            }//for
-          
+               
+//             for (int i = 0; i < DescriptionL.size(); i++) {
+//                 if (i==position) {
+//                     addModificate.add(listConcaten);
+//                 }else//endif
+//                     addModificate.add(DescriptionL.get(i));
+//             }//for 
+             
+             
+             
+             System.out.println(addModificate.toString());
         });//actionSave
-        
-        
-        
-        
         
         btn_exit.setOnAction(actionEvent -> {
             try {
@@ -204,6 +187,7 @@ public class InterfaceEdit extends Application {
          txtDescription=TextFieldDescription(pane,5);
          btnShowInfo=ButtonShowInfo("Mostrar", pane, 5);
          btnSave=ButtonSave("Guardar", pane, 5);
+         btnConfirm=ButtonConfirm("Confirmar", pane, 5);
     }//Controladores
      
      
@@ -230,6 +214,17 @@ public class InterfaceEdit extends Application {
      private Button ButtonSave(String label, GridPane pane, int row) {
         Button button = new Button(label);
         pane.add(button, 1, 9);
+        button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
+        button.setTextFill(Color.BLACK);
+        button.setStyle("-fx-background-color: WHITE");
+//        GridPane.setHalignment(button, HPos.CENTER);
+//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+        return button;
+    }//button
+     
+     private Button ButtonConfirm(String label, GridPane pane, int row) {
+        Button button = new Button(label);
+        pane.add(button, 4, 7);
         button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");

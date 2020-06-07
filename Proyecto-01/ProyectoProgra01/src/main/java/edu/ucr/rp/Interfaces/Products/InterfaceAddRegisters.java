@@ -43,6 +43,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -64,6 +65,7 @@ public class InterfaceAddRegisters extends Application {
     private ComboBox cBProperties;
     private TextField txtAgregarPropiedad;
     private Button btnAddProperties;
+    private Label lblNameCatalog;
     ArrayList listAux = getRegistersRegisters();
     ArrayList propertiesList = getRegistersRegistersAll();
     ArrayList listSi = new ArrayList();
@@ -186,7 +188,8 @@ public class InterfaceAddRegisters extends Application {
                  PrintStream ps3 = new PrintStream(fo3);
                  ps3.println(showInfo.toString());
                  AddBuilderTokens(nameCatalogues, namesProducts, show);
-  
+                 
+                  JOptionPane.showMessageDialog(null,"Se ha agregado la propiedad con éxito");
              } catch (FileNotFoundException ex) {
                  Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);
              }//try/catch
@@ -260,6 +263,8 @@ public class InterfaceAddRegisters extends Application {
           GridPane.setMargin(label, new Insets(10, 0, 10, 0));
         return label;
     }//TExtField
+       
+   
        
        private Label labelNameProduct(String name,GridPane pane, int row) {
           Label label = new Label(name);
