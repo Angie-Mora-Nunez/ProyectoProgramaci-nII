@@ -44,9 +44,10 @@ import javafx.stage.Window;
 
 /**
  *
- * @author 
+ * @authores 
  * Marian Murillo Bonilla
  * Angie Mora Núñez
+ * 
  */
 public class InterfaceSearch extends Application {
     private Label labelSearch;
@@ -81,24 +82,19 @@ public class InterfaceSearch extends Application {
     }//title
      private void addHandlers() {
         InterfaceProducts iP = new InterfaceProducts();
-         btn_exit.setOnAction(actionEvent -> {
+         
+          btn_exit.setOnAction(actionEvent -> {
             try {
                 iP.start(stage);
             } catch (Exception ex) {
                 Logger.getLogger(InterfaceSearch.class.getName()).log(Level.SEVERE, null, ex);
             }//Try/catch
-         });//ExitAccion
+          });//ExitAccion
          
-         buttonSearch.setOnAction(actionEvent -> {
-         txtShow.setVisible(true);
-           
-             
-           listShow.add(SearchName(list, txtSearching.getText(),listComplete));
+          buttonSearch.setOnAction(actionEvent -> {
+          txtShow.setVisible(true);
+          listShow.add(SearchName(list, txtSearching.getText(),listComplete));
           txtShow.setText(listShow.toString());
-         
-         
-         
-         
          });//buscarAccion
          
     

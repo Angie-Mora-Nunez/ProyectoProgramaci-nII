@@ -1,2 +1,26 @@
 blanco,2 mts,rayas blancas,
 cuadrada,2 pulgadas,500 ,
+
+rojo
+2 mts
+rayas blancas
+
+rojo
+2 mts
+rayas blancas
+blanco
+3 mts
+rayas blancas
+
+
+cuadradad
+2 pulgadas
+500 
+cuadradad
+2 pulgadas
+500 
+cuadrada
+2 pulgadass
+500 
+negro,2 mts,rayas blancas,
+negro,2 mts,rayas blancas,blanco,2 smts,rayas blancas,

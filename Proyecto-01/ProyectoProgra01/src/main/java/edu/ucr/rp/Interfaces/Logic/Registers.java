@@ -9,10 +9,9 @@ import java.util.ArrayList;
 
 /**
  *
- * @author 
+ * @authores 
  * Marian Murillo Bonilla
  * Angie Mora Núñez
- * 
  * 
  */
 public class Registers {

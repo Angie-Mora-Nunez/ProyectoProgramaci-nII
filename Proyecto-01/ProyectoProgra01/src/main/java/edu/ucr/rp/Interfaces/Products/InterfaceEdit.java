@@ -14,8 +14,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -47,14 +49,27 @@ import javafx.stage.Window;
  * Angie Mora Núñez
  */
 public class InterfaceEdit extends Application {
-     private Label lp;
-    private Button generateButton;
+    private Label lp;
+    private Button searchButton;
     private Button btn_exit;
     private TextField txtBuscar;
     private ComboBox cmbSearchNames;
-    ArrayList list = getRegisters();
-    
+    ArrayList listNamesProducto = getRegisters();
+    ArrayList listNamesCatalog = getAllNameCatalog();
+    ArrayList listProperties = getAllProperties();
+    ArrayList listDescription = getAllDescriptions();
+    private Label lp_NameProduct;
+    private TextField txt_nameProduct;
+    private ComboBox cmbProperties;
+    private Button btnShowInfo;
+    private  TextField txtDescription;
+    private Button btnSave;
+    ArrayList PropertiesL = getAllProperties();
+    ArrayList DescriptionL = getAllDescriptions();
+    ArrayList arrayAux = new ArrayList();
+    File propertiesDescription = new File("propertiesDescription.txt");
     private Stage stage;
+    int proper; 
   
     @Override
     public void start(Stage stage) throws Exception {
@@ -75,13 +90,84 @@ public class InterfaceEdit extends Application {
     }//title
      private void addHandlers() {
         InterfaceProducts iP = new InterfaceProducts();
-         btn_exit.setOnAction(actionEvent -> {
+        
+        searchButton.setOnAction(actionEvent -> {
+           
+            int i = SearchName(listNamesProducto,cmbSearchNames.getValue()+"");
+            String Name =listNamesCatalog.get(i).toString();
+            String NameProduct=listNamesProducto.get(i).toString();
+            String Properties = listProperties.get(i).toString();
+            String Description = listDescription.get(i).toString();
+           
+            
+            System.out.println(Name);
+            System.out.println(NameProduct);
+            System.out.println(Properties);
+            System.out.println(Description);
+            
+            PropertiesL=getObteinDat(Properties);
+            DescriptionL=getObteinDat(Description);
+            
+            for (int j = 0; j <PropertiesL.size(); j++) {
+              cmbProperties.getItems().addAll(PropertiesL.get(j));
+            }//forcombo
+         });//actionSeacrh
+        
+        btnShowInfo.setOnAction(actionEvent -> {
+            proper = SearchName(PropertiesL, cmbProperties.getValue()+"");
+             String descriptionSet = DescriptionL.get(proper).toString();
+             txtDescription.setText(descriptionSet);
+        });//showInfo
+        
+        btnSave.setOnAction(actionEvent -> {
+           
+            for (int i = 0; i < DescriptionL.size(); i++) {
+                if (i!=proper) {
+                    arrayAux.add(DescriptionL.get(i));  
+                }else
+                   arrayAux.add(txtDescription.getText());   
+            }//for
+            
+             propertiesDescription.delete();
+            try {
+                File Description = new File("propertiesDescription.txt");
+                String output="";
+                 
+                 FileOutputStream fosi = new FileOutputStream(Description,true);
+                 PrintStream psi = new PrintStream(fosi);
+                 for (int i = 0; i < arrayAux.size(); i++) {
+                     output+=arrayAux.get(i).toString()+",";
+                   
+                }
+                  psi.println(output);
+                
+                 
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(InterfaceEdit.class.getName()).log(Level.SEVERE, null, ex);
+            }//catch/try
+                 
+            
+            
+         
+            for (int i = 0; i < arrayAux.size(); i++) {
+                if (i==arrayAux.size()-1) {
+                    System.out.println(arrayAux.toString());
+                }//for
+            }//for
+          
+        });//actionSave
+        
+        
+        
+        
+        
+        btn_exit.setOnAction(actionEvent -> {
             try {
                 iP.start(stage);
             } catch (Exception ex) {
                 Logger.getLogger(InterfaceSearch.class.getName()).log(Level.SEVERE, null, ex);
             }
-         });
+         });//actionExit
          
     }//eventos
     
@@ -108,11 +194,15 @@ public class InterfaceEdit extends Application {
      
      private void setupControls(GridPane pane) {
        
-         generateButton = ButtonSearch("Buscar en Catálogo", pane, 5);
+         searchButton = ButtonSearch("Buscar en Catálogo", pane, 5);
          btn_exit= ButtonExit("Salir", pane, 5);
          lp=labelCatalogue("Buscar Producto: ", pane, 5);
          cmbSearchNames=comboBoxNames(pane, 5);
-         
+         lp_NameProduct=labelProductName("Propiedades: ", pane,5);
+         cmbProperties=comboBoxProperties(pane,5);
+         txtDescription=TextFieldDescription(pane,5);
+         btnShowInfo=ButtonShowInfo("Mostrar", pane, 5);
+         btnSave=ButtonSave("Guardar", pane, 5);
     }//Controladores
      
      
@@ -131,30 +221,82 @@ public class InterfaceEdit extends Application {
         button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        GridPane.setHalignment(button, HPos.CENTER);
-        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+//        GridPane.setHalignment(button, HPos.CENTER);
+//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+        return button;
+    }//button
+     
+     private Button ButtonSave(String label, GridPane pane, int row) {
+        Button button = new Button(label);
+        pane.add(button, 1, 9);
+        button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
+        button.setTextFill(Color.BLACK);
+        button.setStyle("-fx-background-color: WHITE");
+//        GridPane.setHalignment(button, HPos.CENTER);
+//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+        return button;
+    }//button
+     
+     private Button ButtonShowInfo(String label, GridPane pane, int row) {
+        Button button = new Button(label);
+        pane.add(button, 3, 7);
+        button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
+        button.setTextFill(Color.BLACK);
+        button.setStyle("-fx-background-color: WHITE");
+//        GridPane.setHalignment(button, HPos.CENTER);
+//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
     }//button
      
      
-         private Label labelCatalogue(String name,GridPane pane, int row) {
+    private Label labelCatalogue(String name,GridPane pane, int row) {
           Label label = new Label(name);
           pane.add(label, 0,5);
           label.setFont(new Font("Footlight MT Light",16));
-          GridPane.setMargin(label, new Insets(10, 0, 10, 0));
+//          GridPane.setMargin(label, new Insets(10, 0, 10, 0));
         return label;
     }//TExtField
          
-         
+    private Label labelProductName(String name,GridPane pane, int row) {
+          Label label = new Label(name);
+          pane.add(label, 0,7);
+          label.setFont(new Font("Footlight MT Light",16));
+          GridPane.setMargin(label, new Insets(10, 0, 10, 0));
+        return label;
+    }//Label
+    
+    private TextField TextFieldNameProduct(GridPane pane, int row) {
+          TextField txtnameProduct = new TextField();
+          pane.add(txtnameProduct,2,7);
+          txtnameProduct.setFont(new Font("Footlight MT Light",16));
+//          GridPane.setMargin(txtnameProduct, new Insets(10, 0, 10, 0));
+        return txtnameProduct;
+    }//TExtField
+    private TextField TextFieldDescription(GridPane pane, int row) {
+          TextField txtDescription = new TextField();
+          pane.add(txtDescription,2,7);
+          txtDescription.setFont(new Font("Footlight MT Light",16));
+//          GridPane.setMargin(txtDescription, new Insets(10, 0, 10, 0));
+        return txtDescription;
+    }//TExtField
+          
          private ComboBox comboBoxNames(GridPane pane, int row) {
             
         ComboBox cmbList = new ComboBox();
         cmbList.setValue("      Nombre de Productos:              ");
         cmbList.setStyle(("-fx-font: 16px \"Footlight MT Light\""));
         pane.add(cmbList, 1,5);
-          for (int i = 0; i < list.size(); i++) {
-              cmbList.getItems().addAll(list.get(i));
+          for (int i = 0; i < listNamesProducto.size(); i++) {
+              cmbList.getItems().addAll(listNamesProducto.get(i));
           }//for
+        return cmbList;
+    }//TExtField
+         
+     private ComboBox comboBoxProperties(GridPane pane, int row) { 
+        ComboBox cmbList = new ComboBox();
+        cmbList.setValue("      Propiedades:              ");
+        cmbList.setStyle(("-fx-font: 16px \"Footlight MT Light\""));
+        pane.add(cmbList, 1,7);
         return cmbList;
     }//TExtField
      
@@ -165,19 +307,19 @@ public class InterfaceEdit extends Application {
         button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        GridPane.setHalignment(button, HPos.CENTER);
-        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+//        GridPane.setHalignment(button, HPos.CENTER);
+//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
     }//button
       
        private Button ButtonExit(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button,6, 25);
+        pane.add(button,4, 10);
         button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        GridPane.setHalignment(button, HPos.CENTER);
-        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+//        GridPane.setHalignment(button, HPos.CENTER);
+//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
     }//button
      
@@ -227,10 +369,147 @@ public class InterfaceEdit extends Application {
      return list;
      }//getRegistersRegisters 
       
+   public ArrayList getObteinProperties(String properties){
+         ArrayList listgetObtein = new ArrayList();
+             String propertie="";
+             int controlaTokens=1;
+             StringTokenizer sT2 = new StringTokenizer(properties,",");
+            
+            while(sT2.hasMoreTokens()){
+               propertie=sT2.nextToken();
+               controlaTokens++;
+               listgetObtein.add(propertie);
+            }//whilecontrolaTokens
       
+          return listgetObtein;
+     
+   }
+   public ArrayList getAllProperties(){
+      ArrayList list4 = new ArrayList();
+  
+        File propertiesFiles = new File("propertiesFiles.txt");
+         try {
+             FileInputStream fis = new FileInputStream(propertiesFiles);
+             InputStreamReader isr= new InputStreamReader(fis);
+             BufferedReader br = new BufferedReader(isr);
+            
+             String actualRegister = br.readLine();
+             
+             while(actualRegister!=null){
+             String properties="";
+             int controlaTokens=1;
+             StringTokenizer sT2 = new StringTokenizer(actualRegister,",");
+            
+            while(sT2.hasMoreTokens()){
+               properties+=sT2.nextToken()+",";
+               controlaTokens++;
+            }//whilecontrolaTokens
+            list4.add(properties);
+             actualRegister=br.readLine();
+             }//whileActualRegisters
+             
+         } catch (FileNotFoundException ex) {
+             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (IOException ex) {
+             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
+         }//try/catch
+        
+     return list4;
+     
+     }//getRegistersRegisters 
+   
+   public ArrayList getAllNameCatalog(){
+      ArrayList list2 = new ArrayList();
+  
+        File nameCataloguesRegisters = new File("nameCataloguesRegisters.txt");
+         try {
+             FileInputStream fis = new FileInputStream(nameCataloguesRegisters);
+             InputStreamReader isr= new InputStreamReader(fis);
+             BufferedReader br = new BufferedReader(isr);
+            
+             String actualRegister = br.readLine();
+             
+             while(actualRegister!=null){
+             String properties="";
+             int controlaTokens=1;
+             StringTokenizer sT2 = new StringTokenizer(actualRegister,",");
+            
+            while(sT2.hasMoreTokens()){
+               properties=sT2.nextToken();
+               controlaTokens++;
+            }//whilecontrolaTokens
+            list2.add(properties);
+             actualRegister=br.readLine();
+             }//whileActualRegisters
+             
+         } catch (FileNotFoundException ex) {
+             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (IOException ex) {
+             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
+         }//try/catch
+        
+     return list2;
+     
+     }//getRegistersRegisters 
+   
+     public ArrayList getAllDescriptions(){
+      ArrayList list2 = new ArrayList();
+  
+        File propertiesDescription = new File("propertiesDescription.txt");
+         try {
+             FileInputStream fis = new FileInputStream(propertiesDescription);
+             InputStreamReader isr= new InputStreamReader(fis);
+             BufferedReader br = new BufferedReader(isr);
+            
+             String actualRegister = br.readLine();
+             
+             while(actualRegister!=null){
+             String properties="";
+             int controlaTokens=1;
+             StringTokenizer sT2 = new StringTokenizer(actualRegister,",");
+            
+            while(sT2.hasMoreTokens()){
+               properties+=sT2.nextToken()+",";
+               controlaTokens++;
+            }//whilecontrolaTokens
+            list2.add(properties);
+             actualRegister=br.readLine();
+             }//whileActualRegisters
+             
+         } catch (FileNotFoundException ex) {
+             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (IOException ex) {
+             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
+         }//try/catch
+        
+     return list2;
+     
+     }//getRegistersRegisters 
+   
+      public int SearchName(ArrayList name , String nameSearch) {
+            int output =0; 
+                for (int i = 0; i <name.size(); i++) {
+                    if (name.get(i).toString().equals(nameSearch)){ 
+                          output=i;
+                    }//if
+                }//for
+                  return output;
+       }//searchName   
+     
+       public ArrayList getObteinDat(String properties){
+         ArrayList listgetObtein = new ArrayList();
+             String propertie="";
+             int controlaTokens=1;
+             StringTokenizer sT2 = new StringTokenizer(properties,",");
+            
+            while(sT2.hasMoreTokens()){
+               propertie=sT2.nextToken();
+               controlaTokens++;
+               listgetObtein.add(propertie);
+            }//whilecontrolaTokens
       
-      
-      
+          return listgetObtein;
+     }//getRegistersRegisters
       
 }//end
 

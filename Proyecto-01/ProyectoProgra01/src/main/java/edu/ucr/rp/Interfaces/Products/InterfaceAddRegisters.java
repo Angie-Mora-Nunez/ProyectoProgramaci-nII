@@ -46,13 +46,16 @@ import javafx.stage.Window;
 
 /**
  *
- * @author Equipo
+ * @authores 
+ * Marian Murillo Bonilla
+ * Angie Mora Núñez
+ * 
  */
 public class InterfaceAddRegisters extends Application {
     private Label labelAnunced;
     private Label labelnameProduct;
     private Label labelCatalogues;
-    private Button generateButton;
+    private Button ButtonSave;
     private Button btn_exit;
     private Stage stage;
     private TextField txtNameProduct;
@@ -122,7 +125,7 @@ public class InterfaceAddRegisters extends Application {
             description.add(txtAgregarPropiedad.getText()); 
          });//accion boton properties
          
-         generateButton.setOnAction(actionEvent -> {
+         ButtonSave.setOnAction(actionEvent -> {
              ArrayList showInfo = new ArrayList();
              labelCatalogues.setVisible(true);
              btnSearch.setVisible(true);
@@ -221,7 +224,7 @@ public class InterfaceAddRegisters extends Application {
     }//GridPane
      
      private void setupControls(GridPane pane) {
-        generateButton = ButtonSave("Guardar", pane, 5);
+        ButtonSave = ButtonSave("Guardar", pane, 5);
         btn_exit= buildGenerateButton("Salir", pane, 5);
         cBListNames=comboBoxNames(pane, 5);
         btnSearch=ButtonSearch("Buscar Catalogo", pane, 5);
