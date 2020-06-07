@@ -1,2 +1,1 @@
-Madera|color,tamaño,forma
-Tornillos|forma,tamaño,cantidad
+perro|color, forma

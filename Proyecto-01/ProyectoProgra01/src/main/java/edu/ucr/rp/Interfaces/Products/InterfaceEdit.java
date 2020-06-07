@@ -120,7 +120,7 @@ public class InterfaceEdit extends Application {
         });//showInfo
         
         btnSave.setOnAction(actionEvent -> {
-           
+           arrayAux.clear();
             for (int i = 0; i < DescriptionL.size(); i++) {
                 if (i!=proper) {
                     arrayAux.add(DescriptionL.get(i));  
@@ -130,6 +130,7 @@ public class InterfaceEdit extends Application {
             
              propertiesDescription.delete();
             try {
+                
                 File Description = new File("propertiesDescription.txt");
                 String output="";
                  
@@ -138,7 +139,7 @@ public class InterfaceEdit extends Application {
                  for (int i = 0; i < arrayAux.size(); i++) {
                      output+=arrayAux.get(i).toString()+",";
                    
-                }
+                }//for
                   psi.println(output);
                 
                  

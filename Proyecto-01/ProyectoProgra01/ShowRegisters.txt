@@ -1,2 +1,2 @@
-[{ Nombre del catálogo : Madera Nombre de producto : Madera laminada  Propiedades: color: blanco,tamaño: 2 mts,forma: rayas blancas,}]
-[{ Nombre del catálogo : Tornillos Nombre de producto : Tornillo flex  Propiedades: forma: cuadrada,tamaño: 2 pulgadas,cantidad: 500 ,}]
+[{ Nombre del catálogo : perro Nombre de producto : lucho  Propiedades: color: ,color: cafe, forma: mono,}]
+[{ Nombre del catálogo : perro Nombre de producto : chanco  Propiedades: color: cafe, forma: gato,}]

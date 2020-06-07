@@ -1,4 +1,2 @@
-Catálogo{Nombre de Catálogo=Madera, Propiedades=color,tamaño,forma}
-
-Catálogo{Nombre de Catálogo=Tornillos, Propiedades=forma,tamaño,cantidad}
+Catálogo{Nombre de Catálogo=perro, Propiedades=color, forma}
 
