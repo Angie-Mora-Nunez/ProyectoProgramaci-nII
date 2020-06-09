@@ -97,11 +97,11 @@ public class InterfaceEntry extends Application{
         InterfaceChooseWay iU = new InterfaceChooseWay();
         
         btn_Admin.setOnAction(actionEvent -> {
-//            String text = txUser.getText();
-//             if(Txt2.getText().equals("ucr")){
-//                 if(txUser.getText().equals("AngieMora")||txUser.getText().equals("AngelicaRedondo")||txUser.getText().equals("MarianMurillo")||txUser.getText().equals("SamuelLuque")){
-//              ImageIcon icon = new ImageIcon("us.png");
-//              JOptionPane.showMessageDialog(null, "Bienvenido(a)"+" "+ Txt2.getText(), "Ingreso a sistema", 2, (Icon) icon);
+            String text = txUser.getText();
+             if(Txt2.getText().equals("ucr")){
+                 if(txUser.getText().equals("AngieMora")||txUser.getText().equals("AngelicaRedondo")||txUser.getText().equals("MarianMurillo")||txUser.getText().equals("SamuelLuque")){
+              ImageIcon icon = new ImageIcon("us.png");
+              JOptionPane.showMessageDialog(null, "Bienvenido(a)"+"\n"+ txUser.getText(), "Ingreso a sistema", 2, (Icon) icon);
              try {
               iU.start(stage);
             
@@ -109,16 +109,16 @@ public class InterfaceEntry extends Application{
              catch (Exception ex) {
                  Logger.getLogger(InterfaceEntry.class.getName()).log(Level.SEVERE, null, ex);
              }//catch//catch//catch//catch
-//             }else
-//                     
-//                 JOptionPane.showMessageDialog(null,"Contraseña o usuario erroneos,"+"\n"+"Ingrese la contraseña o usuario correctos");
-//                 Txt2.clear();
-//                 txUser.clear();
-//             }else
-//                 
-//              JOptionPane.showMessageDialog(null,"Contraseña o usuario erroneos,"+"\n"+"Ingrese la contraseña o usuario correctos");
-//              Txt2.clear();
-//              txUser.clear();
+             }else
+                     
+                 JOptionPane.showMessageDialog(null,"Contraseña o usuario erroneos,"+"\n"+"Ingrese la contraseña o usuario correctos");
+                 Txt2.clear();
+                 txUser.clear();
+             }else
+                 
+              JOptionPane.showMessageDialog(null,"Contraseña o usuario erroneos,"+"\n"+"Ingrese la contraseña o usuario correctos");
+              Txt2.clear();
+              txUser.clear();
            
          });
      

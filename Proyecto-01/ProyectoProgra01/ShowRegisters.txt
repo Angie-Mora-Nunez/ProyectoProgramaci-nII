@@ -1,1 +1,0 @@
-[{ Nombre del catálogo : Serrucho Nombre de producto : Serrucho Man  Propiedades: Cantidad: 120,material: plata,}]

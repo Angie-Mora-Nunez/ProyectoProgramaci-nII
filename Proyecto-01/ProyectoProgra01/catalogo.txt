@@ -1,2 +1,0 @@
-Catálogo{Nombre de Catálogo=Serrucho, Propiedades=Cantidad,material}
-
