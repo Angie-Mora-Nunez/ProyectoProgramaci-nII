@@ -11,6 +11,7 @@ import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
@@ -71,6 +72,7 @@ public class InterfaceChooseWay extends Application{
         setupControls(pane);
         addHandlers();
         stage.setScene(createScene(pane));
+        stage.setResizable(false);
         stage.show();
     }//Start
      public void display() {
@@ -124,12 +126,12 @@ public class InterfaceChooseWay extends Application{
         gridPane.setPadding(new Insets(40, 40,40, 40));
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        ColumnConstraints columnOneConstraints = new ColumnConstraints(LABEL_WITH, LABEL_WITH, LABEL_WITH_MAX);
-        columnOneConstraints.setHalignment(HPos.RIGHT);
-        ColumnConstraints columnTwoConstrains = new ColumnConstraints(INPUT_WITH, INPUT_WITH, INPUT_WITH_MAX);
-        columnTwoConstrains.setHgrow(Priority.ALWAYS);
-
-        gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
+//        ColumnConstraints columnOneConstraints = new ColumnConstraints(LABEL_WITH, LABEL_WITH, LABEL_WITH_MAX);
+//        columnOneConstraints.setHalignment(HPos.RIGHT);
+//        ColumnConstraints columnTwoConstrains = new ColumnConstraints(INPUT_WITH, INPUT_WITH, INPUT_WITH_MAX);
+//        columnTwoConstrains.setHgrow(Priority.ALWAYS);
+//
+//        gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
 
         return gridPane;
     }//GridPane
@@ -144,54 +146,65 @@ public class InterfaceChooseWay extends Application{
      
      private void setupControls(GridPane pane) throws FileNotFoundException {
        
-        btn_catalogue = buttonCatalogue("Catalogos", pane, 5);
-        btn_Products=buttonProducts("Productos", pane, 5);
-        btn_exit= buttonSalir("Salir", pane, 5);
-        lblBussiness=buildLabelSlogan("Progrados de concreto S.A", pane, 5);
-        imageSlogan=ImagePreview(pane, 5);
+        btn_catalogue = buttonCatalogue("Catalogos", pane, 0);
+        btn_Products=buttonProducts("Productos", pane, 0);
+        btn_exit= buttonSalir("Salir", pane, 0);
+//        lblBussiness=buildLabelSlogan("Progrados de concreto S.A", pane, 5);
+        imageSlogan=ImagePreview(pane, 0);
     }//Controladores
      
      private Button buttonCatalogue(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button, 3, 15);
-         button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
+        pane.add(button, 6, 12);
+        button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-         GridPane.setHalignment(button, HPos.CENTER);
-        GridPane.setMargin(button, new Insets(20, 0, 20, 0));
+//         GridPane.setHalignment(button, HPos.CENTER);
+         File files3 = new File("catas.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
+//        GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
     }//button
      
       private Button buttonProducts(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button, 5, 15);
-         button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
+        pane.add(button, 8, 12);
+        button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-              GridPane.setHalignment(button, HPos.CENTER);
-        GridPane.setMargin(button, new Insets(20, 0, 20, 0));
+//        GridPane.setHalignment(button, HPos.CENTER);
+        File files3 = new File("inventorys.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+        button.setGraphic(ivs3);
+//        GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
     }//button
       
        private Button buttonSalir(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button, 3, 19);
+        pane.add(button, 9, 19);
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-         GridPane.setHalignment(button, HPos.CENTER);
-        GridPane.setMargin(button, new Insets(20, 0, 20, 0));
+         File files3 = new File("gou.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+        button.setGraphic(ivs3);
+//         GridPane.setHalignment(button, HPos.CENTER);
+//        GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
     }//button
      
       private ImageView ImagePreview(GridPane pane,int row) throws FileNotFoundException{
-        FileInputStream imageStream = new FileInputStream("pala.png");
+        FileInputStream imageStream = new FileInputStream("ula.png");
         Image imageS = new Image(imageStream);
         ImageView image = new ImageView(imageS);
-        GridPane.setHalignment(image, HPos.CENTER);
-        GridPane.setHalignment(image, HPos.CENTER);
-        pane.add(image, 9, 0);
-        GridPane.setMargin(image, new Insets(20, 0, 20, 0));
+//        GridPane.setHalignment(image, HPos.CENTER);
+        pane.add(image, 0, 12);
+//        GridPane.setMargin(image, new Insets(20, 0, 20, 0));
         return image;
       }
      
@@ -199,13 +212,12 @@ public class InterfaceChooseWay extends Application{
         Label lb = new Label(text);
         pane.add(lb,10, 0);
         lb.setFont(new Font("Indie Flower",16));
-        GridPane.setHalignment(lb, HPos.CENTER);
-        GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
+//        GridPane.setHalignment(lb, HPos.CENTER);
+//        GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
         return lb;
     }//button
        
-       
-    
+  
      private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

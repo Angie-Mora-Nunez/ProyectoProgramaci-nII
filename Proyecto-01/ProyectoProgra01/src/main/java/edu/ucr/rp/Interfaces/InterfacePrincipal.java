@@ -9,6 +9,7 @@ import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Calendar;
@@ -57,6 +58,7 @@ public class InterfacePrincipal extends Application {
         setupControls(pane);
         addHandlers();
         stage.setScene(createScene(pane));
+        stage.setResizable(false);
         stage.show();
     }//start
      public void display() {
@@ -83,20 +85,21 @@ public class InterfacePrincipal extends Application {
     }//Acionbuttones
     
      private GridPane buildPane() {
-         
         GridPane gridPane = new GridPane();
+        
+        
         gridPane.setAlignment(Pos.CENTER);
-        gridPane.setPadding(new Insets(40, 40,40, 40));
+        gridPane.setPadding(new Insets(10, 10,10, 10));
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         ColumnConstraints columnOneConstraints = new ColumnConstraints(LABEL_WITH, LABEL_WITH, LABEL_WITH_MAX);
         columnOneConstraints.setHalignment(HPos.RIGHT);
         ColumnConstraints columnTwoConstrains = new ColumnConstraints(INPUT_WITH, INPUT_WITH, INPUT_WITH_MAX);
         columnTwoConstrains.setHgrow(Priority.ALWAYS);
-
-        gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
-
-        return gridPane;
+     
+         
+        
+        return gridPane; 
     }//Gridpane
      
       private TextField buildTextInput(String text, GridPane pane, int row) {
@@ -110,8 +113,8 @@ public class InterfacePrincipal extends Application {
      private void setupControls(GridPane pane) throws FileNotFoundException {
         Calendar calendario = new GregorianCalendar();
            int hora = calendario.get(Calendar.HOUR_OF_DAY);
-        btn_Welcome = ButtonGetIn("Ingresar", pane, 6);
-        btn_exit= ButtongetOut("Salir", pane, 6);
+        btn_Welcome = ButtonGetIn("Ingresar", pane, 3);
+        btn_exit= ButtongetOut("Salir", pane, 3);
         img=ImagePreview(pane, 6);
       
      }
@@ -123,6 +126,10 @@ public class InterfacePrincipal extends Application {
       button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
+        File files3 = new File("entry.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
         GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
     }//Button
@@ -135,6 +142,10 @@ public class InterfacePrincipal extends Application {
       button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
+        File files3 = new File("salida.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
         GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
     }//Button
@@ -169,7 +180,7 @@ public class InterfacePrincipal extends Application {
         return image;
       }
 
-     private Scene createScene (Pane pane) {
+    private Scene createScene (Pane pane) {
          pane.setStyle("-fx-background-color:#37D8E3" );
          return new Scene (pane,900,900);
     }//scene

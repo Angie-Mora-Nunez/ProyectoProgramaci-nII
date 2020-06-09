@@ -33,6 +33,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -116,7 +118,7 @@ public class InterfaceSearch extends Application {
      
      private void setupControls(GridPane pane) {
          buttonSearch = ButtonSearch("Buscar en Catálogo", pane, 3);
-         btn_exit= ButtonExit("Salir", pane, 3);
+         btn_exit= ButtonExit("Regresar", pane, 3);
          labelShow=labelShow("Lista de Catálogos", pane, 3);
          labelSearch=labelCatalogue("Buscar: ", pane, 3);
          txtShow=txtArea("", pane, 3);
@@ -190,6 +192,10 @@ public class InterfaceSearch extends Application {
             button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
             button.setTextFill(Color.BLACK);
             button.setStyle("-fx-background-color: WHITE");
+            File files3 = new File("se.png");
+            Image images3 = new Image(files3.toURI().toString());
+            ImageView ivs3 = new ImageView(images3);
+            button.setGraphic(ivs3);
             return button;
     }//button
       
@@ -199,6 +205,10 @@ public class InterfaceSearch extends Application {
           button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
           button.setTextFill(Color.BLACK);
           button.setStyle("-fx-background-color: WHITE");
+          File files3 = new File("return.png");
+         Image images3 = new Image(files3.toURI().toString());
+         ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
         return button;
     }//button
      

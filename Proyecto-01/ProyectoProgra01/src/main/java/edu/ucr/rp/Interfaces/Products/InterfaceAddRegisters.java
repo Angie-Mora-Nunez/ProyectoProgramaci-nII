@@ -35,6 +35,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -43,6 +45,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -66,6 +70,9 @@ public class InterfaceAddRegisters extends Application {
     private TextField txtAgregarPropiedad;
     private Button btnAddProperties;
     private Label lblNameCatalog;
+    private TextField txtmos;
+    private Label lblEdit;
+    private Button btninfo;
     ArrayList listAux = getRegistersRegisters();
     ArrayList propertiesList = getRegistersRegistersAll();
     ArrayList listSi = new ArrayList();
@@ -81,6 +88,7 @@ public class InterfaceAddRegisters extends Application {
         addHandlers();
         stage.setScene(createScene(pane));
         stage.show();
+        
     }//Start
      public void display() {
         launch();
@@ -116,15 +124,26 @@ public class InterfaceAddRegisters extends Application {
              txtAgregarPropiedad.setVisible(true);
              txtNameProduct.setEditable(true);
              
+             
              name.add(cBListNames.getValue()+"");
+              txtmos.setVisible(true);
+              txtmos.setEditable(false);
+              txtmos.setStyle("-fx-background: color \"Blue\"");
+              txtmos.setText(cBListNames.getValue()+"");
+              lblEdit.setVisible(true);
+              labelAnunced.setVisible(false);
              
          });//acción search
          
          btnAddProperties.setOnAction(actionEvent -> {
+            
             txtNameProduct.setEditable(false);
             nameProduct.add(txtNameProduct.getText());
             propertiesAdd.add(cBProperties.getValue()+"");
             description.add(txtAgregarPropiedad.getText()); 
+            ImageIcon icon = new ImageIcon("add.png");
+            JOptionPane.showMessageDialog(null, "Se ha agredado la propiedad", "Agregar Producto", 2, (Icon) icon);
+            txtNameProduct.clear();
          });//accion boton properties
          
          ButtonSave.setOnAction(actionEvent -> {
@@ -188,8 +207,8 @@ public class InterfaceAddRegisters extends Application {
                  PrintStream ps3 = new PrintStream(fo3);
                  ps3.println(showInfo.toString());
                  AddBuilderTokens(nameCatalogues, namesProducts, show);
-                 
-                  JOptionPane.showMessageDialog(null,"Se ha agregado la propiedad con éxito");
+                 ImageIcon icon = new ImageIcon("confirm.png");
+            JOptionPane.showMessageDialog(null, "Se ha agredado el producto", "Agregar Producto", 2, (Icon) icon);
              } catch (FileNotFoundException ex) {
                  Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);
              }//try/catch
@@ -220,15 +239,15 @@ public class InterfaceAddRegisters extends Application {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         ColumnConstraints columnOneConstraints = new ColumnConstraints(LABEL_WITH, LABEL_WITH, LABEL_WITH_MAX);
-        columnOneConstraints.setHalignment(HPos.RIGHT);
+//        columnOneConstraints.setHalignment(HPos.RIGHT);
         ColumnConstraints columnTwoConstrains = new ColumnConstraints(INPUT_WITH, INPUT_WITH, INPUT_WITH_MAX);
-        columnTwoConstrains.setHgrow(Priority.ALWAYS);
+//        columnTwoConstrains.setHgrow(Priority.ALWAYS);
         return gridPane; 
     }//GridPane
      
      private void setupControls(GridPane pane) {
         ButtonSave = ButtonSave("Guardar", pane, 5);
-        btn_exit= buildGenerateButton("Salir", pane, 5);
+        btn_exit= buildGenerateButton("Regresar", pane, 5);
         cBListNames=comboBoxNames(pane, 5);
         btnSearch=ButtonSearch("Buscar Catalogo", pane, 5);
         cBProperties=comboBoxProperties(pane, 5);
@@ -243,12 +262,16 @@ public class InterfaceAddRegisters extends Application {
         btnAddProperties.setVisible(false);
         txtAgregarPropiedad=TextFieldAddProduct(pane, 5);
         txtAgregarPropiedad.setVisible(false);
+        txtmos=TextFieldada(pane, 5);
+        txtmos.setVisible(false);
+        lblEdit=labelEdit("Producto a agregar:", pane, 5);
+        lblEdit.setVisible(false);
     }//Controladores
 
       private ComboBox comboBoxNames(GridPane pane, int row) {
         ComboBox cmbList = new ComboBox();
         cmbList.setValue("               Catálogos                 ");
-        cmbList.setStyle(("-fx-font: 16px \"Footlight MT Light\""));
+        cmbList.setStyle(("-fx-font: 16px \"David Libre\""));
         pane.add(cmbList, 1,5);
           for (int i = 0; i < listAux.size(); i++) {
               cmbList.getItems().addAll(listAux.get(i));
@@ -259,17 +282,29 @@ public class InterfaceAddRegisters extends Application {
        private Label labelName(String name,GridPane pane, int row) {
           Label label = new Label(name);
           pane.add(label, 1,3);
-          label.setFont(new Font("Footlight MT Light",16));
+          label.setFont(new Font("David Libre",16));
           GridPane.setMargin(label, new Insets(10, 0, 10, 0));
         return label;
     }//TExtField
        
+       
+        private Label labelEdit(String name,GridPane pane, int row) {
+          Label label = new Label(name);
+          pane.add(label, 0,0);
+          label.setFont(new Font("David Libre",16));
+          File files3 = new File("herra.png");
+         Image images3 = new Image(files3.toURI().toString());
+         ImageView ivs3 = new ImageView(images3);
+         label.setGraphic(ivs3);
+         
+        return label;
+    }//TExtField
    
        
        private Label labelNameProduct(String name,GridPane pane, int row) {
           Label label = new Label(name);
           pane.add(label, 0,6);
-          label.setFont(new Font("Footlight MT Light",16));
+          label.setFont(new Font("David Libre",16));
           GridPane.setMargin(label, new Insets(10, 0, 10, 0));
         return label;
     }//TExtField
@@ -277,7 +312,17 @@ public class InterfaceAddRegisters extends Application {
         private TextField TextFieldNameProduct(GridPane pane, int row) {
           TextField txtnameProduct = new TextField();
           pane.add(txtnameProduct, 1,6);
-          txtnameProduct.setFont(new Font("Footlight MT Light",16));
+          txtnameProduct.setFont(new Font("David Libre",16));
+          GridPane.setMargin(txtnameProduct, new Insets(10, 0, 10, 0));
+        return txtnameProduct;
+    }//TExtField
+        
+        
+        
+         private TextField TextFieldada(GridPane pane, int row) {
+          TextField txtnameProduct = new TextField();
+          pane.add(txtnameProduct, 1,0);
+          txtnameProduct.setFont(new Font("David Libre",16));
           GridPane.setMargin(txtnameProduct, new Insets(10, 0, 10, 0));
         return txtnameProduct;
     }//TExtField
@@ -285,7 +330,7 @@ public class InterfaceAddRegisters extends Application {
         private TextField TextFieldAddProduct(GridPane pane, int row) {
           TextField txtnameProduct = new TextField();
           pane.add(txtnameProduct, 1,7);
-          txtnameProduct.setFont(new Font("Footlight MT Light",16));
+          txtnameProduct.setFont(new Font("David Libre",16));
           GridPane.setMargin(txtnameProduct, new Insets(10, 0, 10, 0));
         return txtnameProduct;
     }//TExtField
@@ -293,42 +338,52 @@ public class InterfaceAddRegisters extends Application {
         private Label labelCatalogue(String name,GridPane pane, int row) {
           Label label = new Label(name);
           pane.add(label, 0,5);
-          label.setFont(new Font("Footlight MT Light",16));
-          GridPane.setMargin(label, new Insets(10, 0, 10, 0));
+          label.setFont(new Font("David Libre",16));
+//          GridPane.setMargin(label, new Insets(10, 0, 10, 0));
         return label;
     }//TExtField
        
       private ComboBox comboBoxProperties(GridPane pane, int row) {
           ComboBox cmbList = new ComboBox();
           cmbList.setValue("               Propiedades                 ");
-          cmbList.setStyle(("-fx-font: 16px \"Footlight MT Light\""));
+          cmbList.setStyle(("-fx-font: 16px \"David Libre\""));
           pane.add(cmbList, 0,7);
         return cmbList;
     }//TExtField
      
      private Button buildGenerateButton(String label, GridPane pane, int row) {
           Button button = new Button(label);
-          pane.add(button, 5,25);
-          GridPane.setHalignment(button, HPos.CENTER);
+          pane.add(button, 2,25);
+//          GridPane.setHalignment(button, HPos.CENTER);
           button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
           button.setTextFill(Color.BLACK);
           button.setStyle("-fx-background-color: WHITE");
-          GridPane.setHalignment(button, HPos.CENTER);
-          GridPane.setMargin(button, new Insets(10, 0, 10, 0));
-          GridPane.setMargin(button, new Insets(20, 0, 20, 0));
+//          GridPane.setHalignment(button, HPos.CENTER);
+          File files3 = new File("return.png");
+         Image images3 = new Image(files3.toURI().toString());
+         ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
+//          GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+         
         return button;
     }//button
      
       private Button ButtonSave(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button, 4,25);
+        pane.add(button, 1,25);
         button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        GridPane.setHalignment(button, HPos.CENTER);
-        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+//        GridPane.setHalignment(button, HPos.CENTER);
+        File files3 = new File("save.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+        button.setGraphic(ivs3);
+//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
     }//button
+      
+      
      
       private Button ButtonAddProperties(String label, GridPane pane, int row) {
         Button button = new Button(label);
@@ -336,8 +391,12 @@ public class InterfaceAddRegisters extends Application {
         button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        GridPane.setHalignment(button, HPos.CENTER);
-        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+//        GridPane.setHalignment(button, HPos.CENTER);
+        File files3 = new File("add.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+        button.setGraphic(ivs3);
+//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
     }//button
       
@@ -348,8 +407,12 @@ public class InterfaceAddRegisters extends Application {
         button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-        GridPane.setHalignment(button, HPos.CENTER);
-        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+//        GridPane.setHalignment(button, HPos.CENTER);
+        File files3 = new File("se.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+        button.setGraphic(ivs3);
+//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
     }//button
      

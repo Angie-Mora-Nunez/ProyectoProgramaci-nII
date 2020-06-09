@@ -10,6 +10,7 @@ import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
+import java.awt.ComponentOrientation;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,6 +20,7 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -30,6 +32,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -38,7 +41,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -69,6 +74,7 @@ public class InterfaceProducts extends Application {
         
         stage.setScene(createScene(pane));
         stage.show();
+        
     }//Start
      public void display() {
         launch();
@@ -81,23 +87,30 @@ public class InterfaceProducts extends Application {
      
     }//eventos
    
-    
+    Pane panes = new Pane();
      
      
       public VBox getVBox() throws FileNotFoundException {
        
         VBox vb_main = new VBox(); // VBox que contendrá las opciones del menú 
         
-         
+      
         VBox VB_Windows = new VBox(); // VBox para contener las demás ventanas sin alterar el principal 
         // barra de menú 
-        
+       
         
         
         MenuBar Mb_menu = new MenuBar();
+        
         //1-ítem de crear catálogo
          Menu m_Create= new Menu("Agregar Producto");
-          m_Create.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
+          m_Create.setStyle("-fx-background-color: linear-gradient(#24B6C3, #FFFFFF);");
+          File file1 = new File("adding.png");
+          Image image1 = new Image(file1.toURI().toString());
+          ImageView iv1 = new ImageView(image1);
+          m_Create.setGraphic(iv1);
+          
+          
           
          
        // IMAGEN 
@@ -113,6 +126,7 @@ public class InterfaceProducts extends Application {
            VB_Windows.getChildren().clear(); // limpiar VBox
             try {
                 iA.start(stage);
+                
             } catch (Exception ex) {
                 Logger.getLogger(InterfaceProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -122,11 +136,12 @@ public class InterfaceProducts extends Application {
        
       //2- ítem de la lista de catálogos existentes 
        Menu m_ListCatalogs = new Menu("Buscar Producto");
-       m_ListCatalogs.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
+       m_ListCatalogs.setStyle("-fx-background-color: linear-gradient(#24B6C3, #FFFFFF);");
        // imagen
-       File file1 = new File("watch.png");
-       Image image1 = new Image(file1.toURI().toString());
-       ImageView iv1 = new ImageView(image1);
+       File file2 = new File("searching.png");
+       Image image2 = new Image(file2.toURI().toString());
+       ImageView iv2 = new ImageView(image2);
+       m_ListCatalogs.setGraphic(iv2);
        InterfaceSearch iS = new InterfaceSearch();
        
        MenuItem mI_ListCatalogs = new MenuItem("Buscar");
@@ -146,7 +161,12 @@ public class InterfaceProducts extends Application {
        
          //3- ítem de la lista de catálogos existentes 
        Menu m_Modificate = new Menu("Modificar Producto");
-       m_Modificate.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
+       m_Modificate.setStyle("-fx-background-color: linear-gradient(#24B6C3, #FFFFFF);");
+        File file3 = new File("modi.png");
+       Image image3 = new Image(file3.toURI().toString());
+       ImageView iv3 = new ImageView(image3);
+        m_Modificate.setGraphic(iv3);
+       
        // imagen
     
        MenuItem mI_Modificate = new MenuItem("Modificar");
@@ -167,7 +187,15 @@ public class InterfaceProducts extends Application {
        
        //2- ítem de la lista de catálogos existentes 
        Menu m_ListProducts = new Menu("Lista de Productos");
-       m_ListProducts.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
+       m_ListProducts.setStyle("-fx-background-color: linear-gradient(#24B6C3, #FFFFFF);");
+        File file4 = new File("view.png");
+       Image image4 = new Image(file4.toURI().toString());
+       ImageView iv4 = new ImageView(image4);
+        m_ListProducts.setGraphic(iv4);
+       
+       
+       
+       
        // imagen
       
        InterfaceListingRegisters iLR = new InterfaceListingRegisters();
@@ -186,23 +214,26 @@ public class InterfaceProducts extends Application {
        m_ListProducts.getItems().addAll(mI_ListProducts);
        
        
+          
        
        
        
-       
-       
+      
        
        
      
        //7-ítem para salir
-       Menu m_Exit= new Menu("Salir");
-       m_Exit.setStyle("-fx-background-color: linear-gradient(#31E0EE, #C0EDF1);");
-       
+       Menu m_Exit= new Menu("Regresar");
+       m_Exit.setStyle("-fx-background-color: linear-gradient(#24B6C3, #FFFFFF);");
+        File file5 = new File("return.png");
+       Image image5 = new Image(file5.toURI().toString());
+       ImageView iv5 = new ImageView(image5);
+        m_Exit.setGraphic(iv5); 
       // imagen 
-       File file6 = new File("exit.png");
+       File file6 = new File("return.png");
        Image image6 = new Image(file6.toURI().toString());
        ImageView iv6 = new ImageView(image6);
-       MenuItem mI_Exit = new MenuItem("Salir");
+       MenuItem mI_Exit = new MenuItem("Regresar");
        // acción para listar registros
        mI_Exit.setGraphic(iv6);
           InterfaceChooseWay iC = new InterfaceChooseWay();
@@ -214,22 +245,37 @@ public class InterfaceProducts extends Application {
             }
          });
        
-      m_Exit.getItems().addAll(mI_Exit);
+         m_Exit.getItems().addAll(mI_Exit);
        
+         Menu m_Exitf= new Menu("Salir"); 
+         m_Exitf.setStyle("-fx-background-color: linear-gradient(#24B6C3, #FFFFFF);");
+         File files4 = new File("salida.png");
+         Image images4 = new Image(files4.toURI().toString());
+         ImageView ivs4 = new ImageView(images4);
+         m_Exitf.setGraphic(ivs4);
+         
+         MenuItem m_Ex = new MenuItem("Salir");
+         m_Ex.setGraphic(ivs4);
+         m_Ex.setOnAction(actionEvent -> {
+             System.exit(0);});//cierro
+         m_Exitf.getItems().addAll(m_Ex);
+         
+      
+      
+      
        
        
        // agregar el menú a la barra 
-       Mb_menu.getMenus().addAll(m_Create,m_ListCatalogs,m_Modificate,m_ListProducts,m_Exit);
+       Mb_menu.getMenus().addAll(m_Create,m_ListCatalogs,m_Modificate,m_ListProducts,m_Exit,m_Exitf);
 
-        FileInputStream imageStream = new FileInputStream("hola.png");
+        FileInputStream imageStream = new FileInputStream("pro.gif");
         Image imageS = new Image(imageStream);
         ImageView imagen = new ImageView(imageS);
-      new Insets(0,10,0,10);
+         new Insets(0,10,0,10);
        
-        
-      
+         
        // agregar barra al VBox
-       vb_main.getChildren().addAll(Mb_menu, VB_Windows,imagen);
+       vb_main.getChildren().addAll(Mb_menu, VB_Windows,imagen,panes);
         return vb_main;
         
     }// end VBox
@@ -244,7 +290,7 @@ public class InterfaceProducts extends Application {
     }//showalert
 
      private Scene createScene (Pane pane) {
-         pane.setStyle("-fx-background-color:#37D8E3" );
+         pane.setStyle("-fx-background-color:#FFFEFE");
          return new Scene (pane,900,900);
     }//scene
      

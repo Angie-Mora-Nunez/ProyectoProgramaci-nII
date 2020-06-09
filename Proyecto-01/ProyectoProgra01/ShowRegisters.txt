@@ -1,1 +1,1 @@
-[{ Nombre del catálogo : Martillo Nombre de producto : Martillo clar  Propiedades: tamaño: grande,precio: 1200,}]
+[{ Nombre del catálogo : Serrucho Nombre de producto : Serrucho Man  Propiedades: Cantidad: 120,material: plata,}]

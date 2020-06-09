@@ -10,6 +10,7 @@ import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
@@ -43,6 +44,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -88,7 +91,7 @@ public class InterfaceEntry extends Application{
     }//launch
     
     private void title(Stage stage) {
-        stage.setTitle("Sistema de Control de Empleados");
+        stage.setTitle("Ingresar");
     }//title
      private void addHandlers() {
         InterfaceChooseWay iU = new InterfaceChooseWay();
@@ -97,7 +100,8 @@ public class InterfaceEntry extends Application{
 //            String text = txUser.getText();
 //             if(Txt2.getText().equals("ucr")){
 //                 if(txUser.getText().equals("AngieMora")||txUser.getText().equals("AngelicaRedondo")||txUser.getText().equals("MarianMurillo")||txUser.getText().equals("SamuelLuque")){
-             
+//              ImageIcon icon = new ImageIcon("us.png");
+//              JOptionPane.showMessageDialog(null, "Bienvenido(a)"+" "+ Txt2.getText(), "Ingreso a sistema", 2, (Icon) icon);
              try {
               iU.start(stage);
             
@@ -115,6 +119,7 @@ public class InterfaceEntry extends Application{
 //              JOptionPane.showMessageDialog(null,"Contraseña o usuario erroneos,"+"\n"+"Ingrese la contraseña o usuario correctos");
 //              Txt2.clear();
 //              txUser.clear();
+           
          });
      
      
@@ -157,11 +162,11 @@ public class InterfaceEntry extends Application{
         btn_Admin = buildGenerateButton("Ingresar: ", pane, 5);
         Lbl = buildLabel("Nombre de usuario: ", pane, 5);
         Txt2= (PasswordField) buildTextInput2(pane, 5);
-        Lbl=buildLabel2("Contraseña", pane, 5);
+        Lbl=buildLabel2("Contraseña:", pane, 5);
         BtnSalida=buildGenerateButtonEnd("Regresar", pane, 5);
         labelEntryDates=buildLabelDates("Ingrese usuario  y contraseña:", pane, 5);
-        Products=ImagePreview(pane, 5);
-        lblSlogan=buildLabelSlogan("Progrados de Concreto S.A", pane, 5);
+//        Products=ImagePreview(pane, 5);
+//        lblSlogan=buildLabelSlogan("Progrados de Concreto S.A", pane, 5);
     }//controladores
      
       private TextField buildTextInput(GridPane pane, int row) {
@@ -187,6 +192,10 @@ public class InterfaceEntry extends Application{
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
         GridPane.setHalignment(button, HPos.CENTER);
+         File files3 = new File("entry.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
           GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
     }//button
@@ -205,6 +214,7 @@ public class InterfaceEntry extends Application{
         Label lb = new Label(text);
         pane.add(lb,13, 0);
         lb.setFont(new Font("Indie Flower",16));
+        
         GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
         return lb;
     }//button
@@ -216,6 +226,10 @@ public class InterfaceEntry extends Application{
         button.setStyle("-fx-background-color: WHITE");
         pane.add(button,12, 30);//-fila columna
 //        GridPane.setHalignment(button, HPos.CENTER);
+        File files3 = new File("gou.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
         GridPane.setMargin(button, new Insets(10, row, 10, row));
         return button;
     }//button  
@@ -223,6 +237,10 @@ public class InterfaceEntry extends Application{
         Label lb = new Label(text);
         pane.add(lb,0, 18);
         lb.setFont(new Font("Indie Flower",16));
+         File files3 = new File("user.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         lb.setGraphic(ivs3);
         GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
         return lb;
     }//button
@@ -231,6 +249,11 @@ public class InterfaceEntry extends Application{
         Label lb = new Label(text);
         pane.add(lb,0, 16);
         lb.setFont(new Font("Indie Flower",16));
+        File files3 = new File("users.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         lb.setGraphic(ivs3);
+       
         GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
         return lb;
     }//button
@@ -241,6 +264,10 @@ public class InterfaceEntry extends Application{
         Label lb = new Label(text);
          lb.setFont(new Font("Indie Flower",16));
         pane.add(lb,0, 20);
+        File files3 = new File("pass.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         lb.setGraphic(ivs3);
         GridPane.setMargin(lb, new Insets(10, 0, 10, 0));
         return lb;
     }//button

@@ -6,7 +6,6 @@
 package edu.ucr.rp.Interfaces.Products;
 
 import edu.ucr.rp.Interfaces.*;
-import edu.ucr.rp.Interfaces.Logic.Registers;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
@@ -33,8 +32,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -43,6 +43,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -71,15 +74,10 @@ public class InterfaceEdit extends Application {
     ArrayList DescriptionL = getAllDescriptions();
     ArrayList arrayAux = new ArrayList();
     File propertiesDescription = new File("propertiesDescription.txt");
-    File fileRegisTokens = new File("RegisTokens.txt");
     private Stage stage;
     int position; 
     ArrayList DescriptionsList = getDescriptions();
-    private ComboBox cmbCatalogues;
-    ArrayList list = getRegistersRegisters();
-    ArrayList listComplete =getRegistersBusqueda();
-    ArrayList listShow = new ArrayList();
-    private TextArea txtShow;
+    
   
     @Override
     public void start(Stage stage) throws Exception {
@@ -131,7 +129,10 @@ public class InterfaceEdit extends Application {
         
          ArrayList Modificate = new ArrayList();
          btnConfirm.setOnAction(actionEvent -> {
-           Modificate.add(txtDescription.getText());
+            Modificate.add(txtDescription.getText());
+            ImageIcon icon = new ImageIcon("edit.png");
+            JOptionPane.showMessageDialog(null, "Se ha modificado con éxito", "Editar Productos", 2, (Icon) icon);
+            txtDescription.clear();
          });//actionConfirm
         
          btnSave.setOnAction(actionEvent -> {
@@ -153,19 +154,14 @@ public class InterfaceEdit extends Application {
                FileOutputStream fos = new FileOutputStream(propertiesDescription);
                 PrintStream ps = new PrintStream(fos);
                 ps.println();
-          
-                FileOutputStream fosRe = new FileOutputStream(fileRegisTokens);
-                PrintStream psRe = new PrintStream(fosRe);
-                psRe.println();
-                
                 // limpiar el archivo 
-                
-                
            
                 FileOutputStream fo2 = new FileOutputStream(propertiesDescription,true);
                  PrintStream ps2 = new PrintStream(fo2);
                  for (int i = 0; i < addModificate.size(); i++) {
                      ps2.println(addModificate.get(i).toString());
+                     ImageIcon icon = new ImageIcon("save.png");
+                    JOptionPane.showMessageDialog(null, "Se ha guardado el producto con éxito", "Editar Productos", 2, (Icon) icon);
                 }//for
                  
                 
@@ -189,7 +185,7 @@ public class InterfaceEdit extends Application {
     
      private GridPane buildPane() {
         GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
+         gridPane.setAlignment(Pos.CENTER);
         gridPane.setPadding(new Insets(10, 10,10, 10));
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -197,6 +193,7 @@ public class InterfaceEdit extends Application {
         columnOneConstraints.setHalignment(HPos.RIGHT);
         ColumnConstraints columnTwoConstrains = new ColumnConstraints(INPUT_WITH, INPUT_WITH, INPUT_WITH_MAX);
         columnTwoConstrains.setHgrow(Priority.ALWAYS);
+ 
         return gridPane; 
     }//GridPane
      
@@ -211,7 +208,7 @@ public class InterfaceEdit extends Application {
      private void setupControls(GridPane pane) {
        
          searchButton = ButtonSearch("Buscar en Catálogo", pane, 5);
-         btn_exit= ButtonExit("Salir", pane, 5);
+         btn_exit= ButtonExit("Regresar", pane, 5);
          lp=labelCatalogue("Buscar Producto: ", pane, 5);
          cmbSearchNames=comboBoxNames(pane, 5);
          lp_NameProduct=labelProductName("Propiedades: ", pane,5);
@@ -249,6 +246,10 @@ public class InterfaceEdit extends Application {
         button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
+        File files3 = new File("save.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+        button.setGraphic(ivs3);
 //        GridPane.setHalignment(button, HPos.CENTER);
 //        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
@@ -260,6 +261,10 @@ public class InterfaceEdit extends Application {
         button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
+        File files3 = new File("confirm.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
 //        GridPane.setHalignment(button, HPos.CENTER);
 //        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
@@ -271,6 +276,10 @@ public class InterfaceEdit extends Application {
         button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
+        File files3 = new File("show.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+        button.setGraphic(ivs3);
 //        GridPane.setHalignment(button, HPos.CENTER);
 //        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
@@ -335,6 +344,10 @@ public class InterfaceEdit extends Application {
         button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
+         File files3 = new File("se.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
 //        GridPane.setHalignment(button, HPos.CENTER);
 //        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
@@ -346,6 +359,10 @@ public class InterfaceEdit extends Application {
         button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
+         File files3 = new File("return.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
 //        GridPane.setHalignment(button, HPos.CENTER);
 //        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
@@ -566,83 +583,7 @@ public class InterfaceEdit extends Application {
      }//getRegistersRegisters
       
        
-        public ArrayList getRegistersRegisters(){
-     ArrayList listas = new ArrayList();
-      File fileCatalogueTokens = new File("CatalogueTokens.txt");
-         try {
-             FileInputStream fis = new FileInputStream(fileCatalogueTokens);
-             InputStreamReader isr= new InputStreamReader(fis);
-             BufferedReader br = new BufferedReader(isr);
-             String actualRegister = br.readLine();
-             while(actualRegister!=null){
-             String nombre="";
-             int controlaTokens=1;
-             StringTokenizer sT = new StringTokenizer(actualRegister,"|");
-             listas.add(sT.nextToken());
-             actualRegister=br.readLine();
-             }//whileActualRegisters
-             
-         } catch (FileNotFoundException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         }//try/catch
-        
-     return listas;
-     }//getRegistersRegisters 
-     
-     
-      public ArrayList getRegistersBusqueda(){
-      ArrayList list2 = new ArrayList();
-       File fileRegisTokens = new File("RegisTokens.txt");
-         try {
-             FileInputStream fiso = new FileInputStream(fileRegisTokens);
-             InputStreamReader isro= new InputStreamReader(fiso);
-             BufferedReader bro = new BufferedReader(isro);
-             String actualRegister = bro.readLine();
-             
-             while(actualRegister!=null){
-             String Catalog="",name="",namePropie="";
-             int controlaTokens=1;
-             StringTokenizer sT = new StringTokenizer(actualRegister,"|");
-             
-             while(sT.hasMoreElements()){
-             if(controlaTokens==1)
-                 Catalog=sT.nextToken();
-             else if(controlaTokens==2)
-                 name=sT.nextToken();
-             else if(controlaTokens==3)
-                 namePropie=sT.nextToken();
-             
-             controlaTokens++;
-             }//While
-                 Registers registers = new Registers(Catalog, name, namePropie);
-                 list2.add(registers);
-             actualRegister=bro.readLine();
-             }//whileActualRegisters
-             
-         } catch (FileNotFoundException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         }//try/catch
-        
-     return list2;
-     }//getRegistersRegisters 
-
-      public Registers SearchName(ArrayList name , String nameSearch,ArrayList properties) {
-            String output =""; 
-            Registers registr=null;
-            for (int j = 0; j < name.size(); j++) {
-                for (int i = 0; i <properties.size(); i++) {
-                    registr=(Registers)properties.get(i);
-                    if (name.get(j).toString().equalsIgnoreCase(registr.getNameCatalogue())&& nameSearch.equalsIgnoreCase(registr.getNameProduct())){ 
-                          return registr;
-                    }//if
-                }//for
-                }//for
-             return registr;
-       }//searchName      
+       
        
        
        

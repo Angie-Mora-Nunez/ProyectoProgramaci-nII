@@ -31,10 +31,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javax.swing.JOptionPane;
@@ -122,7 +126,7 @@ public class InterfaceListingCatalogs extends Application{
           }//try/catch
     
       
-         btn_exit= buildGenerateButton("Salir", pane, 6);
+         btn_exit= buildGenerateButton("Regresar", pane, 6);
          txtShow=buildTextAreaShow(output, pane, 5);
     }//Controladores
      
@@ -139,6 +143,13 @@ public class InterfaceListingCatalogs extends Application{
      private Button buildGenerateButton(String label, GridPane pane, int row) {
         Button button = new Button(label);
         pane.add(button, 1, 3);
+        button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
+        button.setTextFill(Color.BLACK);
+        button.setStyle("-fx-background-color: WHITE");
+        File files3 = new File("gou.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
         GridPane.setHalignment(button, HPos.CENTER);
         GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
@@ -154,11 +165,9 @@ public class InterfaceListingCatalogs extends Application{
         alert.show();
     }//showalert
 
-     private Scene createScene (Pane pane){
-         
-          pane.setStyle("-fx-background-color:#37D8E3" );
-         
-    return new Scene (pane,800,500);
+    private Scene createScene (Pane pane) {
+         pane.setStyle("-fx-background-color:#37D8E3" );
+         return new Scene (pane,900,900);
     }//scene
 
     private BufferedReader getBufferedReader(String lisProperties) {

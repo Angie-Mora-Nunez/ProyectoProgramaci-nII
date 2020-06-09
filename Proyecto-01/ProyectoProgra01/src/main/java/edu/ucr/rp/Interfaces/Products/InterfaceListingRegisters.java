@@ -31,6 +31,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -122,7 +124,7 @@ public class InterfaceListingRegisters extends Application {
           }//try/catch
     
       
-         btn_exit= buildGenerateButton("Salir", pane, 6);
+         btn_exit= buildGenerateButton("Regresar", pane, 6);
          txtShow=buildTextAreaShow(output, pane, 5);
     }//Controladores
      
@@ -140,6 +142,10 @@ public class InterfaceListingRegisters extends Application {
         Button button = new Button(label);
         pane.add(button, 1, 3);
         GridPane.setHalignment(button, HPos.CENTER);
+         File files3 = new File("return.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
         GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
     }//button
@@ -154,11 +160,9 @@ public class InterfaceListingRegisters extends Application {
         alert.show();
     }//showalert
 
-     private Scene createScene (Pane pane){
-         
-          pane.setStyle("-fx-background-color:#37D8E3" );
-         
-    return new Scene (pane,800,500);
+     private Scene createScene (Pane pane) {
+         pane.setStyle("-fx-background-color:#37D8E3" );
+         return new Scene (pane,900,900);
     }//scene
 
     private BufferedReader getBufferedReader(String lisProperties) {

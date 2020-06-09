@@ -42,6 +42,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -51,6 +52,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import util.JsonUtil;
 
@@ -72,6 +75,7 @@ public class InterfaceCreateCatalogue extends Application {
     ArrayList CatalogueList = new ArrayList();
     private Button agregarTxtField;
     private Label lblBussiness;
+    private Button btnshow;
    ArrayList<Catalogue> catalogs = new ArrayList<>();
     
     @Override
@@ -121,7 +125,8 @@ public class InterfaceCreateCatalogue extends Application {
              TxtName.clear();
              txtPropiedades.clear();
              
-            
+             ImageIcon icon = new ImageIcon("confirm.png");
+            JOptionPane.showMessageDialog(null, "Se ha agredado el catálogo ", "Agregar Catálogo", 2, (Icon) icon);
             
              
          });
@@ -135,7 +140,10 @@ public class InterfaceCreateCatalogue extends Application {
              }
          });
          
-         
+         btnshow.setOnAction(actionEvent -> {
+            ImageIcon icon = new ImageIcon("info.png");
+            JOptionPane.showMessageDialog(null, "Agrega las propiedades seguidas por comas", "Agregar Catálogo", 2, (Icon) icon);
+         });
 
          
          
@@ -169,7 +177,8 @@ public class InterfaceCreateCatalogue extends Application {
         LblName=LabelName("Nombre:", pane, 4);
         lblPropiedades=LabelDescripcion("Propiedades:", pane, 4);
         txtPropiedades=textPropiedades(pane, 4);
-        lblBussiness=LabelBussines("Posgrados SA", pane, 4);
+        btnshow=ButtonSinfo(pane, 5);
+//        lblBussiness=LabelBussines("Posgrados SA", pane, 4);
       
     }//controladores
      
@@ -214,22 +223,49 @@ public class InterfaceCreateCatalogue extends Application {
     }//button
       
      private Button ButtonAdd(String label, GridPane pane, int row) {
-          Button button = new Button(label);
-          pane.add(button,1, 30);
-           button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
+        Button button = new Button(label);
+        pane.add(button,1, 30);
+        button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
+        File files3 = new File("addo.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
         GridPane.setHalignment(button, HPos.CENTER);
-          GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
     }//button
  
+     
+      private Button ButtonSinfo(GridPane pane, int row) {
+        Button button = new Button();
+        pane.add(button, 2,21);
+        button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
+        button.setTextFill(Color.BLACK);
+        button.setStyle("-fx-background-color: WHITE");
+//        GridPane.setHalignment(button, HPos.CENTER);
+        File files3 = new File("info.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+        button.setGraphic(ivs3);
+//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+        return button;
+    }//button
+     
+     
+     
+     
       private Button ButtonExit(String label, GridPane pane, int row) {
         Button button = new Button(label);
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
         pane.add(button,5, 40);//-fila columna
+        File files3 = new File("gou.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
 //        GridPane.setHalignment(button, HPos.CENTER);
         GridPane.setMargin(button, new Insets(10, row, 10, row));
         return button;
@@ -243,11 +279,10 @@ public class InterfaceCreateCatalogue extends Application {
         alert.initOwner(owner);
         alert.show();
     }//showAlert
-     private Scene createScene (Pane pane) {
-         pane.setStyle("-fx-background-color:#37D8E3" );
      
-        
-         return new Scene (pane,800,800);
+    private Scene createScene (Pane pane) {
+         pane.setStyle("-fx-background-color:#37D8E3" );
+         return new Scene (pane,900,900);
     }//scene
      
      private void AddProperties(String name,String properties) throws FileNotFoundException{

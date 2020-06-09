@@ -1,1 +1,1 @@
-Martillo|Martillo clar|tamaño: grande,precio: 1200,
+Serrucho|Serrucho Man|Cantidad: 120,material: plata,

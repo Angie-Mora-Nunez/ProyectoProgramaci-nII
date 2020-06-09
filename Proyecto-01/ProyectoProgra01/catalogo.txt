@@ -1,4 +1,2 @@
-Catálogo{Nombre de Catálogo=Martillo, Propiedades=tamaño,precio}
-
-Catálogo{Nombre de Catálogo=Clavo, Propiedades=tamaño,forma}
+Catálogo{Nombre de Catálogo=Serrucho, Propiedades=Cantidad,material}
 
