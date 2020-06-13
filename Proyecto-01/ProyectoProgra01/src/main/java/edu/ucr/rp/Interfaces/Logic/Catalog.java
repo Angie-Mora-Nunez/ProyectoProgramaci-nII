@@ -18,21 +18,21 @@ import javax.swing.JOptionPane;
  * Marian Murillo Bonilla
  * Angie Mora Núñez
  */
-public class Catalogue {
-    private String nameCatalogue;
+public class Catalog {
+    private String nameCatalog;
     private String properties;
 
-    public Catalogue(String nameCatalogue, String properties) {
-        this.nameCatalogue = nameCatalogue;
+    public Catalog(String nameCatalogue, String properties) {
+        this.nameCatalog = nameCatalogue;
         this.properties = properties;
     }//constructor
 
-    public String getNameCatalogue() {
-        return nameCatalogue;
+    public String getNameCatalog() {
+        return nameCatalog;
     }//getname
 
-    public void setNameCatalogue(String nameCatalogue) {
-        this.nameCatalogue = nameCatalogue;
+    public void setNameCatalog(String nameCatalog) {
+        this.nameCatalog = nameCatalog;
     }//setname
 
     public String getProperties() {
@@ -46,7 +46,7 @@ public class Catalogue {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Catálogo{Nombre de Catálogo=").append(nameCatalogue);
+        sb.append("Catálogo{Nombre de Catálogo=").append(nameCatalog);
         sb.append(", Propiedades=").append(properties);
         sb.append('}'+"\n");
         return sb.toString();

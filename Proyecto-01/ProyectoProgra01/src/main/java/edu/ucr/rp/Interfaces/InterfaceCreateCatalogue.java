@@ -5,20 +5,15 @@
  */
 package edu.ucr.rp.Interfaces;
 
-import edu.ucr.rp.Interfaces.Logic.Catalogue;
+import edu.ucr.rp.Interfaces.Logic.Catalog;
+import edu.ucr.rp.Interfaces.Logic.manteinFile;
 
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -76,7 +71,7 @@ public class InterfaceCreateCatalogue extends Application {
     private Button agregarTxtField;
     private Label lblBussiness;
     private Button btnshow;
-   ArrayList<Catalogue> catalogs = new ArrayList<>();
+   ArrayList<Catalog> catalogs = new ArrayList<>();
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -103,24 +98,18 @@ public class InterfaceCreateCatalogue extends Application {
            
           ArrayList ar= new ArrayList();
           ar.add(txtPropiedades.getText());
-           Catalogue c = new Catalogue(TxtName.getText(), txtPropiedades.getText());
+           Catalog c = new Catalog(TxtName.getText(), txtPropiedades.getText());
           
            System.out.println(ar.toString());
              
            catalogs.add(c);
-          
-            File fileCatalogueshow = new File("catalogo.txt");
+           manteinFile s = new manteinFile();
+           File fileCatalogueshow = new File("catalogo.txt");
+           String catalog = TxtName.getText()+"|"+txtPropiedades.getText();
+           File fileCatalogueTokensAll = new File("CatalogueTokensAll.txt");
             
-             try {
-                 FileOutputStream fos = new FileOutputStream(fileCatalogueshow,true);
-                 PrintStream ps = new PrintStream(fos);
-                 ps.println(new Catalogue(TxtName.getText(),txtPropiedades.getText()));
-                 AddProperties(TxtName.getText(),txtPropiedades.getText());
-                 AddPropertiesALL(txtPropiedades.getText());
-          
-             } catch (FileNotFoundException ex) {
-                 Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);
-             }//try/catch
+           s.addOnFile(fileCatalogueshow, catalog);
+           s.addOnFile(fileCatalogueTokensAll,txtPropiedades.getText());
             
              TxtName.clear();
              txtPropiedades.clear();
@@ -145,11 +134,6 @@ public class InterfaceCreateCatalogue extends Application {
             JOptionPane.showMessageDialog(null, "Agrega las propiedades seguidas por comas", "Agregar Catálogo", 2, (Icon) icon);
          });
 
-         
-         
-         
-         
-         
       }//funcionamiento
    
      private GridPane buildPane() throws FileNotFoundException {
@@ -253,9 +237,6 @@ public class InterfaceCreateCatalogue extends Application {
         return button;
     }//button
      
-     
-     
-     
       private Button ButtonExit(String label, GridPane pane, int row) {
         Button button = new Button(label);
          button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
@@ -285,22 +266,9 @@ public class InterfaceCreateCatalogue extends Application {
          return new Scene (pane,900,900);
     }//scene
      
-     private void AddProperties(String name,String properties) throws FileNotFoundException{
-         File fileCatalogueTokens = new File("CatalogueTokens.txt");
-         FileOutputStream fos = new FileOutputStream(fileCatalogueTokens,true);
-                 PrintStream ps = new PrintStream(fos);
-                 ps.println(name+"|"+properties);
-     }//addProperties
-     
-     
-     
- private void AddPropertiesALL(String properties) throws FileNotFoundException{
-         File fileCatalogueTokensAll = new File("CatalogueTokensAll.txt");
-         FileOutputStream fos = new FileOutputStream(fileCatalogueTokensAll,true);
-                 PrintStream ps = new PrintStream(fos);
-                 ps.println(properties);
-     }//addProperties
 }//end
+
+
 
 
 

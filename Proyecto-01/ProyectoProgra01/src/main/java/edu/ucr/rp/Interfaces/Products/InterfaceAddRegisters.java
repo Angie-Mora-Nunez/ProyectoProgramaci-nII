@@ -6,7 +6,7 @@
 package edu.ucr.rp.Interfaces.Products;
 
 import edu.ucr.rp.Interfaces.*;
-import edu.ucr.rp.Interfaces.Logic.Catalogue;
+import edu.ucr.rp.Interfaces.Logic.Catalog;
 import edu.ucr.rp.Interfaces.Logic.Registers;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
@@ -105,7 +105,7 @@ public class InterfaceAddRegisters extends Application {
          ArrayList description = new ArrayList();
          btnSearch.setOnAction(actionEvent -> {
              for (int i = 0; i < propertiesList.size(); i++) {
-             listSi.add(new Catalogue(listAux.get(i).toString(),propertiesList.get(i).toString()));
+             listSi.add(new Catalog(listAux.get(i).toString(),propertiesList.get(i).toString()));
              }//for
 
               propetiesCombo = getObteinProperties(SearchName(listAux,cBListNames.getValue()+"", propertiesList));

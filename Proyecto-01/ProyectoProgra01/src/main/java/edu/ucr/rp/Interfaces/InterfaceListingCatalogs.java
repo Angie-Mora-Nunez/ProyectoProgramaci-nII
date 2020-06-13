@@ -5,16 +5,15 @@
  */
 package edu.ucr.rp.Interfaces;
 
+import edu.ucr.rp.Interfaces.Logic.Catalog;
+import edu.ucr.rp.Interfaces.Logic.manteinFile;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +21,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -29,8 +30,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -54,7 +58,7 @@ public class InterfaceListingCatalogs extends Application{
     private Button generateButton;
     private Button btn_exit;
     private TextArea txtShow;
-    
+    TableView<Catalog> tvCatalogs= new TableView<>();
     private Stage stage;
   
     @Override
@@ -104,30 +108,12 @@ public class InterfaceListingCatalogs extends Application{
         return gridPane; 
     }//GridPane
 
-     private void setupControls(GridPane pane) {
-          String value="";
-          BufferedReader br = getBufferedReader("catalogo.txt");
-          ArrayList listpo= new ArrayList();
-         String output="";
-   
-          try {
-              while ((value = br.readLine())!=null) {
-                  
-                  listpo.add(value);
-              }//while
-               Collections.sort(listpo);
-               
-              for (int i = 0; i < listpo.size(); i++) {
-                  output+=listpo.get(i)+"\n";
-              }//for
-              
-          } catch (IOException ex) {
-              Logger.getLogger(InterfaceListingCatalogs.class.getName()).log(Level.SEVERE, null, ex);
-          }//try/catch
+     private void setupControls(GridPane pane) throws IOException {
+         
     
-      
+        tvCatalogs=buildTableView(pane,6);
          btn_exit= buildGenerateButton("Regresar", pane, 6);
-         txtShow=buildTextAreaShow(output, pane, 5);
+         
     }//Controladores
      
      
@@ -155,6 +141,24 @@ public class InterfaceListingCatalogs extends Application{
         return button;
     }//button
      
+      private TableView buildTableView(GridPane pane, int row) throws IOException {
+        TableView<Catalog> tvCatalog= new TableView<>();
+         // crear columnas 
+        TableColumn tc_NameCountry = new TableColumn("Nombre");
+        tc_NameCountry.setCellValueFactory(new PropertyValueFactory("nameCatalog"));
+        
+        TableColumn tc_NameContinent = new TableColumn("Propiedades");
+        tc_NameContinent.setCellValueFactory(new PropertyValueFactory("properties"));
+        
+         // mostrar columnas en la tabla 
+        tvCatalog.setItems(getDataFile());
+        tvCatalog.getColumns().addAll(tc_NameCountry,tc_NameContinent);
+        
+        pane.add(tvCatalog, 0, 1);
+        TextField textField = new TextField();
+        GridPane.setHalignment(tvCatalog, HPos.CENTER);
+        return tvCatalog;
+    }//TExtField
     
      private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
@@ -170,19 +174,18 @@ public class InterfaceListingCatalogs extends Application{
          return new Scene (pane,900,900);
     }//scene
 
-    private BufferedReader getBufferedReader(String lisProperties) {
-          File listas = new File("catalogo.txt");
-        BufferedReader br = null;
-        try{
-            FileInputStream fis = new FileInputStream(listas);
-            InputStreamReader isr = new InputStreamReader(fis);
-             br = new BufferedReader(isr);
-        }//try
-        catch(FileNotFoundException fnfe){
-           JOptionPane.showMessageDialog(null, "problema con el archivo"+fnfe);
-        }//catch
-        return br;  
-    }//getBufferes
+    private ObservableList<Catalog> getDataFile() throws IOException {
+        File catalog = new File("catalogo.txt");
+        manteinFile mf = new manteinFile();
+        ArrayList temp = mf.getRegistersFileCatalog(catalog);
+        ArrayList aL= new ArrayList();
+        
+        for (int i = 0; i < temp.size(); i++) {
+             aL.add(temp.get(i));
+        }
+        ObservableList<Catalog>oL_dataCatalog =FXCollections.observableArrayList(aL); 
+        return oL_dataCatalog;
+    }
     
    
     
@@ -191,6 +194,12 @@ public class InterfaceListingCatalogs extends Application{
     
     
 }//end
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,3 @@
+Martillo|cantidad,peso
+Mangueras|peso,cantidad
+Cerrucho|cantidad,material

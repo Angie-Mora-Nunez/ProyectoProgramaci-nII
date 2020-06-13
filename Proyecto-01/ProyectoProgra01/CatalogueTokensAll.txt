@@ -1,0 +1,3 @@
+cantidad,peso
+peso,cantidad
+cantidad,material
