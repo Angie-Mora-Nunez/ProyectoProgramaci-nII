@@ -6,20 +6,15 @@
 package edu.ucr.rp.Interfaces.Products;
 
 import edu.ucr.rp.Interfaces.*;
+import edu.ucr.rp.Interfaces.Logic.Registers;
+import edu.ucr.rp.Interfaces.Logic.manteinFile;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -59,10 +54,6 @@ public class InterfaceEdit extends Application {
     private Button btn_exit;
     private TextField txtBuscar;
     private ComboBox cmbSearchNames;
-    ArrayList listNamesProducto = getRegisters();
-    ArrayList listNamesCatalog = getAllNameCatalog();
-    ArrayList listProperties = getAllProperties();
-    ArrayList listDescription = getAllDescriptions();
     private Label lp_NameProduct;
     private TextField txt_nameProduct;
     private ComboBox cmbProperties;
@@ -70,15 +61,14 @@ public class InterfaceEdit extends Application {
     private  TextField txtDescription;
     private Button btnSave;
     private Button btnConfirm;
-    ArrayList PropertiesL = getAllProperties();
-    ArrayList DescriptionL = getAllDescriptions();
-    ArrayList arrayAux = new ArrayList();
-    File propertiesDescription = new File("propertiesDescription.txt");
     private Stage stage;
     int position; 
-    ArrayList DescriptionsList = getDescriptions();
-    
-  
+    private ArrayList registers = new ArrayList();
+    manteinFile f = new manteinFile();
+    ArrayList properties = new ArrayList();
+    ArrayList Description = new ArrayList();
+    String nameCatalog ="";
+    ArrayList products = new ArrayList();
     @Override
     public void start(Stage stage) throws Exception {
           this.stage=stage;
@@ -100,75 +90,58 @@ public class InterfaceEdit extends Application {
         InterfaceProducts iP = new InterfaceProducts();
         
         searchButton.setOnAction(actionEvent -> {
+            try {  
+                registers = f.getRegistersFileRegister();
+                
+                products = f.GetposRegisterNames(registers,cmbSearchNames.getValue()+"");
+               
+                Registers re = f.GetposRegisterName(registers,cmbSearchNames.getValue()+"");
+                nameCatalog=re.getNameCatalogue();
+                 properties = f.getPropertiespos(re.getProperties());
+                for (int i = 0; i < properties.size(); i++) {
+                    cmbProperties.getItems().addAll(properties.get(i));
+                }
+                Description = f.getPropertiespos(re.getDescriptionProperties());
+            } catch (IOException ex) {
+                Logger.getLogger(InterfaceEdit.class.getName()).log(Level.SEVERE, null, ex);
+            }
            
-            int i = SearchName(listNamesProducto,cmbSearchNames.getValue()+"");
-            String Name =listNamesCatalog.get(i).toString();
-            String NameProduct=listNamesProducto.get(i).toString();
-            String Properties = listProperties.get(i).toString();
-            String Description = listDescription.get(i).toString();
-           
             
-            System.out.println(Name);
-            System.out.println(NameProduct);
-            System.out.println(Properties);
-            System.out.println(Description);
-            
-            PropertiesL=getObteinDat(Properties);
-            DescriptionL=getObteinDat(Description);
-            
-            for (int j = 0; j <PropertiesL.size(); j++) {
-              cmbProperties.getItems().addAll(PropertiesL.get(j));
-            }//forcombo
          });//actionSeacrh
         
         btnShowInfo.setOnAction(actionEvent -> {
-            position = SearchName(PropertiesL, cmbProperties.getValue()+"");
-             String descriptionSet = DescriptionL.get(position).toString();
-             txtDescription.setText(descriptionSet);
+           int pos = f.GetposNameCatalog(properties,cmbProperties.getValue()+"");
+            txtDescription.setText(Description.get(pos).toString());
+            
         });//showInfo
-        
-         ArrayList Modificate = new ArrayList();
+        ArrayList propertiesText = new ArrayList();
+        ArrayList DescriptionText = new ArrayList();
          btnConfirm.setOnAction(actionEvent -> {
-            Modificate.add(txtDescription.getText());
-            ImageIcon icon = new ImageIcon("edit.png");
-            JOptionPane.showMessageDialog(null, "Se ha modificado con éxito", "Editar Productos", 2, (Icon) icon);
-            txtDescription.clear();
+           propertiesText.add(cmbProperties.getValue().toString());
+           DescriptionText.add(txtDescription.getText());
+             
          });//actionConfirm
         
          btnSave.setOnAction(actionEvent -> {
-             ArrayList addModificate = new ArrayList();
-             String listConcaten ="";
-             int pos = SearchName(DescriptionL,cmbSearchNames+"");
+            String properties ="";
+            String Description ="";
+             for (int i = 0; i < propertiesText.size(); i++) {
+                 properties+=propertiesText.get(i)+",";
+             }
+             for (int i = 0; i < DescriptionText.size(); i++) {
+                 Description+=DescriptionText.get(i)+",";
+             }
              
-             for (int i = 0; i < Modificate.size(); i++) {
-                 listConcaten+=Modificate.get(i).toString()+",";
-                }//for
-               
-             for (int i = 0; i < DescriptionsList.size(); i++) {
-                 if (i==pos) {
-                     addModificate.add(listConcaten);
-                 }else//endif
-                    addModificate.add(DescriptionsList.get(i));
-             }//for 
-              try {
-               FileOutputStream fos = new FileOutputStream(propertiesDescription);
-                PrintStream ps = new PrintStream(fos);
-                ps.println();
-                // limpiar el archivo 
-           
-                FileOutputStream fo2 = new FileOutputStream(propertiesDescription,true);
-                 PrintStream ps2 = new PrintStream(fo2);
-                 for (int i = 0; i < addModificate.size(); i++) {
-                     ps2.println(addModificate.get(i).toString());
-                     ImageIcon icon = new ImageIcon("save.png");
-                    JOptionPane.showMessageDialog(null, "Se ha guardado el producto con éxito", "Editar Productos", 2, (Icon) icon);
-                }//for
-                 
-                
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(InterfaceEdit.class.getName()).log(Level.SEVERE, null, ex);
-            }//try/catch
-                
+             Registers r = new Registers(nameCatalog,cmbSearchNames.getValue().toString(),properties,Description);
+             products.add(r);
+              File fi = new File("FileRegister.txt");
+              f.addOnFileNew(fi);
+             String Register="";
+             for (int i = 0; i < products.size(); i++) {
+              Registers re =(Registers)products.get(i);
+              Register=re.getNameCatalogue()+"|"+re.getNameProduct()+"|"+re.getProperties()+"|"+re.getDescriptionProperties();
+              f.addOnFile(fi, Register);
+             }
              
              
         });//actionSave
@@ -235,8 +208,7 @@ public class InterfaceEdit extends Application {
         button.setFont(new Font("Indie Flower",14));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
-//        GridPane.setHalignment(button, HPos.CENTER);
-//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+
         return button;
     }//button
      
@@ -250,8 +222,7 @@ public class InterfaceEdit extends Application {
         Image images3 = new Image(files3.toURI().toString());
         ImageView ivs3 = new ImageView(images3);
         button.setGraphic(ivs3);
-//        GridPane.setHalignment(button, HPos.CENTER);
-//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+
         return button;
     }//button
      
@@ -264,9 +235,8 @@ public class InterfaceEdit extends Application {
         File files3 = new File("confirm.png");
         Image images3 = new Image(files3.toURI().toString());
         ImageView ivs3 = new ImageView(images3);
-         button.setGraphic(ivs3);
-//        GridPane.setHalignment(button, HPos.CENTER);
-//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+        button.setGraphic(ivs3);
+
         return button;
     }//button
      
@@ -280,8 +250,7 @@ public class InterfaceEdit extends Application {
         Image images3 = new Image(files3.toURI().toString());
         ImageView ivs3 = new ImageView(images3);
         button.setGraphic(ivs3);
-//        GridPane.setHalignment(button, HPos.CENTER);
-//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
+
         return button;
     }//button
      
@@ -306,26 +275,37 @@ public class InterfaceEdit extends Application {
           TextField txtnameProduct = new TextField();
           pane.add(txtnameProduct,2,7);
           txtnameProduct.setFont(new Font("Footlight MT Light",16));
-//          GridPane.setMargin(txtnameProduct, new Insets(10, 0, 10, 0));
         return txtnameProduct;
     }//TExtField
     private TextField TextFieldDescription(GridPane pane, int row) {
           TextField txtDescription = new TextField();
           pane.add(txtDescription,2,7);
           txtDescription.setFont(new Font("Footlight MT Light",16));
-//          GridPane.setMargin(txtDescription, new Insets(10, 0, 10, 0));
-        return txtDescription;
+         return txtDescription;
     }//TExtField
           
          private ComboBox comboBoxNames(GridPane pane, int row) {
+          ArrayList nameProduct = new ArrayList();
+             try {
+            registers = f.getRegistersFileRegister();
             
+            for (int i = 0; i < registers.size(); i++) {
+               Registers r = (Registers) registers.get(i);
+               nameProduct.add(r.getNameProduct());
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(InterfaceEdit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
         ComboBox cmbList = new ComboBox();
         cmbList.setValue("      Nombre de Productos:              ");
         cmbList.setStyle(("-fx-font: 16px \"Footlight MT Light\""));
-        pane.add(cmbList, 1,5);
-          for (int i = 0; i < listNamesProducto.size(); i++) {
-              cmbList.getItems().addAll(listNamesProducto.get(i));
+        for (int i = 0; i < nameProduct.size(); i++) {
+              cmbList.getItems().addAll(nameProduct.get(i));
           }//for
+        
+        pane.add(cmbList, 1,5);
+          
         return cmbList;
     }//TExtField
          
@@ -363,8 +343,6 @@ public class InterfaceEdit extends Application {
         Image images3 = new Image(files3.toURI().toString());
         ImageView ivs3 = new ImageView(images3);
          button.setGraphic(ivs3);
-//        GridPane.setHalignment(button, HPos.CENTER);
-//        GridPane.setMargin(button, new Insets(10, 0, 10, 0));
         return button;
     }//button
      
@@ -382,219 +360,6 @@ public class InterfaceEdit extends Application {
          pane.setStyle("-fx-background-color:#37D8E3" );
          return new Scene (pane,900,900);
     }//scene
-      
-      
-      public ArrayList getRegisters(){
-     ArrayList list = new ArrayList();
-      File nameProducts = new File("nameProducts.txt");
-         try {
-             FileInputStream fis = new FileInputStream(nameProducts);
-             InputStreamReader isr= new InputStreamReader(fis);
-             BufferedReader br = new BufferedReader(isr);
             
-             String actualRegister = br.readLine();
-             
-             while(actualRegister!=null){
-             String nombre="";
-             int controlaTokens=1;
-             StringTokenizer sT = new StringTokenizer(actualRegister,",");
-             
-             list.add(sT.nextToken());
-             
-             
-             actualRegister=br.readLine();
-             }//whileActualRegisters
-             
-         } catch (FileNotFoundException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         }//try/catch
-        
-     return list;
-     }//getRegistersRegisters 
-      
-   public ArrayList getObteinProperties(String properties){
-         ArrayList listgetObtein = new ArrayList();
-             String propertie="";
-             int controlaTokens=1;
-             StringTokenizer sT2 = new StringTokenizer(properties,",");
-            
-            while(sT2.hasMoreTokens()){
-               propertie=sT2.nextToken();
-               controlaTokens++;
-               listgetObtein.add(propertie);
-            }//whilecontrolaTokens
-      
-          return listgetObtein;
-     
-   }
-   public ArrayList getAllProperties(){
-      ArrayList list4 = new ArrayList();
-  
-        File propertiesFiles = new File("propertiesFiles.txt");
-         try {
-             FileInputStream fis = new FileInputStream(propertiesFiles);
-             InputStreamReader isr= new InputStreamReader(fis);
-             BufferedReader br = new BufferedReader(isr);
-            
-             String actualRegister = br.readLine();
-             
-             while(actualRegister!=null){
-             String properties="";
-             int controlaTokens=1;
-             StringTokenizer sT2 = new StringTokenizer(actualRegister,",");
-            
-            while(sT2.hasMoreTokens()){
-               properties+=sT2.nextToken()+",";
-               controlaTokens++;
-            }//whilecontrolaTokens
-            list4.add(properties);
-             actualRegister=br.readLine();
-             }//whileActualRegisters
-             
-         } catch (FileNotFoundException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         }//try/catch
-        
-     return list4;
-     
-     }//getRegistersRegisters 
-   
-   public ArrayList getAllNameCatalog(){
-      ArrayList list2 = new ArrayList();
-  
-        File nameCataloguesRegisters = new File("nameCataloguesRegisters.txt");
-         try {
-             FileInputStream fis = new FileInputStream(nameCataloguesRegisters);
-             InputStreamReader isr= new InputStreamReader(fis);
-             BufferedReader br = new BufferedReader(isr);
-            
-             String actualRegister = br.readLine();
-             
-             while(actualRegister!=null){
-             String properties="";
-             int controlaTokens=1;
-             StringTokenizer sT2 = new StringTokenizer(actualRegister,",");
-            
-            while(sT2.hasMoreTokens()){
-               properties=sT2.nextToken();
-               controlaTokens++;
-            }//whilecontrolaTokens
-            list2.add(properties);
-             actualRegister=br.readLine();
-             }//whileActualRegisters
-             
-         } catch (FileNotFoundException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         }//try/catch
-        
-     return list2;
-     
-     }//getRegistersRegisters 
-   
-     public ArrayList getAllDescriptions(){
-      ArrayList list2 = new ArrayList();
-  
-        File propertiesDescription = new File("propertiesDescription.txt");
-         try {
-             FileInputStream fis = new FileInputStream(propertiesDescription);
-             InputStreamReader isr= new InputStreamReader(fis);
-             BufferedReader br = new BufferedReader(isr);
-            
-             String actualRegister = br.readLine();
-             
-             while(actualRegister!=null){
-             String properties="";
-             int controlaTokens=1;
-             StringTokenizer sT2 = new StringTokenizer(actualRegister,",");
-            
-            while(sT2.hasMoreTokens()){
-               properties+=sT2.nextToken()+",";
-               controlaTokens++;
-            }//whilecontrolaTokens
-            list2.add(properties);
-             actualRegister=br.readLine();
-             }//whileActualRegisters
-             
-         } catch (FileNotFoundException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         }//try/catch
-        
-     return list2;
-     
-     }//getRegistersRegisters 
-     
-      public ArrayList getDescriptions(){
-      ArrayList list2 = new ArrayList();
-  
-        File propertiesDescription = new File("propertiesDescription.txt");
-         try {
-             FileInputStream fis = new FileInputStream(propertiesDescription);
-             InputStreamReader isr= new InputStreamReader(fis);
-             BufferedReader br = new BufferedReader(isr);
-            
-             String actualRegister = br.readLine();
-             
-             while(actualRegister!=null){
-              list2.add(actualRegister);
-             actualRegister=br.readLine();
-             }//whileActualRegisters
-             
-         } catch (FileNotFoundException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         }//try/catch
-        
-     return list2;
-     
-     }//getRegistersRegisters 
-   
-      public int SearchName(ArrayList name , String nameSearch) {
-            int output =0; 
-                for (int i = 0; i <name.size(); i++) {
-                    if (name.get(i).toString().equals(nameSearch)){ 
-                          output=i;
-                    }//if
-                }//for
-                  return output;
-       }//searchName   
-     
-       public ArrayList getObteinDat(String properties){
-         ArrayList listgetObtein = new ArrayList();
-             String propertie="";
-             int controlaTokens=1;
-             StringTokenizer sT2 = new StringTokenizer(properties,",");
-            
-            while(sT2.hasMoreTokens()){
-               propertie=sT2.nextToken();
-               controlaTokens++;
-               listgetObtein.add(propertie);
-            }//whilecontrolaTokens
-      
-          return listgetObtein;
-     }//getRegistersRegisters
-      
-       
-       
-       
-       
-       
-       
 }//end
-
-
-
-
-
-
-
-
 

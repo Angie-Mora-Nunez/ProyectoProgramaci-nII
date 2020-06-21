@@ -1,3 +1,4 @@
 Martillo|cantidad,peso
 Mangueras|peso,cantidad
 Cerrucho|cantidad,material
+clavos|cantidad,tamaño,forma

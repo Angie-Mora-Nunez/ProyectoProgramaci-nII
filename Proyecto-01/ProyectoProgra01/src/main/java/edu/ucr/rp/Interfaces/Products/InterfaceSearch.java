@@ -7,18 +7,14 @@ package edu.ucr.rp.Interfaces.Products;
 
 import edu.ucr.rp.Interfaces.*;
 import edu.ucr.rp.Interfaces.Logic.Registers;
+import edu.ucr.rp.Interfaces.Logic.manteinFile;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -60,10 +56,11 @@ public class InterfaceSearch extends Application {
     private Label labelSearching;
     private Stage stage;
     private ComboBox cmbCatalogues;
-    ArrayList list = getRegistersRegisters();
-    ArrayList listComplete =getRegistersBusqueda();
+    ArrayList list = new ArrayList();
+    ArrayList listComplete =new ArrayList();
     ArrayList listShow = new ArrayList();
     private TextArea txtShow;
+    manteinFile f = new manteinFile();
   
     @Override
     public void start(Stage stage) throws Exception {
@@ -94,9 +91,20 @@ public class InterfaceSearch extends Application {
           });//ExitAccion
          
           buttonSearch.setOnAction(actionEvent -> {
-          txtShow.setVisible(true);
-          listShow.add(SearchName(list, txtSearching.getText(),listComplete));   
-          txtShow.setText(listShow.toString());
+            
+            try {
+                listComplete=f.getRegistersFileRegister();
+                Registers re = f.GetposRegister(listComplete,cmbCatalogues.getValue()+"",txtSearching.getText());
+                if (re==null) {
+                    showAlert(Alert.AlertType.ERROR, stage,"Buscando producto", "El producto no se encontró , intente de nuevo");
+                }else {
+                    txtShow.setVisible(true);
+                    txtShow.setText(re.toString());
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(InterfaceSearch.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
          });//buscarAccion
          
     
@@ -165,6 +173,7 @@ public class InterfaceSearch extends Application {
      
         private ComboBox comboBoxNamesCatalogue(GridPane pane, int row) {
         ComboBox cmbList = new ComboBox();
+        list=f.getRegistersName();
         cmbList.setValue("               Catálogos                 ");
         cmbList.setStyle(("-fx-font: 16px \"Footlight MT Light\""));
         pane.add(cmbList, 1,5);
@@ -174,17 +183,6 @@ public class InterfaceSearch extends Application {
         return cmbList;
        }//ComboBox
         
-        
-        private ComboBox comboBoxNames(GridPane pane, int row) {
-        ComboBox cmbList = new ComboBox();
-        cmbList.setValue("               Productos                 ");
-        cmbList.setStyle(("-fx-font: 16px \"Footlight MT Light\""));
-        pane.add(cmbList, 1,6);
-          for (int i = 0; i < list.size(); i++) {
-              cmbList.getItems().addAll(list.get(i));
-          }//for
-        return cmbList;
-       }//ComboBox
         
       private Button ButtonSearch(String label, GridPane pane, int row) {
             Button button = new Button(label);
@@ -226,88 +224,21 @@ public class InterfaceSearch extends Application {
          return new Scene (pane,900,900);
     }//scene
   
-     public ArrayList getRegistersRegisters(){
-     ArrayList listas = new ArrayList();
-      File fileCatalogueTokens = new File("CatalogueTokens.txt");
-         try {
-             FileInputStream fis = new FileInputStream(fileCatalogueTokens);
-             InputStreamReader isr= new InputStreamReader(fis);
-             BufferedReader br = new BufferedReader(isr);
-             String actualRegister = br.readLine();
-             while(actualRegister!=null){
-             String nombre="";
-             int controlaTokens=1;
-             StringTokenizer sT = new StringTokenizer(actualRegister,"|");
-             listas.add(sT.nextToken());
-             actualRegister=br.readLine();
-             }//whileActualRegisters
-             
-         } catch (FileNotFoundException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         }//try/catch
-        
-     return listas;
-     }//getRegistersRegisters 
      
      
-      public ArrayList getRegistersBusqueda(){
-      ArrayList list2 = new ArrayList();
-       File fileRegisTokens = new File("RegisTokens.txt");
-         try {
-             FileInputStream fiso = new FileInputStream(fileRegisTokens);
-             InputStreamReader isro= new InputStreamReader(fiso);
-             BufferedReader bro = new BufferedReader(isro);
-             String actualRegister = bro.readLine();
-             
-             while(actualRegister!=null){
-             String Catalog="",name="",namePropie="";
-             int controlaTokens=1;
-             StringTokenizer sT = new StringTokenizer(actualRegister,"|");
-             
-             while(sT.hasMoreElements()){
-             if(controlaTokens==1)
-                 Catalog=sT.nextToken();
-             else if(controlaTokens==2)
-                 name=sT.nextToken();
-             else if(controlaTokens==3)
-                 namePropie=sT.nextToken();
-             
-             controlaTokens++;
-             }//While
-                 Registers registers = new Registers(Catalog, name, namePropie);
-                 list2.add(registers);
-             actualRegister=bro.readLine();
-             }//whileActualRegisters
-             
-         } catch (FileNotFoundException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         }//try/catch
-        
-     return list2;
-     }//getRegistersRegisters 
-
-      public Registers SearchName(ArrayList name , String nameSearch,ArrayList properties) {
-            String output =""; 
-            Registers registr=null;
-            for (int j = 0; j < name.size(); j++) {
-                for (int i = 0; i <properties.size(); i++) {
-                    registr=(Registers)properties.get(i);
-                    if (name.get(j).toString().equalsIgnoreCase(registr.getNameCatalogue())&& nameSearch.equalsIgnoreCase(registr.getNameProduct())){ 
-                          return registr;
-                    }//if
-                }//for
-                }//for
-             return registr;
-       }//searchName      
-    
+     
+     
     
     
     
 }//endSearch
+
+
+
+
+
+
+
 
 
 

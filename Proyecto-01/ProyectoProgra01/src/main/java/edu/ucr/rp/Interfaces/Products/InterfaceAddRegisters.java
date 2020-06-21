@@ -8,20 +8,13 @@ package edu.ucr.rp.Interfaces.Products;
 import edu.ucr.rp.Interfaces.*;
 import edu.ucr.rp.Interfaces.Logic.Catalog;
 import edu.ucr.rp.Interfaces.Logic.Registers;
+import edu.ucr.rp.Interfaces.Logic.manteinFile;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -73,10 +66,10 @@ public class InterfaceAddRegisters extends Application {
     private TextField txtmos;
     private Label lblEdit;
     private Button btninfo;
-    ArrayList listAux = getRegistersRegisters();
-    ArrayList propertiesList = getRegistersRegistersAll();
-    ArrayList listSi = new ArrayList();
+    ArrayList listProperties = new ArrayList();
     ArrayList propetiesCombo=new ArrayList();
+     manteinFile f = new manteinFile();
+    ArrayList listAuxNames = new ArrayList();
    // Intancias 
  
     @Override
@@ -99,128 +92,57 @@ public class InterfaceAddRegisters extends Application {
     }//title
     
      private void addHandlers() {//funcionalidad
-         ArrayList nameProduct = new ArrayList();
-         ArrayList name = new ArrayList();
+         
          ArrayList propertiesAdd = new ArrayList();
          ArrayList description = new ArrayList();
+        
          btnSearch.setOnAction(actionEvent -> {
-             for (int i = 0; i < propertiesList.size(); i++) {
-             listSi.add(new Catalog(listAux.get(i).toString(),propertiesList.get(i).toString()));
-             }//for
-
-              propetiesCombo = getObteinProperties(SearchName(listAux,cBListNames.getValue()+"", propertiesList));
-              for (int i = 0; i < propetiesCombo.size(); i++) {
-              cBProperties.getItems().addAll(propetiesCombo.get(i));
-              }//for
+        
+             propetiesCombo=f.getRegistersProperties();
+             int pos = f.GetposNameCatalog(listAuxNames,cBListNames.getValue()+"");
+             System.out.println(pos);
+             
+             // visible los elementos 
+             listProperties=f.getPropertiespos(propetiesCombo.get(pos).toString());// lista con las propiedades
+             for (int i = 0; i < listProperties.size(); i++) {
+              cBProperties.getItems().addAll(listProperties.get(i));
+          }//for
+              cBProperties.setVisible(true);
+              labelnameProduct.setVisible(true);
+              txtNameProduct.setVisible(true);
+              btnAddProperties.setVisible(true);
+              txtAgregarPropiedad.setVisible(true);
               
-              labelCatalogues.setVisible(false);
-              btnSearch.setVisible(false);
-              cBListNames.setVisible(false);
               
-             cBProperties.setVisible(true);
-             labelnameProduct.setVisible(true);
-             txtNameProduct.setVisible(true);
-             btnAddProperties.setVisible(true);
-             txtAgregarPropiedad.setVisible(true);
-             txtNameProduct.setEditable(true);
-             
-             
-             name.add(cBListNames.getValue()+"");
-              txtmos.setVisible(true);
-              txtmos.setEditable(false);
-              txtmos.setStyle("-fx-background: color \"Blue\"");
-              txtmos.setText(cBListNames.getValue()+"");
-              lblEdit.setVisible(true);
-              labelAnunced.setVisible(false);
-             
          });//acción search
          
          btnAddProperties.setOnAction(actionEvent -> {
+             
+             txtNameProduct.setEditable(false);
+             propertiesAdd.add(cBProperties.getValue().toString());
+             description.add(txtAgregarPropiedad.getText());
+             txtAgregarPropiedad.setText("");
             
-            txtNameProduct.setEditable(false);
-            nameProduct.add(txtNameProduct.getText());
-            propertiesAdd.add(cBProperties.getValue()+"");
-            description.add(txtAgregarPropiedad.getText()); 
-            ImageIcon icon = new ImageIcon("add.png");
-            JOptionPane.showMessageDialog(null, "Se ha agredado la propiedad", "Agregar Producto", 2, (Icon) icon);
-            txtNameProduct.clear();
          });//accion boton properties
          
          ButtonSave.setOnAction(actionEvent -> {
-             ArrayList showInfo = new ArrayList();
-             labelCatalogues.setVisible(true);
-             btnSearch.setVisible(true);
-             cBListNames.setVisible(true);
-             cBProperties.setVisible(false);
-             labelnameProduct.setVisible(false);
-             txtNameProduct.setVisible(false);
-             btnAddProperties.setVisible(false);
-             txtAgregarPropiedad.setVisible(false);
-             txtNameProduct.setEditable(false);
-             String nameCatalogues = name.get(0).toString();
-             String namesProducts = nameProduct.get(0).toString();
-             String propertiesFile="";
-             String descriptions ="";
-             String show ="";
-             String showAll="";
-             
-             for (int i = 0; i < propertiesAdd.size(); i++) {
-                propertiesFile+=propertiesAdd.get(i).toString()+",";
-             }//for
-             
-              for (int i = 0; i < description.size(); i++) {
-                descriptions+=description.get(i).toString()+",";
-             }//for
-              
-               for (int i = 0; i < description.size(); i++) {
-                show+=propertiesAdd.get(i).toString()+":"+" "+description.get(i).toString()+",";
-             }//for
-               
-               showAll="{ Nombre del catálogo :"+" "+nameCatalogues+" "+"Nombre de producto :"+" "+namesProducts+" "+" "+"Propiedades: "+show+"}";
-               
-             File nameCataloguesRegisters = new File("nameCataloguesRegisters.txt");
-             File nameProducts = new File("nameProducts.txt");
-             File propertiesFiles = new File("propertiesFiles.txt");
-             File propertiesDescription = new File("propertiesDescription.txt");
-             File showRegisters = new File("ShowRegisters.txt");
-             showInfo.add(showAll);
-             
-              try {
-                  
-                 FileOutputStream fos = new FileOutputStream(nameCataloguesRegisters,true);
-                 PrintStream ps = new PrintStream(fos);
-                 ps.println(nameCatalogues);
-                
-                 FileOutputStream fo = new FileOutputStream(nameProducts,true);
-                 PrintStream psi = new PrintStream(fo);
-                 psi.println(namesProducts);
-          
-                 FileOutputStream fo1 = new FileOutputStream(propertiesFiles,true);
-                 PrintStream ps1 = new PrintStream(fo1);
-                 ps1.println(propertiesFile);
-          
-                 FileOutputStream fo2 = new FileOutputStream(propertiesDescription,true);
-                 PrintStream ps2 = new PrintStream(fo2);
-                 ps2.println(descriptions);
-                 
-                 FileOutputStream fo3 = new FileOutputStream(showRegisters,true);
-                 PrintStream ps3 = new PrintStream(fo3);
-                 ps3.println(showInfo.toString());
-                 AddBuilderTokens(nameCatalogues, namesProducts, show);
-                 ImageIcon icon = new ImageIcon("confirm.png");
-            JOptionPane.showMessageDialog(null, "Se ha agredado el producto", "Agregar Producto", 2, (Icon) icon);
-             } catch (FileNotFoundException ex) {
-                 Logger.getLogger(InterfaceCreateCatalogue.class.getName()).log(Level.SEVERE, null, ex);
-             }//try/catch
-             nameProduct.clear();
-             propertiesAdd.clear();
-             description.clear();
-             name.clear();
-              
+           String properties ="";
+           String Description="";
+           // obtener las propiedades asignadas
+           for (int i = 0; i < propertiesAdd.size(); i++) {
+                 properties+=propertiesAdd.get(i).toString()+",";
+             }
+           // optener las descripciones 
+           for (int i = 0; i < description.size(); i++) {
+                 Description+=description.get(i).toString()+",";
+             }
+           showAlert(Alert.AlertType.INFORMATION, stage,"Agregando Registro","Registro"+" ["+txtNameProduct.getText()+" ]"+"agregado con éxito");
+           String register = cBListNames.getValue()+"|"+txtNameProduct.getText()+"|"+properties+"|"+Description;
+           File Fregister = new File("FileRegister.txt");
+           f.addOnFile(Fregister, register);
+            
          });//accionGuardar
          
-         
-             
          InterfaceProducts iP = new InterfaceProducts();
          btn_exit.setOnAction(actionEvent -> {
             
@@ -269,12 +191,13 @@ public class InterfaceAddRegisters extends Application {
     }//Controladores
 
       private ComboBox comboBoxNames(GridPane pane, int row) {
-        ComboBox cmbList = new ComboBox();
+        listAuxNames=f.getRegistersName();
+          ComboBox cmbList = new ComboBox();
         cmbList.setValue("               Catálogos                 ");
         cmbList.setStyle(("-fx-font: 16px \"David Libre\""));
         pane.add(cmbList, 1,5);
-          for (int i = 0; i < listAux.size(); i++) {
-              cmbList.getItems().addAll(listAux.get(i));
+          for (int i = 0; i < listAuxNames.size(); i++) {
+              cmbList.getItems().addAll(listAuxNames.get(i));
           }//for
         return cmbList;
     }//TExtField
@@ -430,108 +353,45 @@ public class InterfaceAddRegisters extends Application {
          return new Scene (pane,900,900);
     }//scene
       
-     public ArrayList getRegistersRegisters(){
-     ArrayList list = new ArrayList();
-      File fileCatalogueTokens = new File("CatalogueTokens.txt");
-         try {
-             FileInputStream fis = new FileInputStream(fileCatalogueTokens);
-             InputStreamReader isr= new InputStreamReader(fis);
-             BufferedReader br = new BufferedReader(isr);
-            
-             String actualRegister = br.readLine();
-             
-             while(actualRegister!=null){
-             String nombre="";
-             int controlaTokens=1;
-             StringTokenizer sT = new StringTokenizer(actualRegister,"|");
-             
-             list.add(sT.nextToken());
-             
-             
-             actualRegister=br.readLine();
-             }//whileActualRegisters
-             
-         } catch (FileNotFoundException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         }//try/catch
-        
-     return list;
-     }//getRegistersRegisters 
+    
       
-      
-      public ArrayList getRegistersRegistersAll(){
-      ArrayList list2 = new ArrayList();
-  
-       File fileCatalogueTokensAll = new File("CatalogueTokensAll.txt");
-         try {
-             FileInputStream fis = new FileInputStream(fileCatalogueTokensAll);
-             InputStreamReader isr= new InputStreamReader(fis);
-             BufferedReader br = new BufferedReader(isr);
-            
-             String actualRegister = br.readLine();
-             
-             while(actualRegister!=null){
-             String properties="";
-             int controlaTokens=1;
-             StringTokenizer sT2 = new StringTokenizer(actualRegister,",");
-            
-            while(sT2.hasMoreTokens()){
-               properties+=sT2.nextToken()+",";
-               controlaTokens++;
-            }//whilecontrolaTokens
-            list2.add(properties);
-             actualRegister=br.readLine();
-             }//whileActualRegisters
-             
-         } catch (FileNotFoundException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-             Logger.getLogger(InterfaceAddRegisters.class.getName()).log(Level.SEVERE, null, ex);
-         }//try/catch
-        
-     return list2;
-     }//getRegistersRegisters 
-      
-        public String SearchName(ArrayList name , String nameSearch,ArrayList properties) {
-            String output =""; 
-                for (int i = 0; i <name.size(); i++) {
-                    if (name.get(i).toString().equals(nameSearch)){ 
-                          output=(String) properties.get(i);
-                    }//if
-                }//for
-                  return output;
-       }//searchName      
-      
-      
-         public ArrayList getObteinProperties(String properties){
-         ArrayList listgetObtein = new ArrayList();
-             String propertie="";
-             int controlaTokens=1;
-             StringTokenizer sT2 = new StringTokenizer(properties,",");
-            
-            while(sT2.hasMoreTokens()){
-               propertie=sT2.nextToken();
-               controlaTokens++;
-               listgetObtein.add(propertie);
-            }//whilecontrolaTokens
-      
-          return listgetObtein;
-     }//getRegistersRegisters 
-      
-      private void AddBuilderTokens(String Catalog,String name,String namePropie ) throws FileNotFoundException{
-         File fileRegisTokens = new File("RegisTokens.txt");
-         FileOutputStream fos = new FileOutputStream(fileRegisTokens,true);
-                 PrintStream ps = new PrintStream(fos);
-                 ps.println(Catalog+"|"+name+"|"+namePropie);
-     }//addProperties  
-        
-        
         
       
       
 }//InterfaceAddRegister
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

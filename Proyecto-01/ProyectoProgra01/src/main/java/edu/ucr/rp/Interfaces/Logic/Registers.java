@@ -17,48 +17,63 @@ import java.util.ArrayList;
 public class Registers {
     private String nameCatalogue;
     private String nameProduct;
+    private String properties;
     private String descriptionProperties;
 
-    public Registers(String nameCatalogue, String nameProduct,String descriptionProperties) {
+    public Registers(String nameCatalogue, String nameProduct, String properties, String descriptionProperties) {
         this.nameCatalogue = nameCatalogue;
         this.nameProduct = nameProduct;
+        this.properties = properties;
         this.descriptionProperties = descriptionProperties;
-    }//Constructor
+    }
 
     public String getNameCatalogue() {
         return nameCatalogue;
-    }//getNameCatalogue
+    }
 
     public void setNameCatalogue(String nameCatalogue) {
         this.nameCatalogue = nameCatalogue;
-    }//setnameCatalogue
+    }
 
     public String getNameProduct() {
         return nameProduct;
-    }//getnameProduct
+    }
 
     public void setNameProduct(String nameProduct) {
         this.nameProduct = nameProduct;
-    }//setnameProduct
+    }
+
+    public String getProperties() {
+        return properties;
+    }
+
+    public void setProperties(String properties) {
+        this.properties = properties;
+    }
 
     public String getDescriptionProperties() {
         return descriptionProperties;
-    }//getDescription
+    }
 
     public void setDescriptionProperties(String descriptionProperties) {
         this.descriptionProperties = descriptionProperties;
-    }//setDescription
+    }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Registers{nameCatalogue=").append(nameCatalogue);
         sb.append(", nameProduct=").append(nameProduct);
+        sb.append(", properties=").append(properties);
         sb.append(", descriptionProperties=").append(descriptionProperties);
         sb.append('}');
         return sb.toString();
-    }//toString
+    }
+    
+    
 
+   
 }//Registers
+
 
 

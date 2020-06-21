@@ -6,22 +6,22 @@
 package edu.ucr.rp.Interfaces.Products;
 
 import edu.ucr.rp.Interfaces.*;
+import edu.ucr.rp.Interfaces.Logic.Registers;
+import edu.ucr.rp.Interfaces.Logic.manteinFile;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -29,8 +29,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -51,7 +54,7 @@ public class InterfaceListingRegisters extends Application {
     private Label lp;
     private Button generateButton;
     private Button btn_exit;
-    private TextArea txtShow;
+    TableView<Registers> tvRegisters= new TableView<>();
     
     private Stage stage;
   
@@ -102,39 +105,35 @@ public class InterfaceListingRegisters extends Application {
         return gridPane; 
     }//GridPane
 
-     private void setupControls(GridPane pane) {
-          String value="";
-          BufferedReader br = getBufferedReader("ShowRegisters.txt");
-          ArrayList listp= new ArrayList();
-         String output="";
-   
-          try {
-              while ((value = br.readLine())!=null) {
-                  
-                  listp.add(value);
-              }//while
-               Collections.sort(listp);
-              
-              for (int i = 0; i < listp.size(); i++) {
-                  output+=listp.get(i)+"\n";
-              }//for
-              
-          } catch (IOException ex) {
-              Logger.getLogger(InterfaceListingCatalogs.class.getName()).log(Level.SEVERE, null, ex);
-          }//try/catch
-    
-      
+     private void setupControls(GridPane pane) throws IOException {
+         
          btn_exit= buildGenerateButton("Regresar", pane, 6);
-         txtShow=buildTextAreaShow(output, pane, 5);
+         tvRegisters=buildTextAreaShow(pane, 5);
     }//Controladores
      
      
-       private TextArea buildTextAreaShow(String text,GridPane pane, int row) {
-        TextArea txtArea = new TextArea(text);
-        pane.add(txtArea, 0, 1);
-        TextField textField = new TextField();
-        GridPane.setHalignment(txtArea, HPos.CENTER);
-        return txtArea;
+       private TableView buildTextAreaShow(GridPane pane, int row) throws IOException {
+    
+         TableView<Registers> tvtArea= new TableView<>();
+         // crear columnas 
+        TableColumn tc_NameCatalog = new TableColumn("Nombre Catálogo");
+        tc_NameCatalog.setCellValueFactory(new PropertyValueFactory("nameCatalogue"));
+        
+        TableColumn tc_NameProduct = new TableColumn("Nombre del producto");
+        tc_NameProduct.setCellValueFactory(new PropertyValueFactory("nameProduct"));
+        
+        TableColumn tc_Properties = new TableColumn("Propiedades");
+        tc_Properties.setCellValueFactory(new PropertyValueFactory("properties"));
+        
+        TableColumn tc_Description = new TableColumn("Descripción");
+        tc_Description.setCellValueFactory(new PropertyValueFactory("descriptionProperties"));
+         // mostrar columnas en la tabla 
+        tvtArea.setItems(getDataFile());
+        tvtArea.getColumns().addAll(tc_NameCatalog,tc_NameProduct,tc_Properties,tc_Description);
+        
+        pane.add(tvtArea, 0, 1);
+        GridPane.setHalignment(tvtArea, HPos.CENTER);
+        return tvtArea;
     }//TExtField
      
        
@@ -150,7 +149,6 @@ public class InterfaceListingRegisters extends Application {
         return button;
     }//button
      
-    
      private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -165,20 +163,19 @@ public class InterfaceListingRegisters extends Application {
          return new Scene (pane,900,900);
     }//scene
 
-    private BufferedReader getBufferedReader(String lisProperties) {
-          File listas = new File("ShowRegisters.txt");
-        BufferedReader br = null;
-        try{
-            FileInputStream fis = new FileInputStream(listas);
-            InputStreamReader isr = new InputStreamReader(fis);
-             br = new BufferedReader(isr);
-        }//try
-        catch(FileNotFoundException fnfe){
-           JOptionPane.showMessageDialog(null, "problema con el archivo"+fnfe);
-        }//catch
-        return br;  
-    }//getBufferes
-    
+ 
+    private ObservableList<Registers> getDataFile() throws IOException {
+        
+        manteinFile mf = new manteinFile();
+        ArrayList temp = mf.getRegistersFileRegister();
+        ArrayList aL= new ArrayList();
+        
+        for (int i = 1; i < temp.size(); i++) {
+             aL.add(temp.get(i));
+        }
+        ObservableList<Registers>oL_dataCatalog =FXCollections.observableArrayList(aL); 
+        return oL_dataCatalog;
+    }
    
     
     
@@ -186,6 +183,14 @@ public class InterfaceListingRegisters extends Application {
     
     
 }//end
+
+
+
+
+
+
+
+
 
 
 

@@ -144,15 +144,15 @@ public class InterfaceListingCatalogs extends Application{
       private TableView buildTableView(GridPane pane, int row) throws IOException {
         TableView<Catalog> tvCatalog= new TableView<>();
          // crear columnas 
-        TableColumn tc_NameCountry = new TableColumn("Nombre");
-        tc_NameCountry.setCellValueFactory(new PropertyValueFactory("nameCatalog"));
+        TableColumn tc_NameCatalog = new TableColumn("Nombre");
+        tc_NameCatalog.setCellValueFactory(new PropertyValueFactory("nameCatalog"));
         
-        TableColumn tc_NameContinent = new TableColumn("Propiedades");
-        tc_NameContinent.setCellValueFactory(new PropertyValueFactory("properties"));
+        TableColumn tc_Properties = new TableColumn("Propiedades");
+        tc_Properties.setCellValueFactory(new PropertyValueFactory("properties"));
         
          // mostrar columnas en la tabla 
         tvCatalog.setItems(getDataFile());
-        tvCatalog.getColumns().addAll(tc_NameCountry,tc_NameContinent);
+        tvCatalog.getColumns().addAll(tc_NameCatalog,tc_Properties);
         
         pane.add(tvCatalog, 0, 1);
         TextField textField = new TextField();
@@ -175,9 +175,9 @@ public class InterfaceListingCatalogs extends Application{
     }//scene
 
     private ObservableList<Catalog> getDataFile() throws IOException {
-        File catalog = new File("catalogo.txt");
+        
         manteinFile mf = new manteinFile();
-        ArrayList temp = mf.getRegistersFileCatalog(catalog);
+        ArrayList temp = mf.getRegistersFileCatalog();
         ArrayList aL= new ArrayList();
         
         for (int i = 0; i < temp.size(); i++) {
@@ -187,13 +187,11 @@ public class InterfaceListingCatalogs extends Application{
         return oL_dataCatalog;
     }
     
-   
-    
-    
-    
-    
     
 }//end
+
+
+
 
 
 
