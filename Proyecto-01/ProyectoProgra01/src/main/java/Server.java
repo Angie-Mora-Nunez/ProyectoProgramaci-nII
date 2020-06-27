@@ -29,7 +29,7 @@ public class Server {
     public Server(int port) {
         try {
             serverSocket = new ServerSocket(port);
-         
+         while(true){
             System.out.println("Esperando Conexión");
                 Socket socket = serverSocket.accept();//esperando a que llegue una conexión
                
@@ -44,7 +44,7 @@ public class Server {
            File fileCatalogueshow = new File("catalogo.txt");
            s.addOnFile(fileCatalogueshow, catalog);
            out.writeObject("Guardado");
-                
+         }   
             
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();//Puede lanzar una excepción puesto que el puerto puede estar ocupado

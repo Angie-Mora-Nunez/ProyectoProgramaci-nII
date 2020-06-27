@@ -27,6 +27,7 @@ public class ServerRegister {
         try {
             serverSocket = new ServerSocket(port);
          
+            while(true){
             System.out.println("Esperando Conexión");
                 Socket socket = serverSocket.accept();//esperando a que llegue una conexión
                
@@ -42,7 +43,7 @@ public class ServerRegister {
            s.addOnFile(Fregister, catalog);
            out.writeObject("Registro Guardado");
                 
-            
+            }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();//Puede lanzar una excepción puesto que el puerto puede estar ocupado
         }
@@ -55,3 +56,4 @@ public class ServerRegister {
     
     
 }//ServerRegisters
+
