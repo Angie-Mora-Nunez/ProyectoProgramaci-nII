@@ -294,7 +294,38 @@ public class manteinFile {
       return temp;
     }
     
+    public String getUseer(){
+      File User = new File ("user.txt");
+       String cross="";
+   
+    try{
+     FileInputStream fis= new FileInputStream(User);
+     InputStreamReader isr= new InputStreamReader(fis);
+     BufferedReader br = new BufferedReader(isr);
+     
+     String actualRegister = br.readLine();
+     
+     while(actualRegister!=null){
+         String nameCatalog="";
+       
+         cross = nameCatalog;
+      
+      
+      actualRegister= br.readLine();
+     }// end while 
+     
+    }// end try
+    catch(FileNotFoundException fnfe ){
+      JOptionPane.showMessageDialog(null,"Error"+fnfe);
+    }// end catch 
+    catch(IOException io){
+      JOptionPane.showMessageDialog(null,"Error"+ io); 
+        
+    }// end catch
     
+    return cross;
+    
+     }//getRegistersRegisters 
     
 }
 

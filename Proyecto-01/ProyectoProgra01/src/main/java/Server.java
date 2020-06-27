@@ -13,6 +13,16 @@ import javafx.scene.control.Alert;
 import javafx.stage.Window;
 import javax.swing.JOptionPane;
 
+
+/**
+ *
+ * @author 
+ * Marian Murillo Bonilla
+ * Angie Mora Núñez
+ */
+
+
+
 public class Server {
     ServerSocket serverSocket;
 

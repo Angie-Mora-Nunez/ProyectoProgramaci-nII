@@ -5,6 +5,7 @@
  */
 package edu.ucr.rp.Interfaces.Products;
 
+import edu.ucr.rp.Clients.ClientRegisters;
 import edu.ucr.rp.Interfaces.*;
 import edu.ucr.rp.Interfaces.Logic.Catalog;
 import edu.ucr.rp.Interfaces.Logic.Registers;
@@ -15,6 +16,8 @@ import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -68,8 +71,9 @@ public class InterfaceAddRegisters extends Application {
     private Button btninfo;
     ArrayList listProperties = new ArrayList();
     ArrayList propetiesCombo=new ArrayList();
-     manteinFile f = new manteinFile();
+    manteinFile f = new manteinFile();
     ArrayList listAuxNames = new ArrayList();
+    ExecutorService executorService = Executors.newCachedThreadPool();
    // Intancias 
  
     @Override
@@ -138,9 +142,16 @@ public class InterfaceAddRegisters extends Application {
              }
            showAlert(Alert.AlertType.INFORMATION, stage,"Agregando Registro","Registro"+" ["+txtNameProduct.getText()+" ]"+"agregado con éxito");
            String register = cBListNames.getValue()+"|"+txtNameProduct.getText()+"|"+properties+"|"+Description;
-           File Fregister = new File("FileRegister.txt");
-           f.addOnFile(Fregister, register);
+//           File Fregister = new File("FileRegister.txt");
+//           f.addOnFile(Fregister, register);
             
+           
+           executorService.submit(() -> {
+            ClientRegisters client = new ClientRegisters("127.0.0.1", 4789,register);
+        });
+           
+           
+           
          });//accionGuardar
          
          InterfaceProducts iP = new InterfaceProducts();

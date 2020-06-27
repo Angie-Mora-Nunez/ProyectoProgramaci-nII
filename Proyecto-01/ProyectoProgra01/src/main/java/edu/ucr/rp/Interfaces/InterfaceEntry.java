@@ -6,6 +6,7 @@
 package edu.ucr.rp.Interfaces;
 
 
+import edu.ucr.rp.Interfaces.Logic.manteinFile;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH_MAX;
 import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH;
@@ -70,7 +71,7 @@ public class InterfaceEntry extends Application{
     private Label labelEntryDates;
     private ImageView Products;
     private Label lblSlogan;
-    
+    manteinFile mF = new manteinFile();
   
     @Override
     public void start(Stage stage) throws Exception {
@@ -97,10 +98,12 @@ public class InterfaceEntry extends Application{
         InterfaceChooseWay iU = new InterfaceChooseWay();
         
         btn_Admin.setOnAction(actionEvent -> {
+            File User = new File ("user.txt");
             String text = txUser.getText();
              if(Txt2.getText().equals("ucr")){
                  if(txUser.getText().equals("AngieMora")||txUser.getText().equals("AngelicaRedondo")||txUser.getText().equals("MarianMurillo")||txUser.getText().equals("SamuelLuque")){
               ImageIcon icon = new ImageIcon("us.png");
+               mF.addOnFile(User, txUser.getText()); 
               JOptionPane.showMessageDialog(null, "Bienvenido(a)"+"\n"+ txUser.getText(), "Ingreso a sistema", 2, (Icon) icon);
              try {
               iU.start(stage);
@@ -114,10 +117,13 @@ public class InterfaceEntry extends Application{
                  JOptionPane.showMessageDialog(null,"Contraseña o usuario erroneos,"+"\n"+"Ingrese la contraseña o usuario correctos");
                  Txt2.clear();
                  txUser.clear();
+                 
              }else
                  
               JOptionPane.showMessageDialog(null,"Contraseña o usuario erroneos,"+"\n"+"Ingrese la contraseña o usuario correctos");
-              Txt2.clear();
+            
+             
+             Txt2.clear();
               txUser.clear();
            
          });
