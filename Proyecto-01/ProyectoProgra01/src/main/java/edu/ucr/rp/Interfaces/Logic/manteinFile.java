@@ -266,6 +266,8 @@ public class manteinFile {
             r = (Registers) namesRegister.get(i);
             if (r.getNameCatalogue().equals(nameC)&& r.getNameProduct().equalsIgnoreCase(NameProduct)) {
               return r;   
+            }else{
+             r=null;
             }
         }
       return r;
@@ -327,7 +329,27 @@ public class manteinFile {
     
      }//getRegistersRegisters 
     
+     public ArrayList getInformation(String data){
+    
+        ArrayList temp = new ArrayList();
+   
+         int controlToken=1;
+         StringTokenizer sT = new StringTokenizer(data,",");
+         
+         while(sT.hasMoreTokens()){
+              temp.add(sT.nextToken());
+                 
+         controlToken++;
+         }// End while
+         
+    return temp;
+        
+    }
+    
 }
+
+
+
 
 
 

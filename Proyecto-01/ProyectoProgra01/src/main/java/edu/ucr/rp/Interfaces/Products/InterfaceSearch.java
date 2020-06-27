@@ -15,6 +15,8 @@ import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -61,7 +63,7 @@ public class InterfaceSearch extends Application {
     ArrayList listShow = new ArrayList();
     private TextArea txtShow;
     manteinFile f = new manteinFile();
-  
+    ExecutorService executorService = Executors.newCachedThreadPool();
     @Override
     public void start(Stage stage) throws Exception {
         this.stage=stage;
@@ -92,19 +94,26 @@ public class InterfaceSearch extends Application {
          
           buttonSearch.setOnAction(actionEvent -> {
             
-            try {
-                listComplete=f.getRegistersFileRegister();
-                Registers re = f.GetposRegister(listComplete,cmbCatalogues.getValue()+"",txtSearching.getText());
-                if (re==null) {
-                    showAlert(Alert.AlertType.ERROR, stage,"Buscando producto", "El producto no se encontró , intente de nuevo");
-                }else {
-                    txtShow.setVisible(true);
-                    txtShow.setText(re.toString());
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(InterfaceSearch.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//                listComplete=f.getRegistersFileRegister();
+//                Registers re = f.GetposRegister(listComplete,cmbCatalogues.getValue()+"",txtSearching.getText());
+//                if (re==null) {
+//                    showAlert(Alert.AlertType.ERROR, stage,"Buscando producto", "El producto no se encontró , intente de nuevo");
+//                }else {
+//                    txtShow.setVisible(true);
+//                    txtShow.setText(re.toString());
+//                }
+//            } catch (IOException ex) {
+//                Logger.getLogger(InterfaceSearch.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+           String dataRegister = cmbCatalogues.getValue().toString()+","+txtSearching.getText();
+           executorService.submit(() -> {
+            ClientSearch client = new ClientSearch("127.0.0.1",1010,dataRegister);
+            txtShow.setVisible(true);
+            txtShow.setText(client.getRegister());
+        });
                 
+            
          });//buscarAccion
          
     
@@ -224,14 +233,8 @@ public class InterfaceSearch extends Application {
          return new Scene (pane,900,900);
     }//scene
   
-     
-     
-     
-     
-    
-    
-    
 }//endSearch
+
 
 
 
