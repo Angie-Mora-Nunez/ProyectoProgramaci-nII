@@ -170,7 +170,7 @@ public class InterfaceListingRegisters extends Application {
         ArrayList temp = mf.getRegistersFileRegister();
         ArrayList aL= new ArrayList();
         
-        for (int i = 1; i < temp.size(); i++) {
+        for (int i = 0; i < temp.size(); i++) {
              aL.add(temp.get(i));
         }
         ObservableList<Registers>oL_dataCatalog =FXCollections.observableArrayList(aL); 
@@ -183,6 +183,7 @@ public class InterfaceListingRegisters extends Application {
     
     
 }//end
+
 
 
 

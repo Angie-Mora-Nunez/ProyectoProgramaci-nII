@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -59,7 +61,7 @@ import util.JsonUtil;
  * Angie Mora Núñez
  */
 public class InterfaceCreateCatalogue extends Application {
-   
+   ExecutorService executorService = Executors.newCachedThreadPool();
     private TextField TxtName;
     private TextArea txtPropiedades;
     private Stage stage;
@@ -103,13 +105,12 @@ public class InterfaceCreateCatalogue extends Application {
            System.out.println(ar.toString());
              
            catalogs.add(c);
-           manteinFile s = new manteinFile();
-           File fileCatalogueshow = new File("catalogo.txt");
            String catalog = TxtName.getText()+"|"+txtPropiedades.getText();
-           File fileCatalogueTokensAll = new File("CatalogueTokensAll.txt");
             
-           s.addOnFile(fileCatalogueshow, catalog);
-           s.addOnFile(fileCatalogueTokensAll,txtPropiedades.getText());
+        executorService.submit(() -> {
+            Client client = new Client("127.0.0.1", 5052,catalog);
+        });
+         
             
              TxtName.clear();
              txtPropiedades.clear();
@@ -267,6 +268,10 @@ public class InterfaceCreateCatalogue extends Application {
     }//scene
      
 }//end
+
+
+
+
 
 
 
