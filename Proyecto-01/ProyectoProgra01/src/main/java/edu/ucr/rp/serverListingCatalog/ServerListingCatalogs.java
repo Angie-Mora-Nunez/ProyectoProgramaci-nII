@@ -25,4 +25,46 @@ import javax.swing.JOptionPane;
  */
 public class ServerListingCatalogs {
     
+    ServerSocket serverSocket;
+     
+    public ServerListingCatalogs(int port) throws IOException {
+      
+            serverSocket = new ServerSocket(port);
+         while(true){
+            System.out.println("Esperando Conexión");
+//            JOptionPane.showMessageDialog(null, "Esperando conexión");
+//                
+                Socket socket = serverSocket.accept();//esperando a que llegue una conexión
+                JOptionPane.showMessageDialog(null,"Conexión recibida");
+                ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+                JOptionPane.showMessageDialog(null,"Catalogos encontrados");
+                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+                manteinFile mainfile = new manteinFile();
+                ArrayList arrayListCatalogs = mainfile.getRegistersFileCatalog();
+                out.writeObject(arrayListCatalogs.toString());
+                
+                
+                
+                
+                
+                
+         }//whileTrue
+            
+     
+
+    }//server
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }//ServerListingcatalogs

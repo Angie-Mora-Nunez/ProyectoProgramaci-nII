@@ -5,6 +5,8 @@
  */
 package edu.ucr.rp.Interfaces;
 
+import edu.ucr.rp.Clients.ClientListingCatalogs;
+import edu.ucr.rp.Clients.ClientListingRegisters;
 import edu.ucr.rp.Interfaces.Logic.Catalog;
 import edu.ucr.rp.Interfaces.Logic.manteinFile;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
@@ -17,6 +19,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -54,12 +58,13 @@ import javax.swing.JOptionPane;
  * Angie Mora Núñez
  */
 public class InterfaceListingCatalogs extends Application{
-      private Label lp;
+    private Label lp;
     private Button generateButton;
     private Button btn_exit;
     private TextArea txtShow;
     TableView<Catalog> tvCatalogs= new TableView<>();
     private Stage stage;
+    ExecutorService executorService = Executors.newCachedThreadPool();
   
     @Override
     public void start(Stage stage) throws Exception {
@@ -86,7 +91,25 @@ public class InterfaceListingCatalogs extends Application{
              } catch (Exception ex) {
                  Logger.getLogger(InterfaceListingCatalogs.class.getName()).log(Level.SEVERE, null, ex);
              }
-         });
+         });//salida accion
+         
+         generateButton.setOnAction(actionEvent -> {
+              executorService.submit(() -> {
+              
+                ClientListingCatalogs clientListing = new ClientListingCatalogs("127.0.0.1", 24987);
+
+              txtShow.setVisible(true);
+              txtShow.setText(clientListing.getRegister());
+             });//executorService
+             
+             
+             
+             
+             
+         });//mostrar accion
+         
+         
+         
          
     }//eventos
     
@@ -111,35 +134,76 @@ public class InterfaceListingCatalogs extends Application{
      private void setupControls(GridPane pane) throws IOException {
          
     
-        tvCatalogs=buildTableView(pane,6);
-         btn_exit= buildGenerateButton("Regresar", pane, 6);
+//        tvCatalogs=buildTableView(pane,6);
+        txtShow=buildTextAreaShow("", pane, 5);
+        btn_exit= buildGenerateButton("Regresar", pane, 5);
+        lp=buildLabelAreaShow("Mostrar Catalogos", pane, 5);
+        generateButton=buildGenerateButtonShow("Mostrar", pane, 5);
+        txtShow.setVisible(false);
          
     }//Controladores
      
      
        private TextArea buildTextAreaShow(String text,GridPane pane, int row) {
         TextArea txtArea = new TextArea(text);
-        pane.add(txtArea, 0, 1);
+        pane.add(txtArea, 2, 2);
         TextField textField = new TextField();
         GridPane.setHalignment(txtArea, HPos.CENTER);
         return txtArea;
     }//TExtField
      
+        private Label buildLabelAreaShow(String text,GridPane pane, int row) {
+        Label txtArea = new Label(text);
+        pane.add(txtArea, 0, 0);
+        TextField textField = new TextField();
+        GridPane.setHalignment(txtArea, HPos.CENTER);
+        return txtArea;
+    }//TExtField
+       
+       
        
      private Button buildGenerateButton(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button, 1, 3);
+        pane.add(button, 4, 0);
         button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
         button.setTextFill(Color.BLACK);
         button.setStyle("-fx-background-color: WHITE");
         File files3 = new File("gou.png");
         Image images3 = new Image(files3.toURI().toString());
         ImageView ivs3 = new ImageView(images3);
-         button.setGraphic(ivs3);
+        button.setGraphic(ivs3);
         GridPane.setHalignment(button, HPos.CENTER);
         GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
     }//button
+     
+     
+     
+     
+      private Button buildGenerateButtonShow(String label, GridPane pane, int row) {
+        Button button = new Button(label);
+        pane.add(button, 3, 0);
+        button.setFont(new Font("Indie Flower",16));// determinar el tipo de letra y color radio button
+        button.setTextFill(Color.BLACK);
+        button.setStyle("-fx-background-color: WHITE");
+        File files3 = new File("se.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+        button.setGraphic(ivs3);
+        GridPane.setHalignment(button, HPos.CENTER);
+        GridPane.setMargin(button, new Insets(20, 0, 20, 0));
+        return button;
+    }//button
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
      
       private TableView buildTableView(GridPane pane, int row) throws IOException {
         TableView<Catalog> tvCatalog= new TableView<>();
