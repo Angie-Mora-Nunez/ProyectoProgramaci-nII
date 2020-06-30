@@ -1,5 +1,5 @@
 
-package ServerRegisters;
+package edu.ucr.rp.ServerRegisters;
 
 
 /**

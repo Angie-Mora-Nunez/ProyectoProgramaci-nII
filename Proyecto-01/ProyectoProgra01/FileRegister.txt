@@ -1,5 +1,3 @@
-
-|||
 Martillo|Martillo Clain|cantidad,peso,|120,1200,
 Mangueras|Manguera grande|peso,cantidad,|4kg,7,
 Pintura|Sur|color,cantidad,|rojo,12,

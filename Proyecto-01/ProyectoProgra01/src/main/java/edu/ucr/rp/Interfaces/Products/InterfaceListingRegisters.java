@@ -5,6 +5,8 @@
  */
 package edu.ucr.rp.Interfaces.Products;
 
+import edu.ucr.rp.Clients.ClientListingRegisters;
+import edu.ucr.rp.Clients.ClientRegisters;
 import edu.ucr.rp.Interfaces.*;
 import edu.ucr.rp.Interfaces.Logic.Registers;
 import edu.ucr.rp.Interfaces.Logic.manteinFile;
@@ -16,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -55,6 +59,10 @@ public class InterfaceListingRegisters extends Application {
     private Button generateButton;
     private Button btn_exit;
     TableView<Registers> tvRegisters= new TableView<>();
+    private Button btnShow;
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    TextArea txtArea;
+    private Label labelMostrar;
     
     private Stage stage;
   
@@ -85,6 +93,26 @@ public class InterfaceListingRegisters extends Application {
              }
          });
          
+         
+         
+         btnShow.setOnAction(actionEvent -> {
+             
+             
+             
+            executorService.submit(() -> {
+              
+                ClientListingRegisters clientListing = new ClientListingRegisters("127.0.0.1", 14563);
+
+              txtArea.setVisible(true);
+              txtArea.setText(clientListing.getRegister());
+             });//executorService
+             
+              
+             
+         });//btnshow
+         
+         
+         
     }//eventos
     
      private GridPane buildPane() {
@@ -107,14 +135,18 @@ public class InterfaceListingRegisters extends Application {
 
      private void setupControls(GridPane pane) throws IOException {
          
-         btn_exit= buildGenerateButton("Regresar", pane, 6);
-         tvRegisters=buildTextAreaShow(pane, 5);
+         btn_exit= buildGenerateButton("Regresar", pane, 5);
+//         tvRegisters=buildTextAreaShow(pane, 5);
+         btnShow=buildGenerateButtonShow("Mostrar", pane, 5);
+         txtArea=Show("", pane,5);
+         txtArea.setVisible(false);
+         labelMostrar=ShowRegisters("Mostrar Registros", pane, 5);
     }//Controladores
      
      
        private TableView buildTextAreaShow(GridPane pane, int row) throws IOException {
     
-         TableView<Registers> tvtArea= new TableView<>();
+        TableView<Registers> tvtArea= new TableView<>();
          // crear columnas 
         TableColumn tc_NameCatalog = new TableColumn("Nombre Catálogo");
         tc_NameCatalog.setCellValueFactory(new PropertyValueFactory("nameCatalogue"));
@@ -130,16 +162,17 @@ public class InterfaceListingRegisters extends Application {
          // mostrar columnas en la tabla 
         tvtArea.setItems(getDataFile());
         tvtArea.getColumns().addAll(tc_NameCatalog,tc_NameProduct,tc_Properties,tc_Description);
-        
         pane.add(tvtArea, 0, 1);
         GridPane.setHalignment(tvtArea, HPos.CENTER);
         return tvtArea;
+        
+        
     }//TExtField
      
        
      private Button buildGenerateButton(String label, GridPane pane, int row) {
         Button button = new Button(label);
-        pane.add(button, 1, 3);
+        pane.add(button, 4, 0);
         GridPane.setHalignment(button, HPos.CENTER);
          File files3 = new File("return.png");
         Image images3 = new Image(files3.toURI().toString());
@@ -148,6 +181,38 @@ public class InterfaceListingRegisters extends Application {
         GridPane.setMargin(button, new Insets(20, 0, 20, 0));
         return button;
     }//button
+     
+     
+     private Button buildGenerateButtonShow(String label, GridPane pane, int row) {
+        Button button = new Button(label);
+        pane.add(button, 3, 0);
+        GridPane.setHalignment(button, HPos.CENTER);
+         File files3 = new File("se.png");
+        Image images3 = new Image(files3.toURI().toString());
+        ImageView ivs3 = new ImageView(images3);
+         button.setGraphic(ivs3);
+        GridPane.setMargin(button, new Insets(20, 0, 20, 0));
+        return button;
+    }//button
+     
+     private TextArea Show(String label, GridPane pane, int row) {
+        TextArea txt = new TextArea(label);
+        pane.add(txt, 2, 2);
+        GridPane.setHalignment(txt, HPos.CENTER);
+        GridPane.setMargin(txt, new Insets(20, 0, 20, 0));
+        return txt;
+    }//button
+     
+     private Label ShowRegisters(String label, GridPane pane, int row) {
+        Label txt = new Label(label);
+        pane.add(txt, 1, 0);
+        GridPane.setHalignment(txt, HPos.CENTER);
+        GridPane.setMargin(txt, new Insets(20, 0, 20, 0));
+        return txt;
+    }//button
+     
+     
+     
      
      private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
@@ -175,7 +240,7 @@ public class InterfaceListingRegisters extends Application {
         }
         ObservableList<Registers>oL_dataCatalog =FXCollections.observableArrayList(aL); 
         return oL_dataCatalog;
-    }
+    }//
    
     
     

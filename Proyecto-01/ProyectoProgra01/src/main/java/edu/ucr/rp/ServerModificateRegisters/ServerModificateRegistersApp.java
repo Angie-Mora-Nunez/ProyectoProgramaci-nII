@@ -3,21 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ServerSearch;
+package edu.ucr.rp.ServerModificateRegisters;
 
 /**
  *
- * @author Equipo
+ * @authores 
+ * Marian Murillo Bonilla
+ * Angie Mora Núñez
+ * 
  */
-public class ServerAppSearch {
+public class ServerModificateRegistersApp {
 
-    /**
-     * @param args the command line arguments
-     */
+  
     public static void main(String[] args) {
-        ServerSearch server = new ServerSearch(1010);
-    }
+        
+    }//Main
     
-}
-
-
+}//ServerModificateRegistersApp

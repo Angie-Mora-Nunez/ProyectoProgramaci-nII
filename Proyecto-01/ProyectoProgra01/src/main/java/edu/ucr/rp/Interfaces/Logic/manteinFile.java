@@ -345,7 +345,28 @@ public class manteinFile {
     return temp;
         
     }
-    
+  
+     
+     public ArrayList getRegis(String data){
+     ArrayList temp = new ArrayList();
+        String salida ="";
+   
+         int controlToken=1;
+         StringTokenizer sT = new StringTokenizer(data,"}");
+         
+         while(sT.hasMoreTokens()){
+               temp.add(sT.nextToken()+"\n");
+                 
+         controlToken++;
+         }// End while
+         
+    return temp;
+        
+    }
+     
+     
+
+     
 }
 
 

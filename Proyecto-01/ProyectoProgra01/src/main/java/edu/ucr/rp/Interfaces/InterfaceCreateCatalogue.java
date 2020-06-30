@@ -5,6 +5,7 @@
  */
 package edu.ucr.rp.Interfaces;
 
+import edu.ucr.rp.Clients.Client;
 import edu.ucr.rp.Interfaces.Logic.Catalog;
 import edu.ucr.rp.Interfaces.Logic.manteinFile;
 

@@ -5,54 +5,46 @@
  */
 package edu.ucr.rp.Clients;
 
-import edu.ucr.rp.Interfaces.Logic.manteinFile;
-import java.net.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-
 /**
  *
- * @author 
- * Marian Murillo Bonilla
- * Angie Mora Núñez
+ * @author Equipo
  */
-public class ClientRegisters {
-   
-     Socket clientSocket;
+public class ClientSearch {
+    Socket clientSocket;
+    private String register;
 
-    public ClientRegisters(String server , int port,String registers) {
+    public ClientSearch(String server , int port,String data) {
         try {
             clientSocket = new Socket(server, port);//
             Thread.sleep(5000);
             ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
-           
-            out.writeObject(registers);
+            out.writeObject(data);
             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
-            JOptionPane.showMessageDialog(null,in.readObject());
+             register=(String) in.readObject();
         } catch (IOException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientSearch.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientSearch.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientSearch.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+
+    public String getRegister() {
+        return register;
+    }
+            
         
-    } 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-}//Runable
+}
+
+
 

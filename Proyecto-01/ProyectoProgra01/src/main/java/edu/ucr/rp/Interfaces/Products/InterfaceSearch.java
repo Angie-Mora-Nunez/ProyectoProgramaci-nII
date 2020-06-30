@@ -5,6 +5,7 @@
  */
 package edu.ucr.rp.Interfaces.Products;
 
+import edu.ucr.rp.Clients.ClientSearch;
 import edu.ucr.rp.Interfaces.*;
 import edu.ucr.rp.Interfaces.Logic.Registers;
 import edu.ucr.rp.Interfaces.Logic.manteinFile;
@@ -93,19 +94,6 @@ public class InterfaceSearch extends Application {
           });//ExitAccion
          
           buttonSearch.setOnAction(actionEvent -> {
-            
-//            try {
-//                listComplete=f.getRegistersFileRegister();
-//                Registers re = f.GetposRegister(listComplete,cmbCatalogues.getValue()+"",txtSearching.getText());
-//                if (re==null) {
-//                    showAlert(Alert.AlertType.ERROR, stage,"Buscando producto", "El producto no se encontró , intente de nuevo");
-//                }else {
-//                    txtShow.setVisible(true);
-//                    txtShow.setText(re.toString());
-//                }
-//            } catch (IOException ex) {
-//                Logger.getLogger(InterfaceSearch.class.getName()).log(Level.SEVERE, null, ex);
-//            }
            String dataRegister = cmbCatalogues.getValue().toString()+","+txtSearching.getText();
            executorService.submit(() -> {
             ClientSearch client = new ClientSearch("127.0.0.1",1010,dataRegister);

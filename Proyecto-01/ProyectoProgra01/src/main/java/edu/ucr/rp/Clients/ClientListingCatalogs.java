@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.ucr.rp.Interfaces.Products;
+package edu.ucr.rp.Clients;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,36 +15,32 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Equipo
+ * @authores 
+ * Marian Murillo Bonilla
+ * Angie Mora Núñez
+ * 
  */
-public class ClientSearch {
-    Socket clientSocket;
-    private String register;
+public class ClientListingCatalogs {
+  Socket clientSocket;
 
-    public ClientSearch(String server , int port,String data) {
+    public ClientListingCatalogs(String server , int port,String registers) {
         try {
             clientSocket = new Socket(server, port);//
             Thread.sleep(5000);
             ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
-            out.writeObject(data);
+           
+            out.writeObject(registers);
             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
-             register=(String) in.readObject();
+            JOptionPane.showMessageDialog(null,in.readObject());
         } catch (IOException ex) {
-            Logger.getLogger(ClientSearch.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
-            Logger.getLogger(ClientSearch.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ClientSearch.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }//try&Catch 
         
-    }
-
-    public String getRegister() {
-        return register;
-    }
-            
         
-}
-
-
-
+    }//clientListingCatalogs
+      
+}//ClientListingCatalogs
