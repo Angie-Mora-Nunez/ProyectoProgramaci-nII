@@ -46,7 +46,7 @@ public class ClientListingCatalogs {
                 catalogue=cataloglist.get(i).toString();
                 concate+=catalogue+"\n";
                 System.out.println(concate);  
-                JOptionPane.showMessageDialog(null, concate);
+//                JOptionPane.showMessageDialog(null, concate);
             }//for
             
            

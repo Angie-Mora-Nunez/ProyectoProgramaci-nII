@@ -74,6 +74,7 @@ public class InterfaceEdit extends Application {
     String nameCatalog ="";
     ArrayList products = new ArrayList();
     ExecutorService executorService = Executors.newCachedThreadPool();
+    String Register="";
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -140,25 +141,18 @@ public class InterfaceEdit extends Application {
              
              Registers r = new Registers(nameCatalog,cmbSearchNames.getValue().toString(),properties,Description);
              products.add(r);
-              File fi = new File("FileRegister.txt");
-//              f.addOnFileNew(fi);
-             String Register="";
-//              executorService.submit(() -> {
-//            ClientModificatedRegisters clientModificate = new ClientModificatedRegisters("127.0.0.1", 36978,r.toString());
-//            
-//        });
-             
              
              for (int i = 0; i < products.size(); i++) {
               Registers re =(Registers)products.get(i);
-              Register=re.getNameCatalogue()+"|"+re.getNameProduct()+"|"+re.getProperties()+"|"+re.getDescriptionProperties();
+              Register+=re.getNameCatalogue()+"|"+re.getNameProduct()+"|"+re.getProperties()+"|"+re.getDescriptionProperties()+"\n";
 //              f.addOnFile(fi, Register);
-//              executorService.submit(() -> {
-//            ClientModificatedRegisters clientModificate = new ClientModificatedRegisters("127.0.0.1", 36978,re.toString());
-//        });
-             }
-            
-          
+             
+             }//for
+              File fi = new File("FileRegister.txt");
+              f.addOnFileNew(fi);
+           executorService.submit(() -> {
+            ClientModificatedRegisters clientModificate = new ClientModificatedRegisters("127.0.0.1", 36978,Register);
+        });
              
         });//actionSave
         
