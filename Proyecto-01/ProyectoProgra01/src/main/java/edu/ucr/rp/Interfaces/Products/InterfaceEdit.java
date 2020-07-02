@@ -5,6 +5,8 @@
  */
 package edu.ucr.rp.Interfaces.Products;
 
+import edu.ucr.rp.Clients.Client;
+import edu.ucr.rp.Clients.ClientModificatedRegisters;
 import edu.ucr.rp.Interfaces.*;
 import edu.ucr.rp.Interfaces.Logic.Registers;
 import edu.ucr.rp.Interfaces.Logic.manteinFile;
@@ -15,6 +17,8 @@ import static edu.ucr.rp.Interfaces.UIConstaints.LABEL_WITH_MAX;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -69,6 +73,8 @@ public class InterfaceEdit extends Application {
     ArrayList Description = new ArrayList();
     String nameCatalog ="";
     ArrayList products = new ArrayList();
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    
     @Override
     public void start(Stage stage) throws Exception {
           this.stage=stage;
@@ -135,14 +141,24 @@ public class InterfaceEdit extends Application {
              Registers r = new Registers(nameCatalog,cmbSearchNames.getValue().toString(),properties,Description);
              products.add(r);
               File fi = new File("FileRegister.txt");
-              f.addOnFileNew(fi);
+//              f.addOnFileNew(fi);
              String Register="";
+//              executorService.submit(() -> {
+//            ClientModificatedRegisters clientModificate = new ClientModificatedRegisters("127.0.0.1", 36978,r.toString());
+//            
+//        });
+             
+             
              for (int i = 0; i < products.size(); i++) {
               Registers re =(Registers)products.get(i);
               Register=re.getNameCatalogue()+"|"+re.getNameProduct()+"|"+re.getProperties()+"|"+re.getDescriptionProperties();
-              f.addOnFile(fi, Register);
+//              f.addOnFile(fi, Register);
+//              executorService.submit(() -> {
+//            ClientModificatedRegisters clientModificate = new ClientModificatedRegisters("127.0.0.1", 36978,re.toString());
+//        });
              }
-             
+            
+          
              
         });//actionSave
         

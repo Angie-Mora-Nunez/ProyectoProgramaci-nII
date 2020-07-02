@@ -62,7 +62,7 @@ import util.JsonUtil;
  * Angie Mora Núñez
  */
 public class InterfaceCreateCatalogue extends Application {
-   ExecutorService executorService = Executors.newCachedThreadPool();
+    ExecutorService executorService = Executors.newCachedThreadPool();
     private TextField TxtName;
     private TextArea txtPropiedades;
     private Stage stage;
@@ -74,7 +74,7 @@ public class InterfaceCreateCatalogue extends Application {
     private Button agregarTxtField;
     private Label lblBussiness;
     private Button btnshow;
-   ArrayList<Catalog> catalogs = new ArrayList<>();
+    ArrayList<Catalog> catalogs = new ArrayList<>();
     
     @Override
     public void start(Stage stage) throws Exception {

@@ -2,3 +2,8 @@ Martillo|Martillo Clain|cantidad,peso,|120,1200,
 Mangueras|Manguera grande|peso,cantidad,|4kg,7,
 Pintura|Sur|color,cantidad,|rojo,12,
 Escaleras|Marquez|altura,cantidad,|1.10 mts,12,
+Registers{nameCatalogue=Pintura, nameProduct=Sur, properties=color,cantidad,, descriptionProperties=verde,120,}
+Registers{nameCatalogue=Mangueras, nameProduct=Manguera grande, properties=peso,cantidad,, descriptionProperties=4kg,7,}
+Registers{nameCatalogue=Pintura, nameProduct=Sur, properties=color,cantidad,, descriptionProperties=verde,120,}
+Registers{nameCatalogue=Escaleras, nameProduct=Marquez, properties=altura,cantidad,, descriptionProperties=1.10 mts,12,}
+Registers{nameCatalogue=Martillo, nameProduct=Martillo Clain, properties=cantidad,peso,, descriptionProperties=120,1200,}

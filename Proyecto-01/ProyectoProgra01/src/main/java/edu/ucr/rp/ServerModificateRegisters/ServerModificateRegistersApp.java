@@ -16,7 +16,7 @@ public class ServerModificateRegistersApp {
 
   
     public static void main(String[] args) {
-        
+        ServerModificateRegisters serverModificate = new ServerModificateRegisters(36978);
     }//Main
     
 }//ServerModificateRegistersApp
