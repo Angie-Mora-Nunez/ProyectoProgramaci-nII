@@ -5,8 +5,7 @@
  */
 package edu.ucr.rp.Interfaces.Products;
 
-import edu.ucr.rp.Clients.ClientListingRegisters;
-import edu.ucr.rp.Clients.ClientRegisters;
+import edu.ucr.rp.Clients.Client;
 import edu.ucr.rp.Interfaces.*;
 import edu.ucr.rp.Interfaces.Logic.Registers;
 import edu.ucr.rp.Interfaces.Logic.manteinFile;
@@ -101,10 +100,10 @@ public class InterfaceListingRegisters extends Application {
              
             executorService.submit(() -> {
               
-                ClientListingRegisters clientListing = new ClientListingRegisters("127.0.0.1", 14563);
-
+              String output ="listR";
+              Client client = new Client("127.0.0.1", 5052,output+"<"+"");
               txtArea.setVisible(true);
-              txtArea.setText(clientListing.getRegister());
+              txtArea.setText(client.getData());
              });//executorService
              
               
@@ -248,6 +247,8 @@ public class InterfaceListingRegisters extends Application {
     
     
 }//end
+
+
 
 
 

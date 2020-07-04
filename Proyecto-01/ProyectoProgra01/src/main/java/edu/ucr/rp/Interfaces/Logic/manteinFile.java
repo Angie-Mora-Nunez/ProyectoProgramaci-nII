@@ -241,7 +241,9 @@ public class manteinFile {
          }// End while
          
       Registers r = new Registers(nameCatalog, nameProduct, properties, Description);
-      temp.add(r);
+      if (!(r.getNameProduct().equals(""))) {
+             temp.add(r);
+         }
       indexArray++;// incremento del índice del arreglo 
       
       actualRegister= br.readLine();
@@ -345,6 +347,23 @@ public class manteinFile {
     return temp;
         
     }
+     
+     public ArrayList getInformationData(String data){
+    
+        ArrayList temp = new ArrayList();
+   
+         int controlToken=1;
+         StringTokenizer sT = new StringTokenizer(data,"<");
+         
+         while(sT.hasMoreTokens()){
+              temp.add(sT.nextToken());
+                 
+         controlToken++;
+         }// End while
+         
+    return temp;
+        
+    }
   
      
      public ArrayList getRegis(String data){
@@ -368,6 +387,8 @@ public class manteinFile {
 
      
 }
+
+
 
 
 

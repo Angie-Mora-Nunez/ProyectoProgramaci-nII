@@ -6,7 +6,6 @@
 package edu.ucr.rp.Interfaces.Products;
 
 import edu.ucr.rp.Clients.Client;
-import edu.ucr.rp.Clients.ClientModificatedRegisters;
 import edu.ucr.rp.Interfaces.*;
 import edu.ucr.rp.Interfaces.Logic.Registers;
 import edu.ucr.rp.Interfaces.Logic.manteinFile;
@@ -150,8 +149,10 @@ public class InterfaceEdit extends Application {
              }//for
               File fi = new File("FileRegister.txt");
               f.addOnFileNew(fi);
+              String output="modifyR";
            executorService.submit(() -> {
-            ClientModificatedRegisters clientModificate = new ClientModificatedRegisters("127.0.0.1", 36978,Register);
+            Client client = new Client("127.0.0.1", 5052,output+"<"+Register);   
+          
         });
              
         });//actionSave
@@ -372,4 +373,6 @@ public class InterfaceEdit extends Application {
     }//scene
             
 }//end
+
+
 

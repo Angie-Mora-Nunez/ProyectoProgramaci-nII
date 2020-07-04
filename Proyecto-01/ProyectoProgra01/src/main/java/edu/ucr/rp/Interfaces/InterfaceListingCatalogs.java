@@ -5,8 +5,7 @@
  */
 package edu.ucr.rp.Interfaces;
 
-import edu.ucr.rp.Clients.ClientListingCatalogs;
-import edu.ucr.rp.Clients.ClientListingRegisters;
+import edu.ucr.rp.Clients.Client;
 import edu.ucr.rp.Interfaces.Logic.Catalog;
 import edu.ucr.rp.Interfaces.Logic.manteinFile;
 import static edu.ucr.rp.Interfaces.UIConstaints.INPUT_WITH;
@@ -94,14 +93,14 @@ public class InterfaceListingCatalogs extends Application{
          });//salida accion
          
          generateButton.setOnAction(actionEvent -> {
-              executorService.submit(() -> {
-              
-                ClientListingCatalogs clientListing = new ClientListingCatalogs("127.0.0.1", 24987);
-
-              txtShow.setVisible(true);
-              txtShow.setText(clientListing.getRegister());
-             });//executorService
              
+              executorService.submit(() -> {
+            String output ="listC";
+            Client client = new Client("127.0.0.1", 5052,output+"<"+"");
+             txtShow.setVisible(true);
+             txtShow.setText(client.getData());
+        });
+              
              
              
              
@@ -253,6 +252,9 @@ public class InterfaceListingCatalogs extends Application{
     
     
 }//end
+
+
+
 
 
 

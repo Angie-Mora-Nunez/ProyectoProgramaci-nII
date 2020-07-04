@@ -5,7 +5,7 @@
  */
 package edu.ucr.rp.Interfaces.Products;
 
-import edu.ucr.rp.Clients.ClientSearch;
+import edu.ucr.rp.Clients.Client;
 import edu.ucr.rp.Interfaces.*;
 import edu.ucr.rp.Interfaces.Logic.Registers;
 import edu.ucr.rp.Interfaces.Logic.manteinFile;
@@ -95,10 +95,11 @@ public class InterfaceSearch extends Application {
          
           buttonSearch.setOnAction(actionEvent -> {
            String dataRegister = cmbCatalogues.getValue().toString()+","+txtSearching.getText();
+           String output="searchR";
            executorService.submit(() -> {
-            ClientSearch client = new ClientSearch("127.0.0.1",1010,dataRegister);
-            txtShow.setVisible(true);
-            txtShow.setText(client.getRegister());
+            Client client = new Client("127.0.0.1", 5052,output+"<"+dataRegister);
+           txtShow.setVisible(true);
+           txtShow.setText(client.getData());
         });
                 
             
@@ -222,6 +223,9 @@ public class InterfaceSearch extends Application {
     }//scene
   
 }//endSearch
+
+
+
 
 
 

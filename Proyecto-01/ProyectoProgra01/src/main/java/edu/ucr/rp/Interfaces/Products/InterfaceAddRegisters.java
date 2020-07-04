@@ -5,7 +5,7 @@
  */
 package edu.ucr.rp.Interfaces.Products;
 
-import edu.ucr.rp.Clients.ClientRegisters;
+import edu.ucr.rp.Clients.Client;
 import edu.ucr.rp.Interfaces.*;
 import edu.ucr.rp.Interfaces.Logic.Catalog;
 import edu.ucr.rp.Interfaces.Logic.Registers;
@@ -142,13 +142,13 @@ public class InterfaceAddRegisters extends Application {
              }
            showAlert(Alert.AlertType.INFORMATION, stage,"Agregando Registro","Registro"+" ["+txtNameProduct.getText()+" ]"+"agregado con éxito");
            String register = cBListNames.getValue()+"|"+txtNameProduct.getText()+"|"+properties+"|"+Description;
-//           File Fregister = new File("FileRegister.txt");
-//           f.addOnFile(Fregister, register);
+           String output ="createR";
             
            
            executorService.submit(() -> {
-            ClientRegisters client = new ClientRegisters("127.0.0.1", 4789,register);
-        });
+            Client client = new Client("127.0.0.1", 5052,output+"<"+register);
+            
+          });
            
            
            
@@ -370,6 +370,10 @@ public class InterfaceAddRegisters extends Application {
       
       
 }//InterfaceAddRegister
+
+
+
+
 
 
 

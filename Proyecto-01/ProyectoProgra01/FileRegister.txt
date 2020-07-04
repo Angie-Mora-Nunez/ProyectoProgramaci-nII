@@ -1,4 +1,1 @@
-Martillo|Martillo Clain|cantidad,peso,|120,1200,
-Mangueras|Manguera grande|peso,cantidad,|4kg,7,
-Escaleras|Marquez|altura,cantidad,|1.10 mts,12,
-Pintura|Sur|color,cantidad,|amarillo,2,
+clavos|clavos pequeños|cantidad,tamaño,|123,12,

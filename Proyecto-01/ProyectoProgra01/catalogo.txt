@@ -1,8 +1,1 @@
-Martillo|cantidad,peso
-Mangueras|peso,cantidad
-Cerrucho|cantidad,material
-clavos|cantidad,tamaño,forma
-Llaves|peso,cantidad
-Escaleras|altura,cantidad
-Pintura|color,cantidad
-zinc|tamaño,material
+clavos|cantidad,tamaño

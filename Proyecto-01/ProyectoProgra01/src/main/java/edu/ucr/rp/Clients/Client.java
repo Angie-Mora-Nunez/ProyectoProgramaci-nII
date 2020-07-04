@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class Client {
     Socket clientSocket;
-
+    String data;
     public Client(String server , int port,String catalog) {
         try {
             clientSocket = new Socket(server, port);//
@@ -32,7 +32,7 @@ public class Client {
            
             out.writeObject(catalog);
             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
-            JOptionPane.showMessageDialog(null,in.readObject());
+            data = (String) in.readObject();
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
@@ -43,9 +43,15 @@ public class Client {
         
         
     }
+
+    public String getData() {
+        return data;
+    }
     
    
 }
+
+
 
 
 

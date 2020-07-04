@@ -107,19 +107,16 @@ public class InterfaceCreateCatalogue extends Application {
              
            catalogs.add(c);
            String catalog = TxtName.getText()+"|"+txtPropiedades.getText();
-            
+           String output ="createC";
         executorService.submit(() -> {
-            Client client = new Client("127.0.0.1", 5052,catalog);
-        });
-         
-            
+            Client client = new Client("127.0.0.1", 5052,output+"<"+catalog);
              TxtName.clear();
              txtPropiedades.clear();
              
              ImageIcon icon = new ImageIcon("confirm.png");
             JOptionPane.showMessageDialog(null, "Se ha agredado el catálogo ", "Agregar Catálogo", 2, (Icon) icon);
-            
-             
+        });
+         
          });
      
         InterfaceCatalogue iME = new InterfaceCatalogue();
@@ -269,6 +266,10 @@ public class InterfaceCreateCatalogue extends Application {
     }//scene
      
 }//end
+
+
+
+
 
 
 
