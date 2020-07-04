@@ -1,1 +1,5 @@
+
 clavos|clavos pequeños|cantidad,tamaño,|123,12,
+Tornillos|tornillo pequeño|cantidad,tamaño,|120,1 pulg,
+Tornillos|tornillo mediano|cantidad,tamaño,|120,4 pulg,
+

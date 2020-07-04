@@ -125,6 +125,8 @@ public class InterfaceEdit extends Application {
          btnConfirm.setOnAction(actionEvent -> {
            propertiesText.add(cmbProperties.getValue().toString());
            DescriptionText.add(txtDescription.getText());
+           ImageIcon icon = new ImageIcon("confirm.png");
+            JOptionPane.showMessageDialog(null, "Agregado con éxito ", "Agregar propiedad", 2, (Icon) icon);
              
          });//actionConfirm
         
@@ -147,6 +149,8 @@ public class InterfaceEdit extends Application {
 //              f.addOnFile(fi, Register);
              
              }//for
+              ImageIcon icon = new ImageIcon("confirm.png");
+              JOptionPane.showMessageDialog(null, "Se ha modificado con éxito ", "Modificar Registro", 2, (Icon) icon);
               File fi = new File("FileRegister.txt");
               f.addOnFileNew(fi);
               String output="modifyR";
@@ -154,6 +158,7 @@ public class InterfaceEdit extends Application {
             Client client = new Client("127.0.0.1", 5052,output+"<"+Register);   
           
         });
+           
              
         });//actionSave
         
@@ -373,6 +378,7 @@ public class InterfaceEdit extends Application {
     }//scene
             
 }//end
+
 
 
 

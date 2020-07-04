@@ -126,7 +126,8 @@ public class InterfaceAddRegisters extends Application {
              propertiesAdd.add(cBProperties.getValue().toString());
              description.add(txtAgregarPropiedad.getText());
              txtAgregarPropiedad.setText("");
-            
+             ImageIcon icon = new ImageIcon("confirm.png");
+            JOptionPane.showMessageDialog(null, "Se ha agredado la propiedad ", "Agregar propiedad", 2, (Icon) icon);
          });//accion boton properties
          
          ButtonSave.setOnAction(actionEvent -> {
@@ -370,6 +371,7 @@ public class InterfaceAddRegisters extends Application {
       
       
 }//InterfaceAddRegister
+
 
 
 

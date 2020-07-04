@@ -97,7 +97,7 @@ public class InterfaceSearch extends Application {
            String dataRegister = cmbCatalogues.getValue().toString()+","+txtSearching.getText();
            String output="searchR";
            executorService.submit(() -> {
-            Client client = new Client("127.0.0.1", 5052,output+"<"+dataRegister);
+            Client client = new Client("127.0.0.1",1010,output+"<"+dataRegister);
            txtShow.setVisible(true);
            txtShow.setText(client.getData());
         });
@@ -223,6 +223,7 @@ public class InterfaceSearch extends Application {
     }//scene
   
 }//endSearch
+
 
 
 

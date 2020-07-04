@@ -96,7 +96,7 @@ public class InterfaceListingCatalogs extends Application{
              
               executorService.submit(() -> {
             String output ="listC";
-            Client client = new Client("127.0.0.1", 5052,output+"<"+"");
+            Client client = new Client("127.0.0.1",1010,output+"<"+"");
              txtShow.setVisible(true);
              txtShow.setText(client.getData());
         });
@@ -252,6 +252,7 @@ public class InterfaceListingCatalogs extends Application{
     
     
 }//end
+
 
 
 

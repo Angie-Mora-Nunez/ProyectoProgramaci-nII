@@ -101,7 +101,7 @@ public class InterfaceListingRegisters extends Application {
             executorService.submit(() -> {
               
               String output ="listR";
-              Client client = new Client("127.0.0.1", 5052,output+"<"+"");
+              Client client = new Client("127.0.0.1", 1010,output+"<"+"");
               txtArea.setVisible(true);
               txtArea.setText(client.getData());
              });//executorService
@@ -247,6 +247,7 @@ public class InterfaceListingRegisters extends Application {
     
     
 }//end
+
 
 
 

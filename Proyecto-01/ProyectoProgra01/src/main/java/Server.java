@@ -46,28 +46,11 @@ public class Server {
                      mantein.addOnFile(fileCatalogueshow,datas.get(1).toString());
                      out.writeObject("Guardado");
                  break;
-                 case"listC":
-                  ArrayList arrayListCatalogs = mantein.getRegistersFileCatalog();
-                  out.writeObject(arrayListCatalogs.toString());
-                  break;
-                  
+                 
                  case"createR":
                      File fileRegister = new File("FileRegister.txt");
                      mantein.addOnFile(fileRegister,datas.get(1).toString());
                      out.writeObject("Registro Guardado");  
-                 break;
-                 
-                 case"searchR":
-                ArrayList registersAll = mantein.getRegistersFileRegister();
-                ArrayList registerData = mantein.getInformation(datas.get(1).toString());
-                Registers registerSearch = mantein.GetposRegister(registersAll,registerData.get(0).toString(),registerData.get(1).toString());
-                        
-               if (registerSearch!=null) {
-                 out.writeObject(registerSearch.toString());
-              }else{
-                out.writeObject("Registro no encontrado");
-               }
-                     
                  break;
                  
                  case"modifyR":
@@ -76,15 +59,6 @@ public class Server {
                      out.writeObject("Modificado");
                  break;
                  
-                 case"listR":
-                  ArrayList arrayListRegisters = mantein.getRegistersFileRegister();
-                  String Output ="";
-                     for (int i = 0; i < arrayListRegisters.size(); i++) {
-                      Output+=arrayListRegisters.get(i).toString()+"\n";
-                     }
-                  out.writeObject(Output);
-                  break;
-             
              }
            
           
